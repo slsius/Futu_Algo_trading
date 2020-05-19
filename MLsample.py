@@ -54,5 +54,5 @@ for name, model in models:
 	results.append(cv_results)
 	names.append(name)
 	print('---------------------------------------------')
-  print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
-  print('---------------------------------------------')
+  	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+  	print('---------------------------------------------')
