@@ -1,5 +1,6 @@
 from datetime import datetime
 from futu import *
+import pandas as pd
 
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
@@ -15,20 +16,9 @@ ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start=toda
 print(data.time_key, data.open) #end='' is today
 print('----------------------------') #split line
 
-class CurKlineTest(CurKlineHandlerBase):
-    def on_recv_rsp(self, rsp_str):
-        ret_code, data = super(CurKlineTest,self).on_recv_rsp(rsp_str)
-        if ret_code != RET_OK:
-            print("CurKlineTest: error, msg: %s" % data)
-            return RET_ERROR, data
-
-        print("CurKlineTest ", data) #
-
-        return RET_OK, data
-
-handler = CurKlineTest()
-quote_ctx.set_handler(handler)
-quote_ctx.subscribe(['HK.00700'], [SubType.K_1M])
+arr = groups = [data.time_key, data.open]
+df = pd.DataFrame(arr, columns = ["time", "open"]) #label name
+df.to_csv('data.csv')
 
 print('----------------------------')
 
