@@ -3,14 +3,16 @@ from futu import *
 
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
+today = today.strftime("%Y-%m-%d)  #declare today with suitable format
+
 print('----------------------------') #split line
 
 print(quote_ctx.get_market_snapshot('HK.00700')) #get snap shot
 
 print('----------------------------') #split line
 
-ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start='2020-05-19', end='', max_count=10, fields=KL_FIELD.ALL, ktype=KLType.K_3M) #请求开头50个数据
-print(data.time_key, data.open)
+ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start=today, end='', max_count=10, fields=KL_FIELD.ALL, ktype=KLType.K_3M) #请求开头50个数据
+print(data.time_key, data.open) #end='' is today
 print('----------------------------') #split line
 
 class CurKlineTest(CurKlineHandlerBase):
