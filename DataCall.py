@@ -3,7 +3,7 @@ from futu import *
 
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
-today = today.strftime("%Y-%m-%d)  #declare today with suitable format
+today = today.strftime("%Y-%m-%d")  #declare today with suitable format
 
 print('----------------------------') #split line
 
