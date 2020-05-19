@@ -1,6 +1,7 @@
 from datetime import datetime
 from futu import *
 import csv
+import pandas as pd
 
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
@@ -16,10 +17,8 @@ ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start=toda
 print(data.time_key, data.open) #end='' is today
 print('----------------------------') #split line
 
-
-with open('data.csv', 'w', newline='') as csvfile:
-  writer = csv.writer(csvfile)
-  writer.writerows(data)
+df = pd.DataFrame(data)
+df.to_csv(file_name, encoding='utf-8', index=False)
 
 print('----------------------------')
 
