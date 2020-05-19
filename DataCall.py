@@ -3,11 +3,15 @@ from futu import *
 import csv
 import pandas as pd
 
+def DayStr(Tday):
+  Tday = Tday.strftime("%Y-%m-%d")
+  return Tday
+
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
-today = datetime.today().strftime("%Y-%m-%d")  #declare today with suitable format
-
-print(today-1)
+#today = datetime.today().strftime("%Y-%m-%d")  #declare today with suitable format
+# - timedelta(days=1)
+today = datetime.today()
 
 print('----------------------------') #split line
 
@@ -16,11 +20,12 @@ print(quote_ctx.get_market_snapshot('HK.00700')) #get snap shot
 print('----------------------------') #split line
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=today, end='', max_count=120, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today), end='', max_count=120, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 print(data.time_key, data.open) #end='' is today
 
 print('----------------------------') #split line
 
+'''
 #data set 2
 ret2, data2, page_req_key2 = quote_ctx.request_history_kline('HK.00700', start=today, end='', max_count=120, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 print(data.time_key, data.open)
@@ -41,7 +46,7 @@ print(data.time_key, data.open)
 ret6, data6, page_req_key6 = quote_ctx.request_history_kline('HK.00700', start=today, end='', max_count=120, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 print(data.time_key, data.open)
 
-'''
+
 df = pd.DataFrame(data) #insert data to panda frame
 df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
 
