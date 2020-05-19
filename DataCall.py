@@ -62,5 +62,7 @@ quote_ctx.close()
 #impliment indicator
 temp = data1.time_key[0]
 print(temp)
+
+print('---last---')
 temp = data1.time_key.last
 print(temp)
