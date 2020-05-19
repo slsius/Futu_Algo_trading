@@ -21,7 +21,7 @@ print('----------------------------') #split line
 
 #data set 1
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today), end='', max_count=120, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
-print(data.time_key, data.open) #end='' is today
+print(data1.time_key, data1.open) #end='' is today
 
 print('----------------------------') #split line
 
