@@ -54,5 +54,10 @@ for name, model in models:
 	results.append(cv_results)
 	names.append(name)
 	print('---------------------------------------------')
-  	print('%s : %f %f' % (name, cv_results.mean(), cv_results.std()))
-  	print('---------------------------------------------')
+	print('%s : %f %f' % (name, cv_results.mean(), cv_results.std()))
+	print('---------------------------------------------')
+	
+# Compare Algorithms
+pyplot.boxplot(results, labels=names)
+pyplot.title('Algorithm Comparison')
+pyplot.show()
