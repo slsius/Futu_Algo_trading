@@ -18,7 +18,7 @@ print(data.time_key, data.open) #end='' is today
 print('----------------------------') #split line
 
 df = pd.DataFrame(data)
-df.to_csv(file_name, encoding='utf-8', index=False)
+df.to_csv('data.csv', encoding='utf-8', index=False)
 
 print('----------------------------')
 
