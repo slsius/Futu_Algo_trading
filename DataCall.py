@@ -11,7 +11,7 @@ print(quote_ctx.get_market_snapshot('HK.00700')) #get snap shot
 
 print('----------------------------') #split line
 
-ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start=today, end='', max_count=10, fields=KL_FIELD.ALL, ktype=KLType.K_3M) #请求开头50个数据
+ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start=today, end='', max_count=10, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 print(data.time_key, data.open) #end='' is today
 print('----------------------------') #split line
 
@@ -22,7 +22,7 @@ class CurKlineTest(CurKlineHandlerBase):
             print("CurKlineTest: error, msg: %s" % data)
             return RET_ERROR, data
 
-        print("CurKlineTest ", data) # CurKlineTest自己的处理逻辑
+        print("CurKlineTest ", data) #
 
         return RET_OK, data
 
