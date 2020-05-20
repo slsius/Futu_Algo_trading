@@ -47,18 +47,11 @@ print(temp)
 setter = 3
 init = 0
 print(data1.time_key[0 + setter])
-print(
-   RVI = (
-   data1.close[init + setter] - data1.open[init + setter] + 
-2*(data1.close[init + setter - 1] - data1.open[init + setter] -1) + 
-2*(data1.close[init + setter - 2] - data1.open[init + setter] -2) + 
-  (data1.close[init + setter - 3] - data1.open[init + setter] -3)
-   )/6
-)
 
-print(
-   data1.high[init + setter] - data1.low[init + setter] + 
-2*(data1.high[init + setter - 1] - data1.low[init + setter] -1) + 
-2*(data1.high[init + setter - 2] - data1.low[init + setter] -2) + 
-  (data1.high[init + setter - 3] - data1.low[init + setter] -3)
-)
+def NEM(close0,close1,close2,close3,open0,open1,open2,open3):
+  nem = ( close0 - open0 + 2*(close1 - open1) + 2*(close2 - open2) + (close3 - open3) )/6
+  return nem
+  
+def DEM(high0,high1,high2,high3,low0,low1,low2,low3)
+  dem = ( high0 - low0 + 2*(high1-low1) + 2*(high2-low2) + high3-low3 )/6
+  return dem
