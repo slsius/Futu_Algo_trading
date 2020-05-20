@@ -48,9 +48,17 @@ setter = 3
 init = 0
 print(data1.time_key[0 + setter])
 print(
+   RVI = (
    data1.close[init + setter] - data1.open[init + setter] + 
 2*(data1.close[init + setter - 1] - data1.open[init + setter] -1) + 
 2*(data1.close[init + setter - 2] - data1.open[init + setter] -2) + 
   (data1.close[init + setter - 3] - data1.open[init + setter] -3)
+   )/6
 )
 
+print(
+   data1.high[init + setter] - data1.low[init + setter] + 
+2*(data1.high[init + setter - 1] - data1.low[init + setter] -1) + 
+2*(data1.high[init + setter - 2] - data1.low[init + setter] -2) + 
+  (data1.high[init + setter - 3] - data1.low[init + setter] -3)
+)
