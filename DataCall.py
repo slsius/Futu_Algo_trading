@@ -25,6 +25,8 @@ NumDay = 6
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 #print(data1.time_key, data1.open) #end='' is today
 #print(data1['row0'],data1['row1'],data1['row2'],data1['row3'],data1['row4'])
+
+#df.loc[row,column]
 print(data1.loc[0,:])
 
 '''
@@ -50,10 +52,14 @@ setter = 3
 init = 0
 print(data1.time_key[0 + setter])
 
-def NEM(close0,close1,close2,close3,open0,open1,open2,open3):
+def NEM(timekey,close0,close1,close2,close3,open0,open1,open2,open3):
   nem = ( close0 - open0 + 2*(close1 - open1) + 2*(close2 - open2) + (close3 - open3) )/6
-  return nem
+  print(num)
+  return null
   
-def DEM(high0,high1,high2,high3,low0,low1,low2,low3):
+def DEM(timkey,high0,high1,high2,high3,low0,low1,low2,low3):
   dem = ( high0 - low0 + 2*(high1-low1) + 2*(high2-low2) + high3-low3 )/6
   return dem
+
+#[f(row[0], ..., row[n]) for row in df[['col1', ...,'coln']].values]
+NEM(row[0],row[1],row[2],row[3],row[4])for row in data1[['col0','col1','col2','col3','col4']]
