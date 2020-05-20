@@ -66,6 +66,6 @@ def DEM(timkey,high0,high1,high2,high3,low0,low1,low2,low3):
 
 #[f(row[0], ..., row[n]) for row in df[['col1', ...,'coln']].values]
 
-abstract.RSI(data1.close,14)
-
+test = abstract.RSI(data1.close,14)
+print(test
 
