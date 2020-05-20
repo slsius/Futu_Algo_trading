@@ -8,3 +8,15 @@ plot_candles(
              technicals = [RSI, STOCH],    ## 其他圖要畫甚麼
              technicals_titles=['RSI', 'KD'] ## 其他圖的名稱
             )
+
+
+https://pythonprogramming.net/pandas-column-operations-calculations/
+
+RVI:
+https://github.com/twopirllc/pandas-ta/issues/25
+
+PANDAs calculation
+https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas
+
+futu
+chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%20%E2%80%94%20futu-api-doc%203.20%20%E6%96%87%E6%A1%A3&pos=3836&uri=https://futunnopen.github.io/futu-api-doc/api/setup.html
