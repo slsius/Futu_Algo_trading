@@ -52,6 +52,6 @@ def NEM(close0,close1,close2,close3,open0,open1,open2,open3):
   nem = ( close0 - open0 + 2*(close1 - open1) + 2*(close2 - open2) + (close3 - open3) )/6
   return nem
   
-def DEM(high0,high1,high2,high3,low0,low1,low2,low3)
+def DEM(high0,high1,high2,high3,low0,low1,low2,low3):
   dem = ( high0 - low0 + 2*(high1-low1) + 2*(high2-low2) + high3-low3 )/6
   return dem
