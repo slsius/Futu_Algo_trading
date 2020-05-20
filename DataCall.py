@@ -1,6 +1,7 @@
 from datetime import datetime
 from futu import *
 import pandas as pd
+import talib
 from sklearn.model_selection import KFold
 
 def DayStr(Tday):
@@ -62,4 +63,4 @@ def DEM(timkey,high0,high1,high2,high3,low0,low1,low2,low3):
   return dem
 
 #[f(row[0], ..., row[n]) for row in df[['col1', ...,'coln']].values]
-NEM(row[0],row[1],row[2],row[3],row[4])for row in data1[['col0','col1','col2','col3','col4']]
+#NEM(row[0],row[1],row[2],row[3],row[4])for row in data1[['col0','col1','col2','col3','col4']]
