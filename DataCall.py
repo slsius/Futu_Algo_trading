@@ -48,7 +48,9 @@ setter = 3
 init = 0
 print(data1.time_key[0 + setter])
 print(
-data1.close[init + stter] - data1.open[init + setter] + 2*(data1.close[init + stter - 1] - data1.open[init + setter] -1) + 
-2*(data1.close[init + stter - 2] - data1.open[init + setter] -2) + (data1.close[init + stter - 3 - data1.open[init + setter] -3)
+   data1.close[init + stter] - data1.open[init + setter] + 
+2*(data1.close[init + stter - 1] - data1.open[init + setter] -1) + 
+2*(data1.close[init + stter - 2] - data1.open[init + setter] -2) + 
+  (data1.close[init + stter - 3] - data1.open[init + setter] -3)
 )
 
