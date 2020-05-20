@@ -72,4 +72,7 @@ print(RSI)
 
 #RVI test
 df = (data1.close - data1.open)
+print('------------------rvi---------------------')
+print(data1.close)
+print(data1.open)
 print(df)
