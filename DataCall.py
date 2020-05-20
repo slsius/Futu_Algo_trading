@@ -71,7 +71,7 @@ RSI = abstract.RSI(data1.close,6)
 print(RSI)
 
 #RVI test
-Nem =data1.close-data1.open +
+Nem =#data1.close-data1.open +
         2*(data1.close.shift(1) - data1.open.shift(1)) +
         2*(data1.close.shift(2) - data1.open.shift(2)) + 
           (data1.close.shift(3) - data1.open.shift(3))
