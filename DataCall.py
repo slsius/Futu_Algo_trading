@@ -42,7 +42,8 @@ print(temp)
 
 #RSI test
 RSI = abstract.RSI(data1.close,6)
-RSIData = pd.DataFrame('da':RSI)
+RSIData = pd.DataFrame(RSI)
+RSIData.columns = ['da'] 
 
 #RVI test
 
