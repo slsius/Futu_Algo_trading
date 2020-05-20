@@ -71,8 +71,12 @@ RSI = abstract.RSI(data1.close,6)
 print(RSI)
 
 #RVI test
-df = (data1.close - data1.open) + 2*(data1.close.shift(1) - data1.open.shift(1)) 
+df = (data1.close - data1.open)
+df = (data1.close.shift(1) - data1.open.shift(1)) 
 print('------------------rvi---------------------')
 print(data1.close)
 print(data1.open)
+print(data1.close.shift(1))
+print(data1.open.shift(1))
 print(df)
+print(2*df)
