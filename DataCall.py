@@ -68,7 +68,7 @@ def DEM(timkey,high0,high1,high2,high3,low0,low1,low2,low3):
 
 #RSI test
 RSI = abstract.RSI(data1.close,6)
-RSIData = pd.dataframe(RSI)
+RSIData = pd.DataFrame(RSI)
 
 #RVI test
 
