@@ -85,5 +85,5 @@ print('------------------rvi---------------------')
 print('origin\n')
 print(data1.close - data1.open)
 print('shift 1\n')
-data1.close.shift(1) - data1.open.shift(1)
+print(data1.close.shift(1) - data1.open.shift(1))
 
