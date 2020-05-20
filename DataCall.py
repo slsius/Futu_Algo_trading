@@ -71,10 +71,12 @@ RSI = abstract.RSI(data1.close,6)
 print(RSI)
 
 #RVI test
+'''
 Nem =#data1.close-data1.open +
         2*(data1.close.shift(1) - data1.open.shift(1)) +
         2*(data1.close.shift(2) - data1.open.shift(2)) + 
           (data1.close.shift(3) - data1.open.shift(3))
+          '''
 Dem =    data1.high - data1.low +
       2*(data1.high.shift(1) - data1.low.shift(1)) +
       2*(data1.high.shift(2) - data1.low.shift(2)) +
@@ -87,7 +89,7 @@ print(data1.close - data1.open)
 print('shift 1\n')
 print(data1.close.shift(1) - data1.open.shift(1))
 print('NEM\n')
-print(Nem)
+#print(Nem)
 print(Dem)
 print(RVI)
 print(RVIR)
