@@ -35,11 +35,8 @@ quote_ctx.close()
 
 
 #impliment indicator
-temp = data1.time_key[0]
-print(temp)
-
 print('---last data time---')
-print(len(data1.index))
+#print(len(data1.index))
 temp = data1.time_key[len(data1.index) - 1]
 print(temp)
 
