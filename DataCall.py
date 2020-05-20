@@ -2,6 +2,7 @@ from datetime import datetime
 from futu import *
 import pandas as pd
 import talib
+import pandas_ta as ta
 from sklearn.model_selection import KFold
 
 def DayStr(Tday):
