@@ -74,7 +74,7 @@ print(RSI)
 Nem = ((data1.close - data1.open) + 2*(data1.close.shift(1) - data1.open.shift(1)) + 2*(data1.close.shift(2) - data1.open.shift(3)) + (data1.close.shift(4) - data1.open.shift(4)))/6
 Dem = (data1.high - data1.close +
       2*(data1.high.shift(1) - data1.low.shift(1)) +
-      2*(data1.high.shift(2) - data1.low.shift(2))
+      2*(data1.high.shift(2) - data1.low.shift(2)) +
         (data1.high.shift(3) - data1.low.shift(3)))/6
 RVI = Nem/Dem
 RVIR = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
