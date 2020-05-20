@@ -88,7 +88,7 @@ print(Nem)
 print('\n DEM\n')
 print(Dem)
 
-print(~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~)
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 print(2*(data1.close.shift(1) - data1.open.shift(1)))
 print(RVI)
 print(RVIR)
