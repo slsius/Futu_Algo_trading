@@ -72,7 +72,10 @@ print(RSI)
 
 #RVI test
 
-Nem =data1.close-data1.open+2*(data1.close.shift(1) - data1.open.shift(1))+2*(data1.close.shift(2) - data1.open.shift(2))+(data1.close.shift(3) - data1.open.shift(3))
+Nem =(data1.close-data1.open)+
+2*(data1.close.shift(1) - data1.open.shift(1))+
+2*(data1.close.shift(2) - data1.open.shift(2))+
+(data1.close.shift(3) - data1.open.shift(3))
       
 Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1.high.shift(2) - data1.low.shift(2)) +(data1.high.shift(3) - data1.low.shift(3))
 RVI = (Nem/6)/(Dem/6)
@@ -87,6 +90,11 @@ print(Nem)
 
 print('\n DEM\n')
 print(Dem)
+
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print(data1.close)
+print(data1.open)
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
 print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 print(2*(data1.close.shift(2) - data1.open.shift(2)))
