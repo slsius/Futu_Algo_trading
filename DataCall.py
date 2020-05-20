@@ -82,7 +82,8 @@ Dem = (data1.high - data1.low +
 RVI = Nem/Dem
 RVIR = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 print('------------------rvi---------------------')
-print(Nem)
-print(Dem)
-print(RVI)
-print(RVIR)
+print('origin\n')
+print(data1.close - data1.open)
+print('shift 1\n')
+data1.close.shift(1) - data1.open.shift(1)
+
