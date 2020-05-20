@@ -15,7 +15,7 @@ today = datetime.today()
 
 print('----------------------------') #split line
 
-print(quote_ctx.get_market_snapshot('HK.00700')) #get snap shot
+#print(quote_ctx.get_market_snapshot('HK.00700')) #get snap shot
 
 print('----------------------------') #split line
 
@@ -24,6 +24,7 @@ NumDay = 6
 #data set 1
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 #print(data1.time_key, data1.open) #end='' is today
+print(data1['row0'],data1['row1'],data1['row2'],data1['row3'],data1['row4'])
 
 '''
 df = pd.DataFrame(data) #insert data to panda frame
