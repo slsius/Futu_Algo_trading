@@ -1,3 +1,4 @@
+http://markjong001.pixnet.net/blog/post/249471859-python-%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90%E7%9A%84%E5%A5%BD%E5%88%A9%E5%99%A8-%22ta-lib%22
 plot_candles(
              start_time='2017-01-01',      ## 開始時間
              end_time='2018-01-01',       ## 結束時間
@@ -20,3 +21,7 @@ https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataf
 
 futu
 chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%20%E2%80%94%20futu-api-doc%203.20%20%E6%96%87%E6%A1%A3&pos=3836&uri=https://futunnopen.github.io/futu-api-doc/api/setup.html
+
+
+ta lib
+http://mrjbq7.github.io/ta-lib/func_groups/momentum_indicators.html
