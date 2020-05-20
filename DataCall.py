@@ -77,10 +77,7 @@ Nem =#data1.close-data1.open +
         2*(data1.close.shift(2) - data1.open.shift(2)) + 
           (data1.close.shift(3) - data1.open.shift(3))
           '''
-Dem =    data1.high - data1.low +
-      2*(data1.high.shift(1) - data1.low.shift(1)) +
-      2*(data1.high.shift(2) - data1.low.shift(2)) +
-        (data1.high.shift(3) - data1.low.shift(3))
+Dem =data1.high - data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1.high.shift(2) - data1.low.shift(2)) +(data1.high.shift(3) - data1.low.shift(3))
 RVI = (Nem/6)/(Dem/6)
 RVIR = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 print('------------------rvi---------------------')
