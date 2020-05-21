@@ -7,7 +7,7 @@ import pandas_ta as ta
 import numpy as np
 #from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
-import mpl_finance as mpf
+import mplfinance as mpf
 #import seaborn as sns
 
 def DayStr(Tday):
@@ -26,7 +26,7 @@ ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=D
 #print(data1.time_key, data1.open) #end='' is today
 
 #df.loc[row,column]
-print(data1.loc[0,:])
+#print(data1.loc[0,:])
 print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 if ret1 == RET_OK:
     print(data1)
@@ -137,4 +137,5 @@ ax3 = fig.add_axes([0,0,1,0.1])
 #使用mpl_finance套件candlestick2_ochl
 mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
+mpf.volume_overlay(ax2, data1[‘open_price’], data1[‘close_price’], data1[‘volume’], colorup=’r’, colordown=’g’, width=0.5, alpha=0.8)
 plt.show()
