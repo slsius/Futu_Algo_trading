@@ -97,7 +97,8 @@ print('-----------------signal-----------------')
 print(signals)
 
 #plot
-data.rename(columns={'open_price':'open', 'close_price':close}, inplace=True)
+data1.rename(columns={'open_price':'open', 'close_price':close}, inplace=True)
+print(data1)
 '''
 plot_candles(
              start_time='2020-05-21',      ## 開始時間
