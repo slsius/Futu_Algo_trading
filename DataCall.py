@@ -124,9 +124,16 @@ sma_30 = talib.SMA(np.array(data1['close_price']), 30)
 #創建圖框
 fig = plt.figure(figsize=(24, 8))
 ax = fig.add_subplot(1, 1, 1)
-#設定座標數量及所呈現文字
 ax.set_xticks(range(0, len(data1.index), 10))
-ax.set_xticklabels(data1.index[::10],rotation=90)
+ax.set_xticklabels(data1.time_key[::10],rotation=90)
+
+ax2 = fig.add_axes([0,0.1,1,0.2])
+ax2.set_xticks(range(0, len(data1.index), 10))
+ax2.set_xticklabels(data1.time_key[::10],rotation=90)
+
+ax3 = fig.add_axes([0,0,1,0.1])
+#設定座標數量及所呈現文字
+
 #使用mpl_finance套件candlestick2_ochl
 mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
