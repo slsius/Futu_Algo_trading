@@ -30,7 +30,7 @@ if ret1 == RET_OK:
     print(data1['close'].values.tolist())   # 第一页收盘价转为list
 else:
     print('error:', data1)
-
+'''
 ret, data = quote_ctx.get_cur_kline('HK.00700', 660, ktype=SubType.K_3M, autype=AuType.QFQ)
 
 if ret == RET_OK:
@@ -40,7 +40,8 @@ if ret == RET_OK:
 else:
     print('error:', data)
 
-print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')    
+print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')   
+'''
 '''
 df = pd.DataFrame(data) #insert data to panda frame
 df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
