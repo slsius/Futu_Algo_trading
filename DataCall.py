@@ -41,7 +41,7 @@ else:
     print('error:', data)
 
 print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')    
-    '''
+'''
 df = pd.DataFrame(data) #insert data to panda frame
 df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
 
