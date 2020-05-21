@@ -137,5 +137,5 @@ ax3 = fig.add_axes([0,0,1,0.1])
 #使用mpl_finance套件candlestick2_ochl
 mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
-mpf.volume_overlay(ax2, data1[‘open_price’], data1[‘close_price’], data1[‘volume’], colorup=’r’, colordown=’g’, width=0.5, alpha=0.8)
+mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
 plt.show()
