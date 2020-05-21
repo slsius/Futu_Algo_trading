@@ -8,7 +8,7 @@ import numpy as np
 #from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
 import mpl_finance as mpf
-import seaborn as sns
+#import seaborn as sns
 
 def DayStr(Tday):
   Tday = Tday.strftime("%Y-%m-%d")
@@ -118,12 +118,15 @@ plot_candles(
 sma_10 = talib.SMA(np.array(data1['close_price']), 10)
 sma_30 = talib.SMA(np.array(data1['close_price']), 30)
 
+
+
+
+#創建圖框
+fig = plt.figure(figsize=(24, 8))
 ax = fig.add_subplot(1, 1, 1)
+#設定座標數量及所呈現文字
 ax.set_xticks(range(0, len(data1.index), 10))
-ax.set_xticklabels(data1.index[::10])
+ax.set_xticklabels(data1.index[::10],rotation=90)
+#使用mpl_finance套件candlestick2_ochl
 mpf.candlestick2_ochl(ax, data1['Oopen_price'], df_2330['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
-plt.rcParams['font.sans-serif']=['Microsoft JhengHei'] 
-ax.plot(sma_10, label='10日均線')
-ax.plot(sma_30, label='30日均線')
-ax.legend();
