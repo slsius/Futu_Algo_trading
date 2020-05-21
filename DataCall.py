@@ -85,7 +85,7 @@ signals['signal'][short_window:] = np.where(signals['short_mavg'][short_window:]
 
 '''
 
-signals['signal'] = np.where(signals['RSI'] < 20) or np.where(signals['RSI'].shift(1) < 20) or np.where(signals['RSI'].shift(2) < 20)
+signals['signal'] = np.where(signals['RSI'] < 20) or np.where(signals['RSI'][:-1].shift(1) < 20) or np.where(signals['RSI'][:-2].shift(2) < 20)
 
 print('-----------------signal-----------------')
 print(signals)
