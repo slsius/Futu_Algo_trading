@@ -90,7 +90,8 @@ temp1 = temp1.shift(1)
 temp2 = signals['RSI'][:-2]
 temp2 = temp1.shift(2)
 print('----------------------------')
-signals['signal'] = np.where(signals['RSI'] <= 20 , 1.0, 0.0) #or np.where(temp1[1:] < 20) or np.where(temp2[1:] < 20)
+signals['signal'] = np.where((signals['RSI'] <= 20) or (temp1 <=20) or (temp2 <=20) , 1.0, 0.0) #or np.where(temp1[1:] < 20) or np.where(temp2[1:] < 20)
 
+signals['positions'] = signals['signal'].diff()
 print('-----------------signal-----------------')
-#print(signals)
+print(signals)
