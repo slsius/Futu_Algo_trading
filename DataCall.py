@@ -58,12 +58,16 @@ print('---last data time---')
 temp = data1.time_key[len(data1.index) - 1]
 print(temp)
 
-#RSI test
-RSI = abstract.RSI(data1.close,6)
-RSIData = pd.DataFrame(RSI)
-RSIData.columns = ['da'] 
+#Backtest
+# Initialize the `signals` DataFrame with the `signal` column
+signals = pd.DataFrame(index=HK700.index)
+signals['time_key'] = data1.time_key
+signals['signal'] = 0.0
 
-#RVI test
+#RSI
+signals['RSI'] = abstract.RSI(data1.close,6)
+
+#RVI
 
 Nem =(data1.close-data1.open)+2*(data1.close.shift(1) - data1.open.shift(1))+2*(data1.close.shift(2) - data1.open.shift(2))+(data1.close.shift(3) - data1.open.shift(3))
       
@@ -72,3 +76,7 @@ RVI = (Nem/6)/(Dem/6)
 RVIR = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 print('------------------rvi---------------------')
 print(RSIData)
+
+#Signal
+
+
