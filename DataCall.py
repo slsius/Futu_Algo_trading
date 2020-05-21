@@ -61,7 +61,7 @@ temp = data1.time_key[len(data1.index) - 1]
 
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column
-signals = pd.DataFrame(index=data1.index)
+signals = pd.DataFrame(index=data1.time_key)
 signals['time_key'] = data1.time_key
 signals['signal'] = 0.0
 
@@ -95,3 +95,18 @@ signals['signal'] = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20
 signals['positions'] = signals['signal'].diff()
 print('-----------------signal-----------------')
 print(signals)
+
+#plot
+data.rename(columns={'open_price':'open', 'close_price':close}, inplace=True)
+'''
+plot_candles(
+             start_time='2020-05-21',      ## 開始時間
+             end_time='2020-05-21',       ## 結束時間
+             pricing=df,                            ## dataframe 只吃 ['open_price', 'close_price', 'high', 'low', 'volume']
+             title='Candles',                      ## 名稱而已
+             volume_bars=True,               ## 畫不畫 量圖
+             overlays=[SMA],                    ##  跟股價圖 疊起來的是什麼指標
+             technicals = [RSI, STOCH],    ## 其他圖要畫甚麼
+             technicals_titles=['RSI', 'KD'] ## 其他圖的名稱
+            )
+'''
