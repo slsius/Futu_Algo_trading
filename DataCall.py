@@ -60,13 +60,13 @@ print(temp)
 
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column
-signals = pd.DataFrame(index=HK700.index)
+signals = pd.DataFrame(index=data1.index)
 signals['time_key'] = data1.time_key
 signals['signal'] = 0.0
 
 #RSI
 signals['RSI'] = abstract.RSI(data1.close,6)
-
+print(signals)
 #RVI
 
 Nem =(data1.close-data1.open)+2*(data1.close.shift(1) - data1.open.shift(1))+2*(data1.close.shift(2) - data1.open.shift(2))+(data1.close.shift(3) - data1.open.shift(3))
