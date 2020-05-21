@@ -130,3 +130,4 @@ ax.set_xticklabels(data1.index[::10],rotation=90)
 #使用mpl_finance套件candlestick2_ochl
 mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
+plt.show()
