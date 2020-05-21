@@ -99,15 +99,16 @@ print(signals)
 #plot
 data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True)
 print(data1)
-'''
+SMA10=abstract.SMA(data1,timeperiod=10)
+
 plot_candles(
              start_time='2020-05-21',      ## 開始時間
              end_time='2020-05-21',       ## 結束時間
-             pricing=df,                            ## dataframe 只吃 ['open_price', 'close_price', 'high', 'low', 'volume']
+             pricing=data1,                            ## dataframe 只吃 ['open_price', 'close_price', 'high', 'low', 'volume']
              title='Candles',                      ## 名稱而已
              volume_bars=True,               ## 畫不畫 量圖
-             overlays=[SMA],                    ##  跟股價圖 疊起來的是什麼指標
-             technicals = [RSI, STOCH],    ## 其他圖要畫甚麼
-             technicals_titles=['RSI', 'KD'] ## 其他圖的名稱
+             overlays=[SMA10],                    ##  跟股價圖 疊起來的是什麼指標
+             technicals = [signals['RSI'], signals[signal],signals[RVI]],    ## 其他圖要畫甚麼
+             technicals_titles=['RSI','signal', 'RVI'] ## 其他圖的名稱
             )
-'''
+
