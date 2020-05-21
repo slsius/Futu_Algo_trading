@@ -24,6 +24,21 @@ ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=D
 #df.loc[row,column]
 print(data1.loc[0,:])
 
+if ret1 == RET_OK:
+    print(data1)
+    print(data1['code'][0])    # 取第一条的股票代码
+    print(data1['close'].values.tolist())   # 第一页收盘价转为list
+else:
+    print('error:', data1)
+
+ret, data, page_req_key = quote_ctx.get_cur_kline('HK.00700', num, ktype=SubType.K_3M, autype=AuType.QFQ)
+
+if ret == RET_OK:
+    print(data)
+    print(data['code'][0])    # 取第一条的股票代码
+    print(data['close'].values.tolist())   # 第一页收盘价转为list
+else:
+    print('error:', data)
 '''
 df = pd.DataFrame(data) #insert data to panda frame
 df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
