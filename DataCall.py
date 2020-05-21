@@ -8,7 +8,6 @@ import numpy as np
 #from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
 import mpl_finance as mpf
-%matplotlib inline
 import seaborn as sns
 
 def DayStr(Tday):
