@@ -67,7 +67,7 @@ signals['signal'] = 0.0
 
 #RSI
 signals['RSI'] = abstract.RSI(data1.close,6)
-
+SMA10 = abstract.SMA(data1.close,timeperiod=10)
 #RVI
 Nem =(data1.close-data1.open)+2*(data1.close.shift(1) - data1.open.shift(1))+2*(data1.close.shift(2) - data1.open.shift(2))+(data1.close.shift(3) - data1.open.shift(3))
       
@@ -99,7 +99,7 @@ print(signals)
 #plot
 data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True)
 print(data1)
-SMA10=abstract.SMA(data1,timeperiod=10)
+
 
 plot_candles(
              start_time='2020-05-21',      ## 開始時間
