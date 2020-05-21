@@ -5,7 +5,8 @@ import talib
 from talib import abstract
 import pandas_ta as ta
 import numpy as np
-from sklearn.model_selection import KFold
+#from sklearn.model_selection import KFold
+from finlab.plot_candles import plot_candles
 
 def DayStr(Tday):
   Tday = Tday.strftime("%Y-%m-%d")
