@@ -57,7 +57,7 @@ quote_ctx.close()
 print('---last data time---')
 #print(len(data1.index))
 temp = data1.time_key[len(data1.index) - 1]
-print(temp)
+#print(temp)
 
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column
@@ -87,7 +87,7 @@ signals['signal'][short_window:] = np.where(signals['short_mavg'][short_window:]
 print(signals['RSI'])
 print('----------------------------')
 temp1 = signals['RSI'][:-1]
-print(signal['signal'])
+print(signals['signal'])
 print('----------------------------')
 #signals['signal'] = np.where(signals['RSI'] < 20) #or np.where(signals['RSI'][:-1].shift(1) < 20) or np.where(signals['RSI'][:-2].shift(2) < 20)
 
