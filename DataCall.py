@@ -5,10 +5,11 @@ import talib
 from talib import abstract
 import pandas_ta as ta
 import numpy as np
-import sqlite3
-import os
 #from sklearn.model_selection import KFold
-from finlab.plot_candles import plot_candles
+import matplotlib.pyplot as plt
+import mpl_finance as mpf
+%matplotlib inline
+import seaborn as sns
 
 def DayStr(Tday):
   Tday = Tday.strftime("%Y-%m-%d")
@@ -103,7 +104,7 @@ print(signals)
 data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True)
 print(data1)
 
-
+'''
 plot_candles(
              start_time='2020-05-21',      ## 開始時間
              end_time='2020-05-21',       ## 結束時間
@@ -114,4 +115,16 @@ plot_candles(
              technicals = [signals['RSI'], signals[signal],signals[RVI]],    ## 其他圖要畫甚麼
              technicals_titles=['RSI','signal', 'RVI'] ## 其他圖的名稱
             )
+'''
+sma_10 = talib.SMA(np.array(data1['close_price']), 10)
+sma_30 = talib.SMA(np.array(data1['close_price']), 30)
 
+ax = fig.add_subplot(1, 1, 1)
+ax.set_xticks(range(0, len(data1.index), 10))
+ax.set_xticklabels(data1.index[::10])
+mpf.candlestick2_ochl(ax, data1['Oopen_price'], df_2330['close_price'], data1['high'],
+                      data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
+plt.rcParams['font.sans-serif']=['Microsoft JhengHei'] 
+ax.plot(sma_10, label='10日均線')
+ax.plot(sma_30, label='30日均線')
+ax.legend();
