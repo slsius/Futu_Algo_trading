@@ -31,7 +31,7 @@ if ret1 == RET_OK:
 else:
     print('error:', data1)
 
-ret, data, page_req_key = quote_ctx.get_cur_kline('HK.00700', 660, ktype=SubType.K_3M, autype=AuType.QFQ)
+ret, data = quote_ctx.get_cur_kline('HK.00700', 660, ktype=SubType.K_3M, autype=AuType.QFQ)
 
 if ret == RET_OK:
     print(data)
