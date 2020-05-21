@@ -97,7 +97,7 @@ print('-----------------signal-----------------')
 print(signals)
 
 #plot
-data1.rename(columns={'open_price':'open', 'close_price':close}, inplace=True)
+data1.rename(columns={'open_price':'open', 'close_price':'close'}, inplace=True)
 print(data1)
 '''
 plot_candles(
