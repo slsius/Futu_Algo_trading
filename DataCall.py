@@ -46,6 +46,10 @@ LastData = data1.time_key[len(data1.index) - 1] #find the last index
 signals = pd.DataFrame(index=data1.time_key)
 plotdata1 = pd.DataFrame(index=data1.time_key)
 print(plotdata1.dtypes)
+data1['time_key'] = pd.to_datetime(data1['time_key'],)
+plotdata1[time_key] =  pd.to_datetime(raw_data['Mycol'], format='%Y-%m-%d %H:%M:%S')
+print('--------data types------')
+print(data1.dtypes)
 pd.to_datetime(plotdata1)
 signals['signal'] = 0.0
 
