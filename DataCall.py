@@ -46,6 +46,7 @@ temp = data1.time_key[len(data1.index) - 1] #find the last index
 signals = pd.DataFrame(index=data1.time_key)
 signals['signal'] = 0.0
 
+
 #RSI
 signals['RSI'] = abstract.RSI(data1.close,6)
 SMA10 = abstract.SMA(data1.close,timeperiod=10)
@@ -69,6 +70,7 @@ signals['signal'] = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20
 
 signals['positions'] = signals['signal'].diff()
 print('-----------------signal-----------------')
+data.index.name = 'Date'
 print(signals)
 
 #plot
