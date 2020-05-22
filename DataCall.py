@@ -44,7 +44,7 @@ LastData = data1.time_key[len(data1.index) - 1] #find the last index
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
 signals = pd.DataFrame(index=data1.time_key)
-plotdata1 = pd.Dataframe(index=data1.time_key)
+plotdata1 = pd.DataFrame(index=data1.time_key)
 signals['signal'] = 0.0
 
 
