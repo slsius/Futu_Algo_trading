@@ -77,6 +77,7 @@ print('-------------------data----------')
 data1.index = data1['time_key']
 #data1.set_index('time_key', inplace=True)
 data1.index.name = 'Date'
+data1 = data1.set_index('time_key)
 #data1.rename(columns={'open':'Open', 'close':'Close','high':'High','low':'Low'}, inplace=True) #rename columns
 print(data1)
 
@@ -127,6 +128,6 @@ pdata = pd.DataFrame.from_dict(reformatted_data)
 pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
 '''
-print(data1.DatetimeIndex)
+
 mpf.plot(data1)
 print(data1.dtypes)
