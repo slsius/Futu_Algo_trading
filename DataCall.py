@@ -127,5 +127,6 @@ pdata = pd.DataFrame.from_dict(reformatted_data)
 pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
 '''
+print(data1.DatetimeIndex)
 mpf.plot(data1)
 print(data1.dtypes)
