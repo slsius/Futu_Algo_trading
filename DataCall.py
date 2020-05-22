@@ -72,11 +72,11 @@ print('-----------------signal-----------------')
 print(signals)
 
 #plot
-data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True) #rename columns
+#data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True) #rename columns
 
 
-sma_10 = talib.SMA(np.array(data1['close_price']), 10)
-sma_30 = talib.SMA(np.array(data1['close_price']), 30)
+sma_10 = talib.SMA(np.array(data1['close']), 10)
+sma_30 = talib.SMA(np.array(data1['close']), 30)
 
 
 
@@ -95,7 +95,10 @@ ax3 = fig.add_axes([0,0,1,0.1])
 #設定座標數量及所呈現文字
 
 #使用mpl_finance套件candlestick2_ochl
+'''
 mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
+'''
+mpf.plot(data1)
 mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
 plt.show()
