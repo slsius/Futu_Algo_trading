@@ -142,7 +142,7 @@ plotdata1['high'] = data1.high
 plotdata1['low'] = data1.low
 plotdata1['close'] = data1.close
 plotdata1['volume'] = data1.volume
-
-
+print(plotdata1)
+print(plotdata1.dtypes)
 mpf.plot(plotdata1)
 print(data1.dtypes)
