@@ -39,7 +39,7 @@ quote_ctx.close() #close connection
 
 
 #print(len(data1.index))
-temp = data1.time_key[len(data1.index) - 1] #find the last index
+LastData = data1.time_key[len(data1.index) - 1] #find the last index
 
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
@@ -70,9 +70,12 @@ signals['signal'] = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20
 
 signals['positions'] = signals['signal'].diff()
 print('-----------------signal-----------------')
-data.index.name = 'Date'
+
 print(signals)
 
+print('-------------------data----------')
+print(data1)
+data1.index.name = 'Date'
 #plot
 #data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True) #rename columns
 
