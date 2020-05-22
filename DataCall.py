@@ -79,8 +79,8 @@ data1.index.name = 'Date'
 data1.rename(columns={'open':'Open', 'close':'Close','high':'High','low':'Low'}, inplace=True) #rename columns
 print(data1)
 
-sma_10 = talib.SMA(np.array(data1['close']), 10)
-sma_30 = talib.SMA(np.array(data1['close']), 30)
+sma_10 = talib.SMA(np.array(data1['Close']), 10)
+sma_30 = talib.SMA(np.array(data1['Close']), 30)
 
 
 
