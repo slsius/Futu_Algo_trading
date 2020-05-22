@@ -142,7 +142,7 @@ plotdata1['High'] = data1.high
 plotdata1['Low'] = data1.low
 plotdata1['Close'] = data1.close
 plotdata1['Volume'] = data1.volume
-plotdata1.index.name = 'Date')
+plotdata1.index.name = 'Date'
 plotdata1.rename(columns={'time_key':'Date'})
 print(plotdata1)
 print(plotdata1.dtypes)
