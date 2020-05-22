@@ -116,7 +116,7 @@ reformatted_data['Low'] = []
 reformatted_data['Close'] = []
 reformatted_data['Volume'] = []
 for dict in data1:
-    reformatted_data['Date'].append(datetime.fromtimestamp(dict['id']))
+    reformatted_data['Date'].append(datetime.fromtimestamp(dict['date']))
     reformatted_data['Open'].append(dict['open'])
     reformatted_data['High'].append(dict['high'])
     reformatted_data['Low'].append(dict['low'])
