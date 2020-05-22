@@ -74,8 +74,8 @@ print('-----------------signal-----------------')
 print(signals)
 
 print('-------------------data----------')
-data1.index.name = 'Date'
 data1.index = data1['time_key']
+data1.index.name = 'Date'
 print(data1)
 #plot
 #data1.rename(columns={'open':'open_price', 'close':'close_price'}, inplace=True) #rename columns
