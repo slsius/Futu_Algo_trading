@@ -137,11 +137,11 @@ mpf.plot(pdata)
 '''
 
 
-plotdata1['open'] = data1.open
-plotdata1['high'] = data1.high
-plotdata1['low'] = data1.low
-plotdata1['close'] = data1.close
-plotdata1['volume'] = data1.volume
+plotdata1['Ppen'] = data1.open
+plotdata1['High'] = data1.high
+plotdata1['Low'] = data1.low
+plotdata1['Close'] = data1.close
+plotdata1['Volume'] = data1.volume
 print(plotdata1)
 print(plotdata1.dtypes)
 mpf.plot(plotdata1)
