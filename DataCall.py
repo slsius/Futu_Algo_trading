@@ -138,5 +138,5 @@ plotdata1['close'] = data1.close
 plotdata1['volume'] = data1.volume
 
 
-mpf.plot(plotdata)
+mpf.plot(plotdata1)
 print(data1.dtypes)
