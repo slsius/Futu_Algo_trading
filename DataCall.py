@@ -77,7 +77,7 @@ print('-------------------data----------')
 data1.index = data1['time_key']
 data1.set_index('time_key', inplace=True)
 data1.index.name = 'Date'
-data1.rename(columns={'open':'Open', 'close':'Close','high':'High','low':'Low'}, inplace=True) #rename columns
+#data1.rename(columns={'open':'Open', 'close':'Close','high':'High','low':'Low'}, inplace=True) #rename columns
 print(data1)
 
 sma_10 = talib.SMA(np.array(data1['Close']), 10)
@@ -104,6 +104,25 @@ ax3 = fig.add_axes([0,0,1,0.1])
 mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
                       data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
 '''
-mpf.plot(data1)
-mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
-plt.show()
+#mpf.plot(data1)
+#mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
+#plt.show()
+
+reformatted_data = dict()
+reformatted_data['Date'] = []
+reformatted_data['Open'] = []
+reformatted_data['High'] = []
+reformatted_data['Low'] = []
+reformatted_data['Close'] = []
+reformatted_data['Volume'] = []
+for dict in data1:
+    reformatted_data['Date'].append(datetime.datetime.fromtimestamp(dict['id']))
+    reformatted_data['Open'].append(dict['open'])
+    reformatted_data['High'].append(dict['high'])
+    reformatted_data['Low'].append(dict['low'])
+    reformatted_data['Close'].append(dict['close'])
+    reformatted_data['Volume'].append(dict['volume'])
+print("reformatted data:", reformatted_data)
+pdata = pd.DataFrame.from_dict(reformatted_data) 
+pdata.set_index('Date', inplace=True)
+mpf.plot(pdata)
