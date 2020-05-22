@@ -44,6 +44,7 @@ LastData = data1.time_key[len(data1.index) - 1] #find the last index
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
 signals = pd.DataFrame(index=data1.time_key)
+plotdata1 = pd.Dataframe(index=data1.time_key)
 signals['signal'] = 0.0
 
 
@@ -129,7 +130,7 @@ pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
 '''
 
-plotdata1 = pd.Dataframe(index=data1.time_key)
+
 plotdata1['open'] = data1.open
 plotdata1['high'] = data1.high
 plotdata1['low'] = data1.low
