@@ -107,7 +107,7 @@ mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high
 #mpf.plot(data1)
 #mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
 #plt.show()
-
+'''
 reformatted_data = dict()
 reformatted_data['Date'] = []
 reformatted_data['Open'] = []
@@ -126,3 +126,5 @@ print("reformatted data:", reformatted_data)
 pdata = pd.DataFrame.from_dict(reformatted_data) 
 pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
+'''
+print(data1.dtypes)
