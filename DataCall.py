@@ -129,12 +129,12 @@ pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
 '''
 
-plotdata = pd.Dataframe(index=data1.time_key)
-plotdata['open'] = data1.open
-plotdata['high'] = data1.high
-plotdata['low'] = data1.low
-plotdata['close'] = data1.close
-plotdata['volume'] = data1.volume
+plotdata1 = pd.Dataframe(index=data1.time_key)
+plotdata1['open'] = data1.open
+plotdata1['high'] = data1.high
+plotdata1['low'] = data1.low
+plotdata1['close'] = data1.close
+plotdata1['volume'] = data1.volume
 
 
 mpf.plot(plotdata)
