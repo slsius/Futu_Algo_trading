@@ -44,7 +44,7 @@ LastData = data1.time_key[len(data1.index) - 1] #find the last index
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
 signals = pd.DataFrame() #index=data1.time_key
-plotdata1 = pd.DataFrame(index=pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True))
+plotdata1 = pd.DataFrame() #index=pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
 #print(plotdata1.dtypes)
 data1['time_key'] = pd.to_datetime(data1['time_key'],)
 #plotdata1['time_key'] =  pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
@@ -144,6 +144,7 @@ plotdata1['Close'] = data1.close
 plotdata1['Volume'] = data1.volume
 plotdata1.index.name = 'Date'
 plotdata1.rename(columns={'time_key':'Date'})
+plotdat1.index = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
 print(plotdata1)
 #print(plotdata1.dtypes)
 mpf.plot(plotdata1)
