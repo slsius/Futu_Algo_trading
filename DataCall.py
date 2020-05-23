@@ -136,7 +136,7 @@ pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
 '''
 
-plotdata1.concat(pd.data1['open'], columns=['Open']),ignore_index=True)
+plotdata1.concat(pd.data1['open'], columns=['Open'],ignore_index=True)
 #plotdata1['Open'] = data1['open']
 plotdata1['High'] = data1.high
 plotdata1['Low'] = data1.low
