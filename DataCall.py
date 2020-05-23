@@ -144,7 +144,7 @@ plotdata1['Close'] = data1.close
 plotdata1['Volume'] = data1.volume
 plotdata1.index.name = 'Date'
 plotdata1.rename(columns={'time_key':'Date'})
-plotdat1.index = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
+plotdata1.index = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
 print(plotdata1)
 #print(plotdata1.dtypes)
 mpf.plot(plotdata1)
