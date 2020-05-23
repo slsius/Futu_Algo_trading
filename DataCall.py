@@ -45,9 +45,9 @@ LastData = data1.time_key[len(data1.index) - 1] #find the last index
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
 signals = pd.DataFrame(index=data1.time_key)
 plotdata1 = pd.DataFrame(index=pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True))
-print(plotdata1.dtypes)
+#print(plotdata1.dtypes)
 data1['time_key'] = pd.to_datetime(data1['time_key'],)
-plotdata1['time_key'] =  pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
+#plotdata1['time_key'] =  pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
 print('--------data types------')
 print(plotdata1.dtypes)
 #pd.to_datetime(plotdata1)
@@ -136,8 +136,9 @@ pdata.set_index('Date', inplace=True)
 mpf.plot(pdata)
 '''
 
-
-plotdata1['Open'] = data1['open']
+plotdata1.concat([pd.data1['open'], columns=['Open']),
+          ignore_index=True)
+#plotdata1['Open'] = data1['open']
 plotdata1['High'] = data1.high
 plotdata1['Low'] = data1.low
 plotdata1['Close'] = data1.close
