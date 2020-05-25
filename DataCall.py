@@ -207,9 +207,6 @@ class RVICross(bt.Strategy):
     )
 
     def __init__(self):
-        if self.p.doji:
-            bt.talib.CDLDOJI(self.data.open, self.data.high,
-                             self.data.low, self.data.close)
         if self.p.ind == 'rsi':
             bt.talib.RSI(self.data, plotname='TA_RSI')
             bt.indicators.RSI(self.data)
