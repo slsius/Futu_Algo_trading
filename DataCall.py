@@ -289,5 +289,8 @@ def parse_args():
 
     return parser.parse_args()
   
-  
- runstrat() 
+  '''
+  if __name__ == '__main__':
+    runstrat()
+  '''
+runstrat() 
