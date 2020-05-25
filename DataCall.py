@@ -184,18 +184,18 @@ class PandasData(bt.feed.DataBase):
         #  -1 : autodetect position or case-wise equal name
         #  >= 0 : numeric index to the colum in the pandas dataframe
         #  string : column name (as index) in the pandas dataframe
-        ('datetime', 'time_key'),
+        ('datetime', none),
 
         # Possible values below:
         #  None : column not present
         #  -1 : autodetect position or case-wise equal name
         #  >= 0 : numeric index to the colum in the pandas dataframe
         #  string : column name (as index) in the pandas dataframe
-        ('open', 'open'),
-        ('high', 'high'),
-        ('low', 'low'),
-        ('close', 'close'),
-        ('volume', 'volume'),
+        ('open', 'Open'),
+        ('high', 'High'),
+        ('low', 'Low'),
+        ('close', 'Close'),
+        ('volume', 'Volume'),
     )
  
 class RVICross(bt.Strategy):
