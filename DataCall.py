@@ -67,7 +67,7 @@ Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1
 signals['RVI'] = RVI = (Nem/6)/(Dem/6)
 signals['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
-print('------------------rvi---------------------')
+#print('------------------rvi---------------------')
 
 # Create signals
 
@@ -88,17 +88,17 @@ RVISignal = np.where((signals['RVI_diff'] >= 0) & (RVIshift1 <= 0),1.0,0.0)
 signals['signal'] = np.where((RSISignal == 1) & (RVISignal == 1),1.0,0.0)
 del [[temp1,temp2,RVIshift1,RVIshift2]]
 signals['positions'] = signals['signal'].diff()
-print('-----------------signal-----------------')
+#print('-----------------signal-----------------')
 
-print(signals)
+#print(signals)
 
-print('-------------------data----------')
+#print('-------------------data----------')
 #data1.index = data1['time_key']
 #data1.set_index('time_key', inplace=True)
 #data1.index.name = 'Date'
 #data1 = data1.set_index('time_key')
 #data1.rename(columns={'open':'Open', 'close':'Close','high':'High','low':'Low'}, inplace=True) #rename columns
-print(data1)
+#print(data1)
 
 #sma_10 = talib.SMA(np.array(data1['Close']), 10)
 #sma_30 = talib.SMA(np.array(data1['Close']), 30)
