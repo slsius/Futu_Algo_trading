@@ -170,6 +170,35 @@ print(signals['positions'])
 '''
 
 #-----------------------------------Back test-----------------------------------
+class RVICross(bt.Strategy):
+    # list of parameters which are configurable for the strategy
+    params = dict(
+        RSIHi=60,  # period for the fast moving average
+        RSILo=20   # period for the slow moving average
+    )
+
+    def __init__(self):
+        if self.p.doji:
+            bt.talib.CDLDOJI(self.data.open, self.data.high,
+                             self.data.low, self.data.close)
+        if self.p.ind == 'rsi':
+            bt.talib.RSI(self.data, plotname='TA_RSI')
+            bt.indicators.RSI(self.data)
+        
+        sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
+        sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
+        RVI = self.data.close - self.data.open + 2*(self.data.close[-1] - self.data[-1].open) + 2*(self.data.close[-2] - self.data[-2].open) + self.data[-3].close - self.data[-3].open
+        RVIR
+        self.crossover = bt.ind.CrossOver(RVI, RVIR)  # crossover signal
+
+    def next(self):
+        if not self.position:  # not in the market
+            if self.crossover > 0:  # if fast crosses slow to the upside
+                self.buy()  # enter long
+
+        elif self.crossover < 0:  # in the market & cross to the downside
+            self.close()  # close long position
+
 cerebro = bt.Cerebro()
 cerebro.broker.setcash(100000.0)
 cerebro.adddata(data1)
