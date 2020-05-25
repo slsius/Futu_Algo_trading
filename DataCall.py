@@ -8,6 +8,7 @@ import numpy as np
 #from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
 import mplfinance as mpf
+import backtrader as bt
 
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
@@ -166,3 +167,13 @@ mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Ca
 pd.set_option('display.max_rows', signals.shape[0]+1)
 print(signals['positions'])
 '''
+
+#########Back test#####
+cerebro = bt.Cerebro()
+    cerebro.broker.setcash(100000.0)
+
+    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+
+    cerebro.run()
+
+    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
