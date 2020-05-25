@@ -75,7 +75,7 @@ temp2 = signals['RSI'][:-2]
 temp2 = temp1.shift(2)
 signals['signal'] = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20) , 1.0, 0.0)
 
-signals['positions'] = signals['signal'].diff()
+signals['positions'] = 10*signals['signal'].diff()
 print('-----------------signal-----------------')
 
 print(signals)
