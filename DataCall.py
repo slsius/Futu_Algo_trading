@@ -200,8 +200,9 @@ class PandasData(bt.feed.DataBase):
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
-        RSIHi=60,  # period for the fast moving average
-        RSILo=20   # period for the slow moving average
+        RSIHi=60,  
+        RSILo=20,   
+        RSIPer=6
     )
 
     def __init__(self):
@@ -218,6 +219,7 @@ class RVICross(bt.Strategy):
         DEM = (self.data.high - self.data.low + 2*(self.data[-1].high - self.data[-1].low) + 2*(self.data.high[-2] - self.data[-2].low) + self.data[-3].high - self.data[-3].low)/6
         RVI = (NUM/6)/(DEM/6)
         RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
+        RSI6 = self.sma = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         self.crossover = bt.ind.CrossOver(RVI, RVIR)  # crossover signal
 
     def next(self):
@@ -286,3 +288,6 @@ def parse_args():
                         help='Print the dataframe')
 
     return parser.parse_args()
+  
+  
+ runstrat() 
