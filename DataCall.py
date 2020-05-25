@@ -170,6 +170,33 @@ print(signals['positions'])
 '''
 
 #-----------------------------------Back test-----------------------------------
+class PandasData(feed.DataBase):
+    '''
+    The ``dataname`` parameter inherited from ``feed.DataBase`` is the pandas
+    DataFrame
+    '''
+
+    params = (
+        # Possible values for datetime (must always be present)
+        #  None : datetime is the "index" in the Pandas Dataframe
+        #  -1 : autodetect position or case-wise equal name
+        #  >= 0 : numeric index to the colum in the pandas dataframe
+        #  string : column name (as index) in the pandas dataframe
+        ('datetime', 'time_key'),
+
+        # Possible values below:
+        #  None : column not present
+        #  -1 : autodetect position or case-wise equal name
+        #  >= 0 : numeric index to the colum in the pandas dataframe
+        #  string : column name (as index) in the pandas dataframe
+        ('open', -1),
+        ('high', -1),
+        ('low', -1),
+        ('close', -1),
+        ('volume', -1),
+        ('openinterest', -1),
+    )
+ 
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
@@ -185,10 +212,12 @@ class RVICross(bt.Strategy):
             bt.talib.RSI(self.data, plotname='TA_RSI')
             bt.indicators.RSI(self.data)
         
-        sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
-        sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
-        RVI = self.data.close - self.data.open + 2*(self.data.close[-1] - self.data[-1].open) + 2*(self.data.close[-2] - self.data[-2].open) + self.data[-3].close - self.data[-3].open
-        RVIR
+        #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
+        #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
+        NUM = (self.data.close - self.data.open + 2*(self.data[-1].close - self.data[-1].open) + 2*(self.data.close[-2] - self.data[-2].open) + self.data[-3].close - self.data[-3].open)/6
+        DEM = (self.data.high - self.data.low + 2*(self.data[-1].high - self.data[-1].low) + 2*(self.data.high[-2] - self.data[-2].low) + self.data[-3].high - self.data[-3].low)/6
+        RVI = (NUM/6)/(DEM/6)
+        RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         self.crossover = bt.ind.CrossOver(RVI, RVIR)  # crossover signal
 
     def next(self):
@@ -198,10 +227,62 @@ class RVICross(bt.Strategy):
 
         elif self.crossover < 0:  # in the market & cross to the downside
             self.close()  # close long position
-
+'''
 cerebro = bt.Cerebro()
 cerebro.broker.setcash(100000.0)
 cerebro.adddata(data1)
 print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
 cerebro.run()
 print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+'''
+def runstrat():
+    args = parse_args()
+
+    # Create a cerebro entity
+    cerebro = bt.Cerebro(stdstats=False)
+
+    # Add a strategy
+    cerebro.addstrategy(RVICross)
+
+    # Get a pandas dataframe
+    #datapath = ('../../datas/2006-day-001.txt')
+
+    # Simulate the header row isn't there if noheaders requested
+    skiprows = 1 if args.noheaders else 0
+    header = None if args.noheaders else 0
+    '''
+    dataframe = pandas.read_csv(datapath,
+                                skiprows=skiprows,
+                                header=header,
+                                parse_dates=True,
+                                index_col=0)
+    '''
+    if not args.noprint:
+        print('--------------------------------------------------')
+        print(data1)
+        print('--------------------------------------------------')
+
+    # Pass it to the backtrader datafeed and add it to the cerebro
+    data = bt.feeds.PandasData(dataname=data1)
+
+    cerebro.adddata(data1)
+
+    # Run over everything
+    cerebro.run()
+
+    # Plot the result
+    cerebro.plot(style='bar')
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Pandas test script')
+
+    parser.add_argument('--noheaders', action='store_true', default=False,
+                        required=False,
+                        help='Do not use header rows')
+
+    parser.add_argument('--noprint', action='store_true', default=False,
+                        help='Print the dataframe')
+
+    return parser.parse_args()
