@@ -218,7 +218,7 @@ class RVICross(bt.Strategy):
           try:
             RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
             break
-          except IndexError
+          except IndexError:
             RVIR = 0
             
             
