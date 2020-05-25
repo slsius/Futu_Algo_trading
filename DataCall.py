@@ -170,7 +170,7 @@ print(signals['positions'])
 '''
 
 #-----------------------------------Back test-----------------------------------
-class PandasData(feed.DataBase):
+class PandasData(bt.feed.DataBase):
     '''
     The ``dataname`` parameter inherited from ``feed.DataBase`` is the pandas
     DataFrame
