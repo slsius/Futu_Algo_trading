@@ -89,7 +89,7 @@ signals['signal'] = np.where((RSISignal == 1) & (RVISignal == 1),1.0,0.0)
 
 
 
-SellRSI = np.where((signals['RSI'] >= 60) | (temp1 >=20) | (temp2 >=20,1.0,0.0)
+SellRSI = np.where((signals['RSI'] >= 60) | (temp1 >=60) | (temp2 >=60),1.0,0.0)
 SellRVI = np.where(signals['RVI'] <= signals['RVIR'],1.0,0.0)
 signlas['sell'] = np.where(SellRSI == 1 & SellRVI == 1,1.0,0.0)
 del [[temp1,temp2,RVIshift1,RVIshift2]]
