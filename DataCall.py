@@ -207,7 +207,7 @@ class RVICross(bt.Strategy):
     )
 
     def __init__(self):
-        self.rsi = bt.talib.RSI(self.data, timeperiod=RSIPer)
+        #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
         #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
