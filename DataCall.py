@@ -211,7 +211,8 @@ class RVICross(bt.Strategy):
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
         #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
-        NUM = (self.data.close - self.data.open + 2*(self.data[-1].close - self.data[-1].open) + 2*(self.data.close[-2] - self.data[-2].open) + self.data[-3].close - self.data[-3].open)/6
+        NUM = self.data.close[-1] - self.data.open[-1]
+        #NUM = (self.data.close - self.data.open + 2*(self.data[-1].close - self.data[-1].open) + 2*(self.data.close[-2] - self.data[-2].open) + self.data[-3].close - self.data[-3].open)/6
         DEM = (self.data.high - self.data.low + 2*(self.data[-1].high - self.data[-1].low) + 2*(self.data.high[-2] - self.data[-2].low) + self.data[-3].high - self.data[-3].low)/6
         RVI = (NUM/6)/(DEM/6)
         RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
