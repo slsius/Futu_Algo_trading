@@ -86,6 +86,12 @@ RSISignal = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20) , 1.0,
 RVISignal = np.where((signals['RVI_diff'] >= 0) & (RVIshift1 <= 0),1.0,0.0)
 
 signals['signal'] = np.where((RSISignal == 1) & (RVISignal == 1),1.0,0.0)
+
+
+
+SellRSI = np.where((signals['RSI'] >= 60) | (temp1 >=20) | (temp2 >=20,1.0,0.0)
+SellRVI = np.where(signals['RVI'] < ignals['RVIR'],1.0,0.0)
+signlas['sell'] = np.where(SellRSI == 1 & SellRVI == 1,1.0,0.0)
 del [[temp1,temp2,RVIshift1,RVIshift2]]
 signals['positions'] = signals['signal'].diff()
 #print('-----------------signal-----------------')
@@ -152,7 +158,7 @@ apds = [ mpf.make_addplot(tcdf),
          mpf.make_addplot((df['PercentB']),panel='lower',color='g')
        ]
        '''
-apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'yellow')]
+apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'g'),mpf.make_addplot(signals['sell'],panel='lower',color = 'r')]
 mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s,addplot=apds)
 #print(data1.dtypes)
 
