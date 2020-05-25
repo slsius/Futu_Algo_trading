@@ -56,6 +56,7 @@ print('--------data types------')
 print(plotdata1.dtypes)
 #pd.to_datetime(plotdata1)
 signals['signal'] = 0.0
+signals['openinterest'] = 0.0
 
 
 #RSI
