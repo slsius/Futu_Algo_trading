@@ -191,12 +191,11 @@ class PandasData(bt.feed.DataBase):
         #  -1 : autodetect position or case-wise equal name
         #  >= 0 : numeric index to the colum in the pandas dataframe
         #  string : column name (as index) in the pandas dataframe
-        ('open', -1),
-        ('high', -1),
-        ('low', -1),
-        ('close', -1),
-        ('volume', -1),
-        ('openinterest', -1),
+        ('open', 'open'),
+        ('high', 'high'),
+        ('low', 'low'),
+        ('close', 'close'),
+        ('volume', 'volume'),
     )
  
 class RVICross(bt.Strategy):
