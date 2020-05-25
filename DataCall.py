@@ -152,7 +152,7 @@ apds = [ mpf.make_addplot(tcdf),
          mpf.make_addplot((df['PercentB']),panel='lower',color='g')
        ]
        '''
-apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'yellow'),mpf.make_addplot((RVI,panel='lower',color='g'),mpf.make_addplot((RVIR,panel='lower',color='r')]
+apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'yellow'),mpf.make_addplot((signals['RVI'],panel='lower',color='g'),mpf.make_addplot((signals['RVIR'],panel='lower',color='r')]
 mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s,addplot=apds)
 #print(data1.dtypes)
 
