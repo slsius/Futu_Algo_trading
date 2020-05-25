@@ -219,6 +219,7 @@ class RVICross(bt.Strategy):
             RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
             break
           except IndexError:
+            print('error catch')
             RVIR = 0
             
             
@@ -269,9 +270,9 @@ def runstrat():
 
     # Pass it to the backtrader datafeed and add it to the cerebro
     stockdata = bt.feeds.PandasData(dataname=plotdata1)
-
+    print('add data')
     cerebro.adddata(stockdata)
-
+     print('Run')
     # Run over everything
     cerebro.run()
 
@@ -296,4 +297,5 @@ def parse_args():
   if __name__ == '__main__':
     runstrat()
 '''
+print('start')
 runstrat() 
