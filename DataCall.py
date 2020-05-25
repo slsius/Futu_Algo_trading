@@ -272,7 +272,7 @@ def runstrat():
     stockdata = bt.feeds.PandasData(dataname=plotdata1)
     print('add data')
     cerebro.adddata(stockdata)
-     print('Run')
+    print('Run')
     # Run over everything
     cerebro.run()
 
