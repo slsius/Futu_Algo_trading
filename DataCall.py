@@ -133,5 +133,12 @@ print(plotdata1)
 
 mc = mpf.make_marketcolors(up='g',down='r')
 s  = mpf.make_mpf_style(marketcolors=mc)
+'''
+apds = [ mpf.make_addplot(tcdf),
+         mpf.make_addplot(low_signal,scatter=True,markersize=200,marker='^'),
+         mpf.make_addplot(high_signal,scatter=True,markersize=200,marker='v'),
+         mpf.make_addplot((df['PercentB']),panel='lower',color='g')
+       ]
+       '''
 mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s)
 #print(data1.dtypes)
