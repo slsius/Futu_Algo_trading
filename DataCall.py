@@ -144,5 +144,5 @@ apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'green')]
 mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s)
 #print(data1.dtypes)
 
-pandas.set_option('display.max_rows', signals.shape[0]+1)
+pd.set_option('display.max_rows', signals.shape[0]+1)
 print(signals['positions'])
