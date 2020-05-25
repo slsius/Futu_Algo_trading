@@ -160,18 +160,19 @@ apds = [ mpf.make_addplot(tcdf),
        ]
        '''
 apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'g'),mpf.make_addplot(signals['sell'],panel='lower',color = 'r')]
-mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s,addplot=apds)
+#mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s,addplot=apds)
+
 #print(data1.dtypes)
 
-'''
+'''#print max row
 pd.set_option('display.max_rows', signals.shape[0]+1)
 print(signals['positions'])
 '''
 
-#########Back test#####
+#-----------------------------------Back test-----------------------------------
 cerebro = bt.Cerebro()
 cerebro.broker.setcash(100000.0)
-
+cerebro.adddata(data1)
 print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
 cerebro.run()
 print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
