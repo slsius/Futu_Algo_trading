@@ -21,7 +21,7 @@ today = datetime.today()
 NumDay = 5  #variable
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='2020-05-20', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='2020-05-21', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 
 if ret1 == RET_OK:
     print(data1)
