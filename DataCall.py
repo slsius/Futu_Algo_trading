@@ -266,9 +266,9 @@ def runstrat():
         print('--------------------------------------------------')
 
     # Pass it to the backtrader datafeed and add it to the cerebro
-    data = bt.feeds.PandasData(dataname=data1)
+    stockdata = bt.feeds.PandasData(dataname=data1)
 
-    cerebro.adddata(data1)
+    cerebro.adddata(stockdata)
 
     # Run over everything
     cerebro.run()
