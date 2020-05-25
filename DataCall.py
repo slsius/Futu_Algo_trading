@@ -95,6 +95,7 @@ print(data1)
 
 
 #創建圖框
+'''
 fig = plt.figure(figsize=(24, 8))
 ax = fig.add_subplot(1, 1, 1)
 ax.set_xticks(range(0, len(data1.index), 10))
@@ -105,6 +106,7 @@ ax2.set_xticks(range(0, len(data1.index), 10))
 ax2.set_xticklabels(data1.index[::10],rotation=90)
 
 ax3 = fig.add_axes([0,0,1,0.1])
+'''
 #設定座標數量及所呈現文字
 
 #使用mpl_finance套件candlestick2_ochl
@@ -115,26 +117,7 @@ mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high
 #mpf.plot(data1)
 #mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
 #plt.show()
-'''
-reformatted_data = dict()
-reformatted_data['Date'] = []
-reformatted_data['Open'] = []
-reformatted_data['High'] = []
-reformatted_data['Low'] = []
-reformatted_data['Close'] = []
-reformatted_data['Volume'] = []
-for dict in data1:
-    reformatted_data['Date'].append(datetime.fromtimestamp(dict['time_key']))
-    reformatted_data['Open'].append(dict['open'])
-    reformatted_data['High'].append(dict['high'])
-    reformatted_data['Low'].append(dict['low'])
-    reformatted_data['Close'].append(dict['close'])
-    reformatted_data['Volume'].append(dict['volume'])
-print("reformatted data:", reformatted_data)
-pdata = pd.DataFrame.from_dict(reformatted_data) 
-pdata.set_index('Date', inplace=True)
-mpf.plot(pdata)
-'''
+
 
 #plotdata1.concat(pd.data1['open'], columns=['Open'],ignore_index=True)
 plotdata1['Open'] = data1['open']
