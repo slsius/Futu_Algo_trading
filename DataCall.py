@@ -140,6 +140,6 @@ apds = [ mpf.make_addplot(tcdf),
          mpf.make_addplot((df['PercentB']),panel='lower',color='g')
        ]
        '''
-apds = [mpf.make_addplot(signals.position),panel='lower',color = 'y']
+apds = [mpf.make_addplot(signals.position,panel='lower',color = 'y')]
 mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s)
 #print(data1.dtypes)
