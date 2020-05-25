@@ -184,7 +184,7 @@ class PandasData(bt.feed.DataBase):
         #  -1 : autodetect position or case-wise equal name
         #  >= 0 : numeric index to the colum in the pandas dataframe
         #  string : column name (as index) in the pandas dataframe
-        ('datetime', none),
+        ('datetime', None),
 
         # Possible values below:
         #  None : column not present
