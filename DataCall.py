@@ -83,7 +83,7 @@ RVIshift2 = signals['RVI_diff'][:-2]
 RVIshift2 = signals['RVI_diff'].shift(2)
 RSISignal = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20) , 1.0, 0.0)
 RVISignal = np.where((signals['RVI_diff'] >= 0) & (RVIshift1 <= 0) & (RVIshift2 <= 0),1.0,0.0)
-signals['signal'] = np.where((RSISignal) & (RVISignal),1.0,0.0)
+signals['signal'] = np.where((RSISignal) and (RVISignal),1.0,0.0)
 delete.temp1
 delete.temp2
 signals['positions'] = 10*signals['signal'].diff()
