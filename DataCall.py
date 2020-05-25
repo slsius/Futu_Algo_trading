@@ -13,6 +13,8 @@ def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
 
+
+
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
@@ -64,6 +66,7 @@ Nem =(data1.close-data1.open)+2*(data1.close.shift(1) - data1.open.shift(1))+2*(
 Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1.high.shift(2) - data1.low.shift(2)) +(data1.high.shift(3) - data1.low.shift(3))
 signals['RVI'] = RVI = (Nem/6)/(Dem/6)
 signals['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
 print('------------------rvi---------------------')
 
 # Create signals
@@ -73,8 +76,16 @@ temp1 = signals['RSI'][:-1]
 temp1 = temp1.shift(1)
 temp2 = signals['RSI'][:-2]
 temp2 = temp1.shift(2)
-signals['signal'] = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20) , 1.0, 0.0)
 
+RVIshift1 = signals['RVI_diff'][:-1]
+RVIshift1 = signals['RVI_diff'].shift(1)
+RVIshift2 = signals['RVI_diff'][:-2]
+RVIshift2 = signals['RVI_diff'].shift(2)
+RSISignal = np.where((signals['RSI'] <= 20) | (temp1 <=20) | (temp2 <=20) , 1.0, 0.0)
+RVISignal = np.where(signals['RVI_diff'] >= 0 &  RVIshift1 <= 0 &  RVIshift2 <= 0,1.0,0.0)
+signals['signal'] = np.where(RSISignal = 1 & RVISignal = 1,1.0,2.0)
+delete.temp1
+delete.temp2
 signals['positions'] = 10*signals['signal'].diff()
 print('-----------------signal-----------------')
 
