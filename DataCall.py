@@ -41,7 +41,7 @@ print('----------------------------')
 '''
 
 quote_ctx.close() #close connection 
-
+print(data1)
 
 #print(len(data1.index))
 #LastData = data1.time_key[len(data1.index) - 1] #find the last index
