@@ -222,8 +222,8 @@ class RVIin(bt.Indicator):
         try:
           self.lines.RVIR[0] = RVIRval = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         except (IndexError, KeyError):
-          self.lines.RVIR[0] = 0
-        dif = RVIval - RVIRval
+          self.lines.RVIR[0] = RVIRval= 0
+        diver = RVIval - RVIRval
         
         
         
@@ -258,10 +258,10 @@ class RVICross(bt.Strategy):
         
     def next(self):
         if not self.position:  # not in the market
-            if IDC.dif > 0 and self.rsi <= RSILo:  # if fast crosses slow to the upside
+            if IDC.diver > 0 and self.rsi <= RSILo:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif IDC.dif < 0 and self.rsi >= RISHi:  # in the market & cross to the downside
+        elif IDC.diver < 0 and self.rsi >= RISHi:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
