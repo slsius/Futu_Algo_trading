@@ -223,11 +223,11 @@ class RVICross(bt.Strategy):
             
         RSI6 = self.sma = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         self.crossover = bt.ind.CrossOver(RVI, RVIR) # crossover signal
-        RVI.plotinfo.plotname = 'RVI'
-        RVIR.plotinfo.plotname = 'RVIR'
+        self.RVI.plotinfo.plotname = 'RVI'
+        self.RVIR.plotinfo.plotname = 'RVIR'
         
-        RVI.plotinfo.subplot = True
-        RVIR.plotinfo.subplot = True
+        self.RVI.plotinfo.subplot = True
+        self.RVIR.plotinfo.subplot = True
 
     def next(self):
         if not self.position:  # not in the market
