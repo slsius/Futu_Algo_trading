@@ -212,8 +212,6 @@ class RVIin(bt.Indicator):
         self.addminperiod(self.params.period)
         movup = 0
         movdown = 0
-        avg_c =0
-        avg_o =0
         '''
         
         #self.lines.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
@@ -226,10 +224,10 @@ class RVIin(bt.Indicator):
     def next(self):
         for x in range(0, -6, -1):
             if (self.data.close[x] - self.data.close[x-1]) > 0:
-              movup = movup + self.data.close[x] - self.data.close[x-1]
+              self.movup = self.movup + self.data.close[x] - self.data.close[x-1]
             else:
-               movdown = movdown + self.data.close[x-1] - self.data.close[x]
-        rs = (movup/self.p.rsip)/(movdown/self.p.rsip)
+               self.movdown = self.movdown + self.data.close[x-1] - self.data.close[x]
+        rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
         self.lines.RSI = 100 - 100 / ( 1 + rs)
         if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
           self.line.rsiup[0] = 1
