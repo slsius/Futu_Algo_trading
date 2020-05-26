@@ -240,10 +240,11 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
-        IDC = RVIin(self.data)
+        #IDC = RVIin(self.data)
         RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        self.crossover = bt.ind.CrossOver(IDC.RVIval,IDC.RVIRval) # crossover signal
-
+        #self.crossover = bt.ind.CrossOver(IDC.RVIval,IDC.RVIRval) # crossover signal
+        self.crossover = -1
+        
     def next(self):
         if not self.position:  # not in the market
             if self.crossover > 0 and self.rsi <= RSILo:  # if fast crosses slow to the upside
