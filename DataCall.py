@@ -210,7 +210,7 @@ class RVIin(bt.Indicator):
         self.lines.RVI = RVI = (NUM/6)/(DEM/6)
         #self.lines.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         try:
-        self.lines.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
+          self.lines.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         except IndexError:
           print('error catch')
           self.lines.RVIR = RVIR = 0
