@@ -288,12 +288,13 @@ class RVICross(bt.Strategy):
         #RSI6 = self.rsi
         #print(RSI6)
         self.IDC = RVIin(self.data)
+        self.cus = RSIcus(elf.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
         #self.crossover = -1
         
     def next(self):
         if not self.position:  # not in the market
-            if self.crossover > 0 and self.rsi <= self.p.RSILo:  # if fast crosses slow to the upside
+            if self.crossover > 0 and self.cus.rsi <= self.p.RSILo:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
         elif self.crossover < 0 and self.rsi >= self.p.RSIHi:  # in the market & cross to the downside
