@@ -227,7 +227,8 @@ class RVIin(bt.Indicator):
           self.lines.RVIR[0] = RVIRval= 0
     def getdiv(self):
         diver = self.RVIval - self.RVIRval
-        print('RVI value' + self.RVIval)
+        print('RVI value')
+        print(self.RVIval)
         print(self.RVIRval)
         return diver
         
