@@ -203,6 +203,8 @@ class RVIin(bt.Indicator):
     lines = ('RVI','RVIR')
     plotinfo = dict(subplot=True)
     params = (('period', 4),)
+    RVIval = 0
+    RVIRval = 0
 
     def __init__(self):
         self.addminperiod(self.params.period)
@@ -225,6 +227,8 @@ class RVIin(bt.Indicator):
           self.lines.RVIR[0] = RVIRval= 0
     def getdiv(self):
         diver = RVIval - RVIRval
+        print('RVI value' + RVIval)
+        print(RVIRval)
         return diver
         
         
