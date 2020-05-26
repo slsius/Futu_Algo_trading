@@ -221,7 +221,7 @@ class RVICross(bt.Strategy):
           self.RVIR = RVIR = 0
             
             
-        RSI6 = bt.indicators.RSI(self.data, timeperiod=self.p.RSIPer)
+        RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         self.crossover = bt.ind.CrossOver(RVI, RVIR) # crossover signal
 
     def next(self):
