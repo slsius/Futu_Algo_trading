@@ -200,20 +200,26 @@ class PandasData(bt.feed.DataBase):
     )
 class RVIin(bt.Indicator):
     lines = ('RVI','RVIR')
-    
-    #params = (('value', 5),)
+    plotinfo = dict(subplot=True)
+    params = (('period', 4),)
 
     def __init__(self):
-        plotinfo = dict(subplot=True)
-        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
-        DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
-        self.lines.RVI = RVIval = (NUM/6)/(DEM/6)
+        self.addminperiod(self.params.period)
+        '''
+        
         #self.lines.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         try:
           self.lines.RVIR = RVIRval = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         except IndexError:
           print('error catch')
           self.lines.RVIR = RVIRval = 0
+        '''
+    def next(self):
+        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
+        DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
+        self.lines.RVI[0] = RVIval = (NUM/6)/(DEM/6)
+        self.lines.RVIR[0] = RVIRval = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
+        dif = RVIval - RVIRval
         
         
         
@@ -240,17 +246,18 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
-        #IDC = RVIin(self.data)
+        IDC = RVIin(self.data)
         RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        
         #self.crossover = bt.ind.CrossOver(IDC.RVIval,IDC.RVIRval) # crossover signal
-        self.crossover = -1
+        #self.crossover = -1
         
     def next(self):
         if not self.position:  # not in the market
-            if self.crossover > 0 and self.rsi <= RSILo:  # if fast crosses slow to the upside
+            if IDC.dif > 0 and self.rsi <= RSILo:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif self.crossover < 0 and self.rsi >= RISHi:  # in the market & cross to the downside
+        elif IDC.dif < 0 and self.rsi >= RISHi:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
