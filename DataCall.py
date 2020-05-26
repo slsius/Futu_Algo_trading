@@ -201,7 +201,7 @@ class PandasData(bt.feed.DataBase):
 class RVIin(bt.Indicator):
     lines = ('RVI','RVIR')
     
-    params = (('value', 5),)
+    #params = (('value', 5),)
 
     def __init__(self):
         plotinfo = dict(subplot=True)
