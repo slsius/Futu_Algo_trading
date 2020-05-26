@@ -204,7 +204,7 @@ class PandasData(bt.feed.DataBase):
     )
     
 class RVIin(bt.Indicator):
-    lines = ('RVI','RVIR','RSI')
+    lines = ('RVI','RVIR','RSI','rsiup','rsidown')
     plotinfo = dict(subplot=True)
     params = (('period', 8),('rsip',6))
 
@@ -231,6 +231,9 @@ class RVIin(bt.Indicator):
                movdown = movdown + self.data.close[x-1] - self.data.close[x]
         rs = (movup/self.p.rsip)/(movdown/self.p.rsip)
         self.lines.RSI = 100 - 100 / ( 1 + rs)
+        if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
+          self.line.rsiup = 1
+        
         NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
         self.lines.RVI[0] = (NUM/6)/(DEM/6)
@@ -270,7 +273,7 @@ class RVICross(bt.Strategy):
         
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         #RSI6 = self.rsi
-        print(RSI6)
+        #print(RSI6)
         self.IDC = RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
         #self.crossover = -1
