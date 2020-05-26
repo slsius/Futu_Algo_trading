@@ -200,7 +200,7 @@ class PandasData(bt.feed.DataBase):
         ('close', 'Close'),
         ('volume', 'Volume'),
         ('RVI','RVI'),
-        ('RVIR','RVIR')
+        ('RVIR','RVIR'),
     )
     
 class RVIin(bt.Indicator):
@@ -310,7 +310,6 @@ def runstrat():
     stockdata = bt.feeds.PandasData(dataname=plotdata1)
     print('add data')
     cerebro.adddata(stockdata)
-    print(stockdata)
     cerebro.broker.setcash(100000.0)
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     print('Run')
