@@ -226,7 +226,7 @@ class RVIin(bt.Indicator):
             if (self.data.close[x] - self.data.close[x-1]) > 0:
               self.movup = self.movup + self.data.close[x] - self.data.close[x-1]
             else:
-               self.movdown = self.movdown + self.data.close[x-1] - self.data.close[x]
+              self.movdown = self.movdown + self.data.close[x-1] - self.data.close[x]
         rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
         self.lines.RSI = 100 - 100 / ( 1 + rs)
         if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
