@@ -221,7 +221,7 @@ class RVICross(bt.Strategy):
           self.RVIR = RVIR = 0
             
             
-        RSI6 = self.sma = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        RSI6 = bt.indicators.RSI(self.data, timeperiod=self.p.RSIPer)
         self.crossover = bt.ind.CrossOver(RVI, RVIR) # crossover signal
 
     def next(self):
@@ -270,9 +270,12 @@ def runstrat():
     stockdata = bt.feeds.PandasData(dataname=plotdata1)
     print('add data')
     cerebro.adddata(stockdata)
+    cerebro.broker.setcash(100000.0)
+    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     print('Run')
     # Run over everything
     cerebro.run()
+    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
 
     # Plot the result
     plotinfo = dict(subplot = True)
