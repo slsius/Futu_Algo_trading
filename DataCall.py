@@ -68,8 +68,8 @@ SMA10 = abstract.SMA(data1.close,timeperiod=10)
 Nem =(data1.close-data1.open)+2*(data1.close.shift(1) - data1.open.shift(1))+2*(data1.close.shift(2) - data1.open.shift(2))+(data1.close.shift(3) - data1.open.shift(3))
       
 Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1.high.shift(2) - data1.low.shift(2)) +(data1.high.shift(3) - data1.low.shift(3))
-signals['RVI'] = RVI = (Nem/6)/(Dem/6)
-signals['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+signals['RVI'] = data1['RVI'] = RVI = (Nem/6)/(Dem/6)
+signals['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
 #print('------------------rvi---------------------')
 
@@ -197,6 +197,8 @@ class PandasData(bt.feed.DataBase):
         ('low', 'Low'),
         ('close', 'Close'),
         ('volume', 'Volume'),
+        ('RSI','RSI'),
+        ('RVIR','RVIR')
     )
     
 class RVIin(bt.Indicator):
@@ -216,6 +218,7 @@ class RVIin(bt.Indicator):
           self.lines.RVIR = RVIRval = 0
         '''
     def next(self):
+        '''
         NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
         self.lines.RVI[0] = (NUM/6)/(DEM/6)
@@ -223,6 +226,9 @@ class RVIin(bt.Indicator):
           self.lines.RVIR[0] = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         except (IndexError, KeyError):
           self.lines.RVIR[0] = RVIRval= 0
+        '''
+        self.lines.RVI[0] = self.data.RVI
+        self.lines.RVIR[0] = self.data.RVIR
         
         
         
