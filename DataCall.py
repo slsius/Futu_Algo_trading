@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import mplfinance as mpf
 import backtrader as bt
+import backtrader.indicators as btind
 import argparse
 
 def DayStr(Tday): #function to return date in specific format
@@ -197,7 +198,26 @@ class PandasData(bt.feed.DataBase):
         ('close', 'Close'),
         ('volume', 'Volume'),
     )
- 
+class RVI(bt.Indicator):
+    lines = ('RVI','RVIR')
+    
+    params = (('value', 5),)
+
+    def __init__(self):
+        plotinfo = dict(subplot=True)
+        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
+        DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
+        self.lines.RVI = RVI = (NUM/6)/(DEM/6)
+        self.lines.RVIR = =RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
+        #try:
+        #self.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
+        '''
+        except IndexError:
+          print('error catch')
+          self.RVIR = RVIR = 0
+        '''
+        
+        
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
@@ -211,6 +231,7 @@ class RVICross(bt.Strategy):
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
         #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving averag
+        '''
         NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
         self.RVI = RVI = (NUM/6)/(DEM/6)
@@ -219,10 +240,10 @@ class RVICross(bt.Strategy):
         except IndexError:
           print('error catch')
           self.RVIR = RVIR = 0
-            
+        '''    
             
         RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        self.crossover = bt.ind.CrossOver(RVI, RVIR) # crossover signal
+        self.crossover = bt.ind.CrossOver(RVI.RVI, RVI.RVIR) # crossover signal
 
     def next(self):
         if not self.position:  # not in the market
