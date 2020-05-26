@@ -211,13 +211,7 @@ class RVICross(bt.Strategy):
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
         #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving averag
-        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6
-        print('----------------show data---------------')
-        print(self.data.close[-1])
-        print(self.data.open[-1])
-        print(self.data.close[-2])
-        print(self.data.open[-2])
-        
+        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
         RVI = (NUM/6)/(DEM/6)
         try:
@@ -228,14 +222,14 @@ class RVICross(bt.Strategy):
             
             
         RSI6 = self.sma = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        self.crossover = bt.ind.CrossOver(RVI, RVIR)  # crossover signal
+        self.crossover = bt.ind.CrossOver(RVI, RVIR) # crossover signal
 
     def next(self):
         if not self.position:  # not in the market
-            if self.crossover > 0:  # if fast crosses slow to the upside
+            if self.crossover > 0 and self.RSI6 < 20:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif self.crossover < 0:  # in the market & cross to the downside
+        elif self.crossover < 0 and self.RSI6 > 60:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
