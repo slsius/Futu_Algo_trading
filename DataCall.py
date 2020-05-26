@@ -206,7 +206,7 @@ class PandasData(bt.feed.DataBase):
 class RVIin(bt.Indicator):
     lines = ('RVI','RVIR')
     plotinfo = dict(subplot=True)
-    params = (('period', 4),)
+    params = (('period', 8),)
 
     def __init__(self):
         self.addminperiod(self.params.period)
