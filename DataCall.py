@@ -198,7 +198,7 @@ class PandasData(bt.feed.DataBase):
         ('close', 'Close'),
         ('volume', 'Volume'),
     )
-class RVI(bt.Indicator):
+class RVIin(bt.Indicator):
     lines = ('RVI','RVIR')
     
     params = (('value', 5),)
@@ -241,16 +241,17 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
-            
+        RVI = RVIin.RVI
+        RVIR = RVIin.RVIR
         RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        self.crossover = bt.ind.CrossOver(RVI.RVI, RVI.RVIR) # crossover signal
+        self.crossover = bt.ind.CrossOver(RVI,RVIR) # crossover signal
 
     def next(self):
         if not self.position:  # not in the market
-            if self.crossover > 0 and self.rsi <= 20:  # if fast crosses slow to the upside
+            if self.crossover > 0 and self.rsi <= RSILo:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif self.crossover < 0 and self.rsi >= 60:  # in the market & cross to the downside
+        elif self.crossover < 0 and self.rsi >= RISHi:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
