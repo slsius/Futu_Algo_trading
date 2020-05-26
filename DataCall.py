@@ -147,6 +147,8 @@ plotdata1['High'] = data1.high
 plotdata1['Low'] = data1.low
 plotdata1['Close'] = data1.close
 plotdata1['Volume'] = data1.volume
+plotdata1['RVI'] = data1.RVI
+plotdata1['RVIR'] = data1.RVIR
 plotdata1.index.name = 'Date'
 plotdata1.rename(columns={'time_key':'Date'})
 plotdata1.index = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
@@ -197,7 +199,7 @@ class PandasData(bt.feed.DataBase):
         ('low', 'Low'),
         ('close', 'Close'),
         ('volume', 'Volume'),
-        ('RSI','RSI'),
+        ('RVI','RVI'),
         ('RVIR','RVIR')
     )
     
