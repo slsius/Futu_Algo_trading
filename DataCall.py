@@ -269,7 +269,7 @@ class RVICross(bt.Strategy):
             if self.crossover > 0 and self.rsi <= self.p.RSILo:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif self.crossover < 0 and self.rsi >= self.p.RISHi:  # in the market & cross to the downside
+        elif self.crossover < 0 and self.rsi >= self.p.RSIHi:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
