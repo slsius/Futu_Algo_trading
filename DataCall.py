@@ -223,7 +223,7 @@ class RVIin(bt.Indicator):
           self.lines.RVIR[0] = RVIRval = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         except (IndexError, KeyError):
           self.lines.RVIR[0] = RVIRval= 0
-    def getdiv(self)    
+    def getdiv(self):
         diver = RVIval - RVIRval
         return diver
         
