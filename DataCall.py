@@ -213,12 +213,12 @@ class RVICross(bt.Strategy):
         #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving averag
         NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
-        RVI = (NUM/6)/(DEM/6)
+        self.RVI = RVI = (NUM/6)/(DEM/6)
         try:
-          RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
+          self.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
         except IndexError:
           print('error catch')
-          RVIR = 0
+          self.RVIR = RVIR = 0
             
             
         RSI6 = self.sma = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
@@ -226,10 +226,10 @@ class RVICross(bt.Strategy):
 
     def next(self):
         if not self.position:  # not in the market
-            if self.crossover > 0 and self.sma < 20:  # if fast crosses slow to the upside
+            if self.crossover > 0 and self.sma <= 20:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif self.crossover < 0 and self.sma > 60:  # in the market & cross to the downside
+        elif self.crossover < 0 and self.sma >= 60:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
