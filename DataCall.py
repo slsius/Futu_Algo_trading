@@ -223,11 +223,6 @@ class RVICross(bt.Strategy):
             
         RSI6 = self.sma = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         self.crossover = bt.ind.CrossOver(RVI, RVIR) # crossover signal
-        self.RVI.plotinfo.plotname = 'RVI'
-        self.RVIR.plotinfo.plotname = 'RVIR'
-        
-        self.RVI.plotinfo.subplot = True
-        self.RVIR.plotinfo.subplot = True
 
     def next(self):
         if not self.position:  # not in the market
@@ -280,6 +275,7 @@ def runstrat():
     cerebro.run()
 
     # Plot the result
+    plotinfo = dict(subplot = True)
     cerebro.plot(style='bar')
 
 
