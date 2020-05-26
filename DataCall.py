@@ -302,9 +302,9 @@ def runstrat():
                                 index_col=0)
     '''
     if not args.noprint:
-        print('--------------------------------------------------')
+        print('--------------------------------------------------!')
         print(plotdata1)
-        print('--------------------------------------------------')
+        print('--------------------------------------------------!')
 
     # Pass it to the backtrader datafeed and add it to the cerebro
     stockdata = bt.feeds.PandasData(dataname=plotdata1)
