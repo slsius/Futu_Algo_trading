@@ -44,7 +44,7 @@ quote_ctx.close() #close connection
 
 
 #print(len(data1.index))
-LastData = data1.time_key[len(data1.index) - 1] #find the last index
+#LastData = data1.time_key[len(data1.index) - 1] #find the last index
 
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
