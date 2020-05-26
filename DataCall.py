@@ -241,10 +241,9 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
-        RVI = RVIin.RVI
-        RVIR = RVIin.RVIR
+        IDC = RVIin()
         RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        self.crossover = bt.ind.CrossOver(RVI,RVIR) # crossover signal
+        self.crossover = bt.ind.CrossOver(IDC.RVI,IDC.RVIR) # crossover signal
 
     def next(self):
         if not self.position:  # not in the market
