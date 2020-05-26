@@ -240,7 +240,7 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
-        IDC = RVIin()
+        IDC = RVIin(self.data)
         RSI6 = self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         self.crossover = bt.ind.CrossOver(IDC.RVIval,IDC.RVIRval) # crossover signal
 
