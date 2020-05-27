@@ -258,7 +258,25 @@ class RVIin(bt.Indicator):
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
         '''
-        
+class Buyin(bt.indicator):
+    lines = ('sigin','sigout')
+    plotinfo = dict(subplot=True)
+    params = (('period', 8),)
+    
+    def __init__(self):
+      self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
+      self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
+      self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
+      self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
+      
+      self.IDC = RVIin(self.data)
+      self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
+    
+    def next(self):
+      if self.crossover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo:
+        sigin = 1    
+      if self.crossover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
+        sigout = 0
         
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
@@ -296,15 +314,14 @@ class RVICross(bt.Strategy):
         elif self.tarsi3 == 0:
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
-        
-        print('---rsi')
-        print(bt.talib.RSI(self.data, timeperiod=self.p.RSIPer))
+       
         self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
         self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
         self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
         self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
-        self.lrsi = bt.indicators.LaguerreRSI(self.data,period = 6)
+
+        self.tempsig = Buyin(self.data)
         '''
         if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
           self.tarsi3 = self.tarsi2
