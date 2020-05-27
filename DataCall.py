@@ -205,7 +205,7 @@ class PandasData(bt.feed.DataBase):
 class RSIcus(bt.Indicator):
     lines = ('RSI','rsiup','rsidown')
     plotinfo = dict(subplot=True)
-    params = (('period', 8),('rsip',6))
+    params = (('period', 8),('rsip',6),('movup',0),('movdown',0))
     
     def __init__(self):
         self.addminperiod(self.params.period)
