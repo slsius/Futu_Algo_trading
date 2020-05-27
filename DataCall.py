@@ -224,7 +224,7 @@ class RSIcus(bt.Indicator):
         else:
           self.lines.rsiup[0] = 0
         
-        if(self.lines.RSI <=20 or self.lines.RSI[-1] <=20 or self.lines.RSI[-2] <=20):
+        if(self.lines.RSIcus <=20 or self.lines.RSIcus[-1] <=20 or self.lines.RSIcus[-2] <=20):
           self.lines.rsidown[0] = 50
         else:
           self.lines.rsidown[0] = 0
