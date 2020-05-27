@@ -265,7 +265,8 @@ class RVIin(bt.Indicator):
           self.flag = True
         
         print(self.flag)
-        if ((self.crossover > 0) and self.flag == True):
+        #if ((self.crossover > 0) and self.flag == True):
+        if (self.flag):  
           self.lines.singin[0] = 10
         elif ((self.crossover < 0) and self.flag == False):
           self.lines.singout[0] = -10
