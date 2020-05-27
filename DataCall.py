@@ -324,7 +324,7 @@ class RVICross(bt.Strategy):
               self.buy()  # enter long
             elif self.crossover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
         #elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
-            self.close()  # close long position
+              self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
 cerebro.broker.setcash(100000.0)
