@@ -296,7 +296,9 @@ class RVICross(bt.Strategy):
         elif self.tarsi3 == 0:
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
+        
         print('---rsi')
+        print(bt.talib.RSI(self.data, timeperiod=self.p.RSIPer))
         bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
         bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
         bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
