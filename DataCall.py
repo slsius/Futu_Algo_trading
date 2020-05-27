@@ -203,7 +203,7 @@ class PandasData(bt.feed.DataBase):
     )
 
 class RSIcus(bt.Indicator):
-    lines = ('RSI','rsiup','rsidown')
+    lines = ('RSIcus','rsiup','rsidown')
     plotinfo = dict(subplot=True)
     params = (('period', 7),('rsip',6),)
     
@@ -218,8 +218,8 @@ class RSIcus(bt.Indicator):
             else:
               self.movdown = self.movdown + self.data.close[x-1] - self.data.close[x]
         rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
-        self.lines.RSI[0] = 100 - 100 / ( 1 + rs)
-        if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
+        self.lines.RSIcus[0] = 100 - 100 / ( 1 + rs)
+        if(self.lines.RSIcus >=60 or self.lines.RSIcus[-1] >=60 or self.lines.RSIcus[-2] >=60):
           self.lines.rsiup[0] = 50
         else:
           self.lines.rsiup[0] = 0
@@ -229,9 +229,9 @@ class RSIcus(bt.Indicator):
         else:
           self.lines.rsidown[0] = 0
 class RVIin(bt.Indicator):
-    lines = ('RVI','RVIR','RSI','rsiup','rsidown')
+    lines = ('RVI','RVIR','RSI','rsiup','rsidown','sigin','sigout')
     plotinfo = dict(subplot=True)
-    params = (('period', 8),)
+    params = (('period', 8),('Hi',60),('Lo',20))
 
     def __init__(self):
         self.addminperiod(self.params.period)
@@ -244,6 +244,10 @@ class RVIin(bt.Indicator):
           print('error catch')
           self.lines.RVIR = RVIRval = 0
         '''
+        self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
+        self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
+        self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
+        self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
 
     def next(self):
         NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
@@ -253,10 +257,20 @@ class RVIin(bt.Indicator):
           self.lines.RVIR[0] = (self.lines.RVI + 2*self.lines.RVI[-1] + 2*self.lines.RVI[-2] + self.lines.RVI[-3])/6
         except (IndexError, KeyError):
           self.lines.RVIR[0] = RVIRval= 0
-          
+        
+        self.crossover = bt.ind.CrossOver(self.lines.RVI[0],self.lines.RVIR[0])
+        if (self.btsma > self.p.Hi or self.btsma1 > self.p.Hi or self.btsma2 > self.p.Hi or self.btsma3 > self.p.Hi):
+          self.flag = True
+        else:
+          self.flag = False
+        if self.crossover > 0 and self.flag:
+          self.lines.singin[0] = 10
+        else
+          self.lines.singout[0] = -10
         '''
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
+        '''
         '''
 class Buyin(bt.indicator):
     lines = ('sigin','sigout')
@@ -276,7 +290,7 @@ class Buyin(bt.indicator):
         self.lines.sigin[0] = 1    
       if self.crossover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
         self.lines.sigout[0] = 0
-        
+      '''  
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
@@ -314,13 +328,13 @@ class RVICross(bt.Strategy):
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
        
-        self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
+        #self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
         self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
         self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
         self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
         print('check')
-        self.tempsig = Buyin(self.data)
+        #self.tempsig = Buyin(self.data)
         '''
         if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
           self.tarsi3 = self.tarsi2
@@ -331,6 +345,7 @@ class RVICross(bt.Strategy):
         self.IDC = RVIin(self.data)
         self.cus = RSIcus(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
+        self.rsicrossver = bt.ind.CrossOver((self.btsma or self.btsma1 or self.btsma2 or self.btsma3),self.p.RSILo) # crossover signal
         #self.crossover = -1
         
     def next(self): 
