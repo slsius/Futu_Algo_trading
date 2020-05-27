@@ -267,6 +267,10 @@ class RVICross(bt.Strategy):
         RSILo=20,   
         RSIPer=6
     )
+    self.tarsi0 = 0
+    self.tarsi1 = 0
+    self.tarsi2 = 0
+    self.tarsi3 = 0
 
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
@@ -283,21 +287,29 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
+        if self.tarsi0 == 0:
+          self.tarsi0 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        elif self.tarsi1 == 0:
+          self.tarsi1 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        elif self.tarsi2 == 0:
+          self.tarsi2 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        elif self.tarsi3 == 0:
+          self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+          
+        if (self.tarsi0 and self.tarsi1 and self.tarsi2 and self.tarsi3) != 0
+          self.tarsi3 == self.tarsi2
+          self.tarsi2 == self.tarsi1
+          self.tarsi1 == self.tarsi0
+          self.tarsi0 == bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
-        self.tarsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        print(self.tarsi[0])
-        print(self.tarsi[-1])
-        print(self.tarsi[-2])
-        #RSI6 = self.rsi
-        #print(RSI6)
         self.IDC = RVIin(self.data)
         self.cus = RSIcus(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
         #self.crossover = -1
         
-    def next(self):
+    def next(self): 
         if not self.position:  # not in the market
-            if self.crossover > 0 and self.cus.RSI <= self.p.RSILo:  # if fast crosses slow to the upside
+            if self.crossover > 0 and ((self.tarsi3 <= self.p.RSILo) or (self.tarsi2 <= self.p.RSILo) (self.tarsi1 <= self.p.RSILo) or (self.tarsio <= self.p.RSILo))#and self.cus.RSI <= self.p.RSILo:  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
         elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
