@@ -273,9 +273,9 @@ class Buyin(bt.indicator):
     
     def next(self):
       if self.crossover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo:
-        sigin = 1    
+        self.lines.sigin[0] = 1    
       if self.crossover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
-        sigout = 0
+        self.lines.sigout[0] = 0
         
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
