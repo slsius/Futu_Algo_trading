@@ -295,8 +295,10 @@ class RVICross(bt.Strategy):
           self.tarsi2 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         elif self.tarsi3 == 0:
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-          
-        if (self.tarsi0 > 0): #and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
+        
+        print('---rsi')
+        print(self.tarsi0)
+        if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
           self.tarsi3 = self.tarsi2
           self.tarsi2 = self.tarsi1
           self.tarsi1 = self.tarsi0
