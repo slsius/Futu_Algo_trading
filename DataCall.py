@@ -319,7 +319,7 @@ class RVICross(bt.Strategy):
         self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
         self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
-
+        print('check')
         self.tempsig = Buyin(self.data)
         '''
         if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
