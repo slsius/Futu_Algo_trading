@@ -269,7 +269,7 @@ class RVIin(bt.Indicator):
         if (self.flag):  
           self.lines.sigin[0] = 10
         elif ((self.crossover < 0) and self.flag == False):
-          self.lines.singout[0] = -10
+          self.lines.sigout[0] = -10
         '''
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
