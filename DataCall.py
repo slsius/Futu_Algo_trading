@@ -258,7 +258,7 @@ class RVIin(bt.Indicator):
         except (IndexError, KeyError):
           self.lines.RVIR[0] = RVIRval= 0
         
-        self.crossover = bt.ind.CrossOver(self.lines.RVI[0],self.lines.RVIR[0])
+        self.crossover = bt.ind.CrossUp(self.lines.RVI[0],self.lines.RVIR[0])
         print('crossover')
         print(self.crossover)
         if (self.btsma >= self.p.Hi or self.btsma1 >= self.p.Hi or self.btsma2 >= self.p.Hi or self.btsma3 >= self.p.Hi):
@@ -269,11 +269,11 @@ class RVIin(bt.Indicator):
         print(self.flag)
         #if ((self.crossover > 0) and self.flag == True):
         if (self.flag):
-          #if(self.crossover > 0):  
-          self.lines.sigin[0] = 1
+          if(self.crossover):  
+            self.lines.sigin[0] = 1
         elif (self.flag):
-          #if(self.crossover < 0):
-          self.lines.sigout[0] = -1
+          if(self.crossover):
+            self.lines.sigout[0] = -1
         '''
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
@@ -325,6 +325,7 @@ class RVICross(bt.Strategy):
           print('error catch')
           self.RVIR = RVIR = 0
         '''    
+        '''
         if self.tarsi0 == 0:
           self.tarsi0 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         elif self.tarsi1 == 0:
@@ -333,7 +334,7 @@ class RVICross(bt.Strategy):
           self.tarsi2 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         elif self.tarsi3 == 0:
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        
+       
        
         #self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
         self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
@@ -342,7 +343,7 @@ class RVICross(bt.Strategy):
         self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
         print('check')
         #self.tempsig = Buyin(self.data)
-        '''
+        
         if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
           self.tarsi3 = self.tarsi2
           self.tarsi2 = self.tarsi1
@@ -350,7 +351,7 @@ class RVICross(bt.Strategy):
           self.tarsi0 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         '''
         self.IDC = RVIin(self.data)
-        self.cus = RSIcus(self.data)
+        #self.cus = RSIcus(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
         #self.rsicrossver = bt.ind.CrossOver((self.btsma or self.btsma1 or self.btsma2 or self.btsma3),self.p.RSILo) # crossover signal
         #self.crossover = -1
