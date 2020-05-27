@@ -267,10 +267,10 @@ class RVICross(bt.Strategy):
         RSILo=20,   
         RSIPer=6
     )
-    self.tarsi0 = 0
-    self.tarsi1 = 0
-    self.tarsi2 = 0
-    self.tarsi3 = 0
+    tarsi0 = 0
+    tarsi1 = 0
+    tarsi2 = 0
+    tarsi3 = 0
 
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
