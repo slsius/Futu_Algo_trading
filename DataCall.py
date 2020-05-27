@@ -259,15 +259,15 @@ class RVIin(bt.Indicator):
           self.lines.RVIR[0] = RVIRval= 0
         
         self.crossover = bt.ind.CrossOver(self.lines.RVI[0],self.lines.RVIR[0])
-        if (self.btsma > self.p.Hi or self.btsma1 > self.p.Hi or self.btsma2 > self.p.Hi or self.btsma3 > self.p.Hi):
+        if (self.btsma >= self.p.Hi or self.btsma1 >= self.p.Hi or self.btsma2 >= self.p.Hi or self.btsma3 >= self.p.Hi):
           self.flag = False
-        elif (self.btsma < self.p.Lo or self.btsma1 < self.p.Lo or self.btsma2 < self.p.Lo or self.btsma3 < self.p.Lo):
+        elif (self.btsma <= self.p.Lo or self.btsma1 <= self.p.Lo or self.btsma2 <= self.p.Lo or self.btsma3 <= self.p.Lo):
           self.flag = True
         
         print(self.flag)
-        if ((self.crossover > 0) and self.flag):
+        if ((self.crossover > 0) and self.flag == True):
           self.lines.singin[0] = 10
-        elif ((self.crossover < 0) and self.flag):
+        elif ((self.crossover < 0) and self.flag == False):
           self.lines.singout[0] = -10
         '''
         self.lines.RVI[0] = self.data.RVI
