@@ -263,7 +263,8 @@ class RVIin(bt.Indicator):
           self.flag = False
         elif (self.btsma <= self.p.Lo or self.btsma1 <= self.p.Lo or self.btsma2 <= self.p.Lo or self.btsma3 <= self.p.Lo):
           self.flag = True
-        
+        if self.crossover > 0:
+          
         print(self.flag)
         #if ((self.crossover > 0) and self.flag == True):
         if (self.flag) and (self.crossover > 0):  
