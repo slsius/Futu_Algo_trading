@@ -220,14 +220,14 @@ class RSIcus(bt.Indicator):
         rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
         self.lines.RSI[0] = 100 - 100 / ( 1 + rs)
         if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
-          self.line.rsiup[0] = 1
+          self.lines.rsiup[0] = 1
         else:
-          self.line.rsiup[0] = 0
+          self.lines.rsiup[0] = 0
         
         if(self.lines.RSI <=20 or self.lines.RSI[-1] <=20 or self.lines.RSI[-2] <=20):
-          self.line.rsidown[0] = 1
+          self.lines.rsidown[0] = 1
         else:
-          self.line.rsidown[0] = 0
+          self.lines.rsidown[0] = 0
 class RVIin(bt.Indicator):
     lines = ('RVI','RVIR','RSI','rsiup','rsidown')
     plotinfo = dict(subplot=True)
