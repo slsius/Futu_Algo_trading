@@ -220,12 +220,12 @@ class RSIcus(bt.Indicator):
         rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
         self.lines.RSI[0] = 100 - 100 / ( 1 + rs)
         if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
-          self.lines.rsiup[0] = 1
+          self.lines.rsiup[0] = 50
         else:
           self.lines.rsiup[0] = 0
         
         if(self.lines.RSI <=20 or self.lines.RSI[-1] <=20 or self.lines.RSI[-2] <=20):
-          self.lines.rsidown[0] = 1
+          self.lines.rsidown[0] = 50
         else:
           self.lines.rsidown[0] = 0
 class RVIin(bt.Indicator):
@@ -284,7 +284,10 @@ class RVICross(bt.Strategy):
           self.RVIR = RVIR = 0
         '''    
         
-        #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        self.tarsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
+        print(self.tarsi[0])
+        print(self.tarsi[-1])
+        print(self.tarsi[-2])
         #RSI6 = self.rsi
         #print(RSI6)
         self.IDC = RVIin(self.data)
