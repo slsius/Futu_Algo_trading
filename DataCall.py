@@ -299,9 +299,12 @@ class RVICross(bt.Strategy):
         
         print('---rsi')
         print(bt.talib.RSI(self.data, timeperiod=self.p.RSIPer))
-        bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
-        bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
-        bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
+        self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
+        self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
+        self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
+        self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
+        self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
+        self.lrsi = bt.indicators.LaguerreRSI(self.data,period = 6)
         '''
         if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
           self.tarsi3 = self.tarsi2
@@ -316,10 +319,11 @@ class RVICross(bt.Strategy):
         
     def next(self): 
         if not self.position:  # not in the market
-            if self.crossover > 0 and ((self.tarsi3 <= self.p.RSILo) or (self.tarsi2 <= self.p.RSILo) (self.tarsi1 <= self.p.RSILo) or (self.tarsio <= self.p.RSILo)):#and self.cus.RSI <= self.p.RSILo:  # if fast crosses slow to the upside
-                self.buy()  # enter long
-
-        elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
+            #if self.crossover > 0 and ((self.tarsi3 <= self.p.RSILo) or (self.tarsi2 <= self.p.RSILo) (self.tarsi1 <= self.p.RSILo) or (self.tarsio <= self.p.RSILo)):#and self.cus.RSI <= self.p.RSILo:  # if fast crosses slow to the upside
+            if self.crossover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo
+              self.buy()  # enter long
+            elif self.crossover < 0 and self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi
+        #elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
             self.close()  # close long position
 '''
 cerebro = bt.Cerebro()
