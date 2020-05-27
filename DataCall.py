@@ -205,7 +205,7 @@ class PandasData(bt.feed.DataBase):
 class RSIcus(bt.Indicator):
     lines = ('RSI','rsiup','rsidown')
     plotinfo = dict(subplot=True)
-    params = (('period', 8),('rsip',6),)
+    params = (('period', 7),('rsip',6),)
     
     def __init__(self):
         self.addminperiod(self.params.period)
@@ -218,7 +218,7 @@ class RSIcus(bt.Indicator):
             else:
               self.movdown = self.movdown + self.data.close[x-1] - self.data.close[x]
         rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
-        self.lines.RSI = 100 - 100 / ( 1 + rs)
+        self.lines.RSI[0] = 100 - 100 / ( 1 + rs)
         if(self.lines.RSI >=60 or self.lines.RSI[-1] >=60 or self.lines.RSI[-2] >=60):
           self.line.rsiup[0] = 1
         else:
