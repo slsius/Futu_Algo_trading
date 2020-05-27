@@ -205,12 +205,12 @@ class PandasData(bt.feed.DataBase):
 class RSIcus(bt.Indicator):
     lines = ('RSI','rsiup','rsidown')
     plotinfo = dict(subplot=True)
-    params = (('period', 8),('rsip',6),('movup',0),('movdown',0))
+    params = (('period', 8),('rsip',6),)
     
     def __init__(self):
         self.addminperiod(self.params.period)
-        movup = 0
-        movdown = 0
+        self.movup = 0
+        self.movdown = 0
     def next(self):
         for x in range(0, -6, -1):
             if (self.data.close[x] - self.data.close[x-1]) > 0:
