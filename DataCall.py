@@ -269,10 +269,11 @@ class RVIin(bt.Indicator):
         print(self.flag)
         #if ((self.crossover > 0) and self.flag == True):
         if (self.flag):
-          if(self.crossover):  
+          bt.If(self.crossover):
+          #if(self.crossover):  
             self.lines.sigin[0] = 1
         elif (self.flag):
-          if(self.crossover):
+          bt.If(self.crossover):
             self.lines.sigout[0] = -1
         '''
         self.lines.RVI[0] = self.data.RVI
