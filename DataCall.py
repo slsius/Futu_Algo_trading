@@ -267,7 +267,7 @@ class RVIin(bt.Indicator):
         print(self.flag)
         #if ((self.crossover > 0) and self.flag == True):
         if (self.flag):  
-          self.lines.singin[0] = 10
+          self.lines.sigin[0] = 10
         elif ((self.crossover < 0) and self.flag == False):
           self.lines.singout[0] = -10
         '''
