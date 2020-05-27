@@ -298,7 +298,6 @@ class RVICross(bt.Strategy):
         
         print('---rsi')
         print(self.tarsi0)
-        self.tarsi0.line[-1]
         '''
         if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
           self.tarsi3 = self.tarsi2
