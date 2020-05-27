@@ -261,7 +261,6 @@ class RVIin(bt.Indicator):
 class Buyin(bt.indicator):
     lines = ('sigin','sigout')
     plotinfo = dict(subplot=True)
-    params = (('period', 8),)
     
     def __init__(self):
       self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
