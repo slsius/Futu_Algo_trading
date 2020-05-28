@@ -242,7 +242,7 @@ class RVICross(bt.Strategy):
             elif self.crossover < 0: #and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
         #elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
               self.close()  # close long position
-     '''
+    '''
 
 def runstrat():
     args = parse_args()
