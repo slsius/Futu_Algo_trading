@@ -208,7 +208,6 @@ class RVICross(bt.Strategy):
         
         
         tarsi0 = bt.indicators.RSI(self.data, period=6)
-        tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
      
         '''
         print(tarsi0)
@@ -221,7 +220,7 @@ class RVICross(bt.Strategy):
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
-        bt.If((tarsi0 - tarsi1) != 0,print('ok'),print('non'))
+        bt.If((self.tarsi0) != 0,print('ok'),print('non'))
         print('check work')
         
     def next(self):
