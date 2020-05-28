@@ -220,13 +220,15 @@ class RVICross(bt.Strategy):
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
-        bt.If((self.tarsi0) != 0,print('ok'),print('non'))
+        #bt.If((self.tarsi0) != 0,print('ok'),print('non'))
         print('check work')
         
     def next(self):
         if not self.position: 
           if self.crossover > 0:
             self.buy()
+            if(self.tarsi0) > 0:
+              print('gg!!')
         elif self.crossover < 0:
             self.buy()
 
