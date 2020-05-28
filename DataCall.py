@@ -211,8 +211,8 @@ class RVICross(bt.Strategy):
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         
         print('check')
-        self.tarsi0 = bt.indicators.RSI(self.data, period=6)
-        self.tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
+        tarsi0 = bt.indicators.RSI(self.data, period=6)
+        tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
         
         print(tarsi0 - tarsi1)
         if((tarsi0 - tarsi1) != 0):
