@@ -224,7 +224,13 @@ class RVICross(bt.Strategy):
         print('check3')
         
     def next(self):
-        print('check3')
+        if not self.position: 
+          if self.crossover > 0:
+            self.buy()
+        elif self.crossover < 0:
+            self.buy()
+          
+        print('check4')
       
         
 
