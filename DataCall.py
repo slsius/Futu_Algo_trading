@@ -345,8 +345,10 @@ class RVICross(bt.Strategy):
         self.btsma2 = bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
         self.btsma3 = bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
         
+        print('check')
         self.tarsi = bt.indicators.RSI(self.data, period=6)
         self.tarsi = bt.indicators.RSI(self.data[-1], period=6)
+        print('check000')
         '''
         print('check')
         #self.tempsig = Buyin(self.data)
