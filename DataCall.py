@@ -348,7 +348,8 @@ class RVICross(bt.Strategy):
         print('check')
         self.tarsi0 = bt.indicators.RSI(self.data, period=6)
         self.tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
-        if(self.tarsi0 - self.tarsi1):
+        print(self.tarsi0 - self.tarsi1)
+        if((self.tarsi0 - self.tarsi1) != 0):
            print('check work')
         print('check000')
         '''
