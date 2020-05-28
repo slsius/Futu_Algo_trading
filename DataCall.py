@@ -258,15 +258,15 @@ class RVIin(bt.Indicator):
         except (IndexError, KeyError):
           self.lines.RVIR[0] = RVIRval= 0
         
-        self.crossover = bt.indicators.CrossUp(self.lines.RVI[0],self.lines.RVIR[0])
+        self.croxxover = bt.ind.CrossOver(self.lines.RVI,self.lines.RVIR)
         print('crossover')
-        print(self.crossover)
+        print(self.croxxover)
         if (self.btsma >= self.p.Hi or self.btsma1 >= self.p.Hi or self.btsma2 >= self.p.Hi or self.btsma3 >= self.p.Hi):
           self.flag = False
         elif (self.btsma <= self.p.Lo or self.btsma1 <= self.p.Lo or self.btsma2 <= self.p.Lo or self.btsma3 <= self.p.Lo):
           self.flag = True
           
-        if self.crossover > 0  :
+        if self.croxxover > 0  :
             print('OK!!')
         print(self.flag)
         #if ((self.crossover > 0) and self.flag == True):
