@@ -243,7 +243,7 @@ def runstrat():
 
     # Add a strategy
     cerebro.addstrategy(RVICross)
-
+    print('check66')
     # Get a pandas dataframe
     #datapath = ('../../datas/2006-day-001.txt')
 
