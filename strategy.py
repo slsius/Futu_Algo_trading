@@ -22,7 +22,7 @@ class RVIin(bt.Indicator):
        
                 
 class Buyin(bt.Indicator):
-    lines = (sigin','sigout')
+    lines = ('sigin','sigout')
     plotinfo = dict(subplot=True)
     params = (('period', 4),('Hi',60),('Lo',20),('RSIPer',6))
              
