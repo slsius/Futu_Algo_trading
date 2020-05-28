@@ -229,7 +229,7 @@ class RVICross(bt.Strategy):
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
               self.buy()
         elif self.crossover < 0:
-            if (self.tarsi0 >= self.p.RSIHi) or self.tarsi0[-1] >= self.p.RSIHi) or self.tarsi0[-2] >= self.p.RSIHi) or or self.tarsi0[-3] >= self.p.RSIHi)
+            if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi)
               self.buy()
 
       
