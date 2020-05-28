@@ -128,17 +128,6 @@ ax2.set_xticklabels(data1.index[::10],rotation=90)
 
 ax3 = fig.add_axes([0,0,1,0.1])
 '''
-#設定座標數量及所呈現文字
-
-#使用mpl_finance套件candlestick2_ochl
-'''
-mpf.candlestick2_ochl(ax, data1['open_price'], data1['close_price'], data1['high'],
-                      data1['low'], width=0.6, colorup='r', colordown='g', alpha=0.75); 
-'''
-#mpf.plot(data1)
-#mpf.volume_overlay(ax2, data1['open_price'], data1['close_price'], data1['volume'], colorup='r', colordown='g', width=0.5, alpha=0.8)
-#plt.show()
-
 
 #plotdata1.concat(pd.data1['open'], columns=['Open'],ignore_index=True)
 plotdata1['Open'] = data1['open']
@@ -204,85 +193,7 @@ class PandasData(bt.feed.DataBase):
         ('rvir','RVIR')
     )
 
-class RSIcus(bt.Indicator):
-    lines = ('RSIcus','rsiup','rsidown')
-    plotinfo = dict(subplot=True)
-    params = (('period', 7),('rsip',6),)
-    
-    def __init__(self):
-        self.addminperiod(self.params.period)
-        self.movup = 0
-        self.movdown = 0
-    def next(self):
-        for x in range(0, -6, -1):
-            if (self.data.close[x] - self.data.close[x-1]) > 0:
-              self.movup = self.movup + self.data.close[x] - self.data.close[x-1]
-            else:
-              self.movdown = self.movdown + self.data.close[x-1] - self.data.close[x]
-        rs = (self.movup/self.p.rsip)/(self.movdown/self.p.rsip)
-        self.lines.RSIcus[0] = 100 - 100 / ( 1 + rs)
-        if(self.lines.RSIcus >=60 or self.lines.RSIcus[-1] >=60 or self.lines.RSIcus[-2] >=60):
-          self.lines.rsiup[0] = 50
-        else:
-          self.lines.rsiup[0] = 0
-        
-        if(self.lines.RSIcus <=20 or self.lines.RSIcus[-1] <=20 or self.lines.RSIcus[-2] <=20):
-          self.lines.rsidown[0] = 50
-        else:
-          self.lines.rsidown[0] = 0
-class RVIin(bt.Indicator):
-    lines = ('RVI','RVIR','RSI','rsiup','rsidown','sigin','sigout')
-    plotinfo = dict(subplot=True)
-    params = (('period', 8),('Hi',60),('Lo',20))
 
-    def __init__(self):
-        self.addminperiod(self.params.period)
-        
-        '''
-        #self.lines.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
-        try:
-          self.lines.RVIR = RVIRval = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
-        except IndexError:
-          print('error catch')
-          self.lines.RVIR = RVIRval = 0
-        '''
-        self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
-        self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
-        self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
-
-    def next(self):
-        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
-        DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
-        self.lines.RVI[0] = (NUM/6)/(DEM/6)
-        try:
-          self.lines.RVIR[0] = (self.lines.RVI + 2*self.lines.RVI[-1] + 2*self.lines.RVI[-2] + self.lines.RVI[-3])/6
-        except (IndexError, KeyError):
-          self.lines.RVIR[0] = RVIRval= 0
-        
-        '''
-        self.croxxover = bt.ind.CrossOver(self.RVI,self.RVIR)
-        print('crossover')
-        print(self.croxxover)
-        if (self.btsma >= self.p.Hi or self.btsma1 >= self.p.Hi or self.btsma2 >= self.p.Hi or self.btsma3 >= self.p.Hi):
-          self.flag = False
-        elif (self.btsma <= self.p.Lo or self.btsma1 <= self.p.Lo or self.btsma2 <= self.p.Lo or self.btsma3 <= self.p.Lo):
-          self.flag = True
-          
-        if self.croxxover > 0  :
-            print('OK!!')
-        print(self.flag)
-        #if ((self.crossover > 0) and self.flag == True):
-        if (self.flag):
-          #bt.If(self.crossover)
-          #if(self.crossover):  
-          self.lines.sigin[0] = 1
-        elif (self.flag):
-          #bt.If(self.crossover)
-          self.lines.sigout[0] = -1
-        self.lines.RVI[0] = self.data.RVI
-        self.lines.RVIR[0] = self.data.RVIR
-        '''
          
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
@@ -295,32 +206,10 @@ class RVICross(bt.Strategy):
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
-        #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
-        #sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving averag
-        '''
-        NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
-        DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
-        self.RVI = RVI = (NUM/6)/(DEM/6)
-        try:
-          self.RVIR = RVIR = (RVI + 2*RVI[-1] + 2*RVI[-2] + RVI[-3])/6
-        except IndexError:
-          print('error catch')
-          self.RVIR = RVIR = 0
-        '''    
-        '''
-        if self.tarsi0 == 0:
-          self.tarsi0 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        elif self.tarsi1 == 0:
-          self.tarsi1 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        elif self.tarsi2 == 0:
-          self.tarsi2 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        elif self.tarsi3 == 0:
-          self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-       
-        '''
+        #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
+        
         print('~~~~~~~~')
         print(self.data)
-        #self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
         self.btsma0 = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
         self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         self.btsma2 = bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
@@ -335,9 +224,7 @@ class RVICross(bt.Strategy):
         print('check000')
         
         self.IDC = RVIin(self.data)
-        #self.cus = RSIcus(self.data)
-        self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
-        #self.rsicrossver = bt.ind.CrossOver((self.btsma or self.btsma1 or self.btsma2 or self.btsma3),self.p.RSILo) # crossover signal
+        self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) 
         
     def next(self): 
         
@@ -350,14 +237,7 @@ class RVICross(bt.Strategy):
         #elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
               self.close()  # close long position
              
-'''
-cerebro = bt.Cerebro()
-cerebro.broker.setcash(100000.0)
-cerebro.adddata(data1)
-print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
-cerebro.run()
-print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-'''
+
 def runstrat():
     args = parse_args()
 
