@@ -205,12 +205,11 @@ class RVICross(bt.Strategy):
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        '''
-        print('check')
+        
+        
         tarsi0 = bt.indicators.RSI(self.data, period=6)
         tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
-        print('check2')
-        '''
+     
         '''
         print(tarsi0)
         print(tarsi1)
