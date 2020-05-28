@@ -213,18 +213,20 @@ class RVICross(bt.Strategy):
         print('check')
         tarsi0 = bt.indicators.RSI(self.data, period=6)
         tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
+        '''
         print(tarsi0)
         print(tarsi1)
         print(tarsi0 - tarsi1)
         if((tarsi0 - tarsi1) != 0):
            print('check work')
         print('check000')
-        
+        '''
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) 
         
     def next(self): 
-        
+        print('check$$')
+        print(self.crossover)
         if not self.position:  # not in the market
             #if self.crossover > 0 and ((self.tarsi3 <= self.p.RSILo) or (self.tarsi2 <= self.p.RSILo) (self.tarsi1 <= self.p.RSILo) or (self.tarsio <= self.p.RSILo)):#and self.cus.RSI <= self.p.RSILo:  # if fast crosses slow to the upside
             #if self.crossover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo:
