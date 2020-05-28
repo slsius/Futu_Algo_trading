@@ -223,7 +223,7 @@ class RVICross(bt.Strategy):
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
         bt.If((tarsi0 - tarsi1) != 0,print('ok'),print('non'))
-           print('check work')
+        print('check work')
         
     def next(self):
         if not self.position: 
