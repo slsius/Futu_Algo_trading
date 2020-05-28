@@ -258,6 +258,7 @@ class RVIin(bt.Indicator):
         except (IndexError, KeyError):
           self.lines.RVIR[0] = RVIRval= 0
         
+        '''
         self.croxxover = bt.ind.CrossOver(self.RVI,self.RVIR)
         print('crossover')
         print(self.croxxover)
@@ -277,7 +278,6 @@ class RVIin(bt.Indicator):
         elif (self.flag):
           #bt.If(self.crossover)
           self.lines.sigout[0] = -1
-        '''
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
         '''
@@ -360,13 +360,15 @@ class RVICross(bt.Strategy):
         #self.crossover = -1
         
     def next(self): 
+        '''
         if not self.position:  # not in the market
             #if self.crossover > 0 and ((self.tarsi3 <= self.p.RSILo) or (self.tarsi2 <= self.p.RSILo) (self.tarsi1 <= self.p.RSILo) or (self.tarsio <= self.p.RSILo)):#and self.cus.RSI <= self.p.RSILo:  # if fast crosses slow to the upside
-            if self.croxxover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo:
+            if self.crossover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo:
               self.buy()  # enter long
-            elif self.croxxover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
+            elif self.crossover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
         #elif self.crossover < 0 and self.cus.RSI >= self.p.RSIHi:  # in the market & cross to the downside
               self.close()  # close long position
+         '''     
 '''
 cerebro = bt.Cerebro()
 cerebro.broker.setcash(100000.0)
