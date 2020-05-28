@@ -199,17 +199,18 @@ class RVICross(bt.Strategy):
         RSILo=20,   
         RSIPer=6
     )
-
+    
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        
+        '''
         print('check')
         tarsi0 = bt.indicators.RSI(self.data, period=6)
         tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
         print('check2')
+        '''
         '''
         print(tarsi0)
         print(tarsi1)
@@ -219,15 +220,16 @@ class RVICross(bt.Strategy):
         print('check000')
         '''
         self.IDC = strgy.RVIin(self.data)
-        self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) 
+        self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
-        
+    '''   
     def next(self): 
       if not self.position:  # not in the market
         if self.crossover > 0:  # if fast crosses slow to the upside
           self.buy()  # enter long
         elif self.crossover < 0:  # in the market & cross to the downside
           self.close()  # close long position
+    '''
         '''
         print('check$$')
         print(self.crossover)
@@ -249,7 +251,6 @@ def runstrat():
 
     # Add a strategy
     cerebro.addstrategy(RVICross)
-    print('check66')
     # Get a pandas dataframe
     #datapath = ('../../datas/2006-day-001.txt')
 
