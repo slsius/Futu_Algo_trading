@@ -222,6 +222,7 @@ class RVICross(bt.Strategy):
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
+   def next(self):     
     '''   
     def next(self): 
       if not self.position:  # not in the market
