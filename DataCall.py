@@ -223,10 +223,13 @@ class RVICross(bt.Strategy):
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
         
-    def next(self):     
+    def next(self):
+        print('check3')
+      
+        
 
     
-  def runstrat():
+def runstrat():
     args = parse_args()
 
     # Create a cerebro entity
