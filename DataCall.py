@@ -208,19 +208,14 @@ class RVICross(bt.Strategy):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
-        
-        print('~~~~~~~~')
-        print(self.data)
-        self.btsma0 = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
-        self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        self.btsma2 = bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
-        self.btsma3 = bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
+        #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         
         print('check')
         self.tarsi0 = bt.indicators.RSI(self.data, period=6)
         self.tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
-        print(self.tarsi0 - self.tarsi1)
-        if((self.tarsi0 - self.tarsi1) != 0):
+        
+        print(tarsi0 - tarsi1)
+        if((tarsi0 - tarsi1) != 0):
            print('check work')
         print('check000')
         
