@@ -357,7 +357,7 @@ class RVICross(bt.Strategy):
         #self.cus = RSIcus(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
         #self.rsicrossver = bt.ind.CrossOver((self.btsma or self.btsma1 or self.btsma2 or self.btsma3),self.p.RSILo) # crossover signal
-        #self.crossover = -1
+        self.signal_add(bt.SIGNAL_LONG, crossover)
         
     def next(self): 
         
