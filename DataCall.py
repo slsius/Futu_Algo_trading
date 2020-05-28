@@ -213,13 +213,14 @@ class RVICross(bt.Strategy):
         print('check')
         tarsi0 = bt.indicators.RSI(self.data, period=6)
         tarsi1 = bt.indicators.RSI(self.data[-1], period=6)
-        
+        print(tarsi0)
+        print(tarsi1)
         print(tarsi0 - tarsi1)
         if((tarsi0 - tarsi1) != 0):
            print('check work')
         print('check000')
         
-        self.IDC = RVIin(self.data)
+        self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) 
         
     def next(self): 
