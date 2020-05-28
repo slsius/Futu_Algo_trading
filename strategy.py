@@ -32,18 +32,15 @@ class RSIcus(bt.Indicator):
 '''
 
 class RVIin(bt.Indicator):
-    lines = ('RVI','RVIR','RSI','rsiup','rsidown','sigin','sigout')
+    lines = ('RVI','RVIR','sigin','sigout')
     plotinfo = dict(subplot=True)
-    params = (('period', 8),('Hi',60),('Lo',20))
+    params = (('period', 8),('Hi',60),('Lo',20),('RSIPer',6))
 
     def __init__(self):
         self.addminperiod(self.params.period)
 
-        self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
-        self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
-        self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
-
+        self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
+        self.crossover = bt.ind.CrossOver(self.RVI,self.RVIR)
     def next(self):
         NUM = (self.data.close - self.data.open + 2*(self.data.close[-1] - self.data.open[-1]) + 2*(self.data.close[-2] - self.data.open[-2]) + self.data.close[-3] - self.data.open[-3])/6  
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
@@ -51,26 +48,12 @@ class RVIin(bt.Indicator):
         try:
           self.lines.RVIR[0] = (self.lines.RVI + 2*self.lines.RVI[-1] + 2*self.lines.RVI[-2] + self.lines.RVI[-3])/6
         except (IndexError, KeyError):
-          self.lines.RVIR[0] = RVIRval= 0
+          self.lines.RVIR[0] = 0
         
-        '''
-        self.croxxover = bt.ind.CrossOver(self.RVI,self.RVIR)
-        if (self.btsma >= self.p.Hi or self.btsma1 >= self.p.Hi or self.btsma2 >= self.p.Hi or self.btsma3 >= self.p.Hi):
-          self.flag = False
-        elif (self.btsma <= self.p.Lo or self.btsma1 <= self.p.Lo or self.btsma2 <= self.p.Lo or self.btsma3 <= self.p.Lo):
-          self.flag = True
-          
-        if self.croxxover > 0  :
-            print('OK!!')
-        print(self.flag)
-        #if ((self.crossover > 0) and self.flag == True):
-        if (self.flag):
-          #bt.If(self.crossover)
-          #if(self.crossover):  
-          self.lines.sigin[0] = 1
-        elif (self.flag):
-          #bt.If(self.crossover)
-          self.lines.sigout[0] = -1
-        self.lines.RVI[0] = self.data.RVI
-        self.lines.RVIR[0] = self.data.RVIR
-        '''
+        if (self.tarsi0 <= self.p.Lo) or self.tarsi0[-1] <= self.p.Lo) or self.tarsi0[-2] <= self.p.Lo) or self.tarsi0[-3] <= self.p.Lo):
+            if self.crossover > 0
+                self.lines.sigin[0] = 50
+                
+        if (self.tarsi0 >= self.p.Hi) or self.tarsi0[-1] >= self.p.Hi) or self.tarsi0[-2] >= self.p.Hi) or self.tarsi0[-3] >= self.p.Hi):
+            if self.crossover > 0
+                self.lines.sigout[0] = 50
