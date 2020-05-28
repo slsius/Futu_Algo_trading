@@ -266,15 +266,17 @@ class RVIin(bt.Indicator):
         elif (self.btsma <= self.p.Lo or self.btsma1 <= self.p.Lo or self.btsma2 <= self.p.Lo or self.btsma3 <= self.p.Lo):
           self.flag = True
           
+        if self.crossover > 0  :
+            print('OK!!')
         print(self.flag)
         #if ((self.crossover > 0) and self.flag == True):
         if (self.flag):
-          bt.If(self.crossover)
+          #bt.If(self.crossover)
           #if(self.crossover):  
-            self.lines.sigin[0] = 1
+          self.lines.sigin[0] = 1
         elif (self.flag):
-          bt.If(self.crossover)
-            self.lines.sigout[0] = -1
+          #bt.If(self.crossover)
+          self.lines.sigout[0] = -1
         '''
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
