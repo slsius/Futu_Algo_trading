@@ -200,6 +200,8 @@ class PandasData(bt.feed.DataBase):
         ('volume', 'Volume'),
         ('RVI','RVI'),
         ('RVIR','RVIR'),
+        ('rvi','RVI'),
+        ('rvir','RVIR')
     )
 
 class RSIcus(bt.Indicator):
@@ -281,26 +283,7 @@ class RVIin(bt.Indicator):
         self.lines.RVI[0] = self.data.RVI
         self.lines.RVIR[0] = self.data.RVIR
         '''
-        '''
-class Buyin(bt.indicator):
-    lines = ('sigin','sigout')
-    plotinfo = dict(subplot=True)
-    
-    def __init__(self):
-      self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
-      self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-      self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
-      self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
-      
-      self.IDC = RVIin(self.data)
-      self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
-    
-    def next(self):
-      if self.crossover > 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)<= self.p.RSILo:
-        self.lines.sigin[0] = 1    
-      if self.crossover < 0 and (self.btsma or self.btsma1 or self.btsma2 or self.btsma3)>= self.p.RSIHi:
-        self.lines.sigout[0] = 0
-      '''  
+         
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
@@ -308,10 +291,6 @@ class RVICross(bt.Strategy):
         RSILo=20,   
         RSIPer=6
     )
-    tarsi0 = 0
-    tarsi1 = 0
-    tarsi2 = 0
-    tarsi3 = 0
 
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
@@ -339,6 +318,7 @@ class RVICross(bt.Strategy):
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
        
         '''
+        print(self.data.RVI)
         #self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
         self.btsma0 = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
         self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
@@ -352,16 +332,7 @@ class RVICross(bt.Strategy):
         if((self.tarsi0 - self.tarsi1) != 0):
            print('check work')
         print('check000')
-        '''
-        print('check')
-        #self.tempsig = Buyin(self.data)
         
-        if ((self.tarsi0 > 0) and (self.tarsi1 > 0) and (self.tarsi2 > 0) and (self.tarsi3 > 0)):
-          self.tarsi3 = self.tarsi2
-          self.tarsi2 = self.tarsi1
-          self.tarsi1 = self.tarsi0
-          self.tarsi0 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        '''
         self.IDC = RVIin(self.data)
         #self.cus = RSIcus(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
