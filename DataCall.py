@@ -208,6 +208,7 @@ class RVICross(bt.Strategy):
         
         
         self.tarsi0 = bt.indicators.RSI(self.data, period=6)
+        self.tarsi0 = bt.indicators.RSI(self.data.shift(1),period = 6)
      
         '''
         print(tarsi0)
