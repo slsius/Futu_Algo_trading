@@ -338,12 +338,17 @@ class RVICross(bt.Strategy):
         elif self.tarsi3 == 0:
           self.tarsi3 = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
        
-       
+        '''
         #self.btema = bt.indicators.RSI_EMA(self.data,period = 6,safediv = True)
-        self.btsma = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
-        self.btsma1= bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        self.btsma2= bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
-        self.btsma3= bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
+        self.btsma0 = bt.indicators.RSI_SMA(self.data,period = 6,safediv = True)
+        self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
+        self.btsma2 = bt.indicators.RSI_SMA(self.data,lookback = 2,period = 6,safediv = True)
+        self.btsma3 = bt.indicators.RSI_SMA(self.data,lookback = 3,period = 6,safediv = True)
+        print(self.btsma0)
+        print(self.btsma1)
+        print(self.btsma2)
+        print(self.btsma3)
+        '''
         print('check')
         #self.tempsig = Buyin(self.data)
         
@@ -357,7 +362,6 @@ class RVICross(bt.Strategy):
         #self.cus = RSIcus(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR) # crossover signal
         #self.rsicrossver = bt.ind.CrossOver((self.btsma or self.btsma1 or self.btsma2 or self.btsma3),self.p.RSILo) # crossover signal
-        self.signal_add(bt.SIGNAL_LONG, crossover)
         
     def next(self): 
         
