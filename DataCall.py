@@ -188,10 +188,6 @@ class PandasData(bt.feed.DataBase):
         ('low', 'Low'),
         ('close', 'Close'),
         ('volume', 'Volume'),
-        ('RVI','RVI'),
-        ('RVIR','RVIR'),
-        ('rvi','RVI'),
-        ('rvir','RVIR')
     )
 
 
