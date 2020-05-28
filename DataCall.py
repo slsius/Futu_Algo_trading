@@ -11,6 +11,7 @@ import mplfinance as mpf
 import backtrader as bt
 import backtrader.indicators as btind
 import argparse
+import .strategy as strgy
 
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
