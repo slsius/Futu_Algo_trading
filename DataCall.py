@@ -226,7 +226,7 @@ class RVICross(bt.Strategy):
     def next(self):     
 
     
-def runstrat():
+  def runstrat():
     args = parse_args()
 
     # Create a cerebro entity
