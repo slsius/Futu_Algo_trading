@@ -226,10 +226,8 @@ class RVICross(bt.Strategy):
     def next(self):
         if not self.position: 
           if self.crossover > 0:
-            self.buy()
-            if(self.tarsi0[-1]) > 0:
-              print('gg!!')
-              print(self.tarsi0[0])
+            if (self.tarsi0 <= 20) or (self.tarsi0[-1] <= 20) or (self.tarsi0[-2] <= 20) or (self.tarsi0[-3] <= 20):
+              self.buy()
         elif self.crossover < 0:
             self.buy()
 
