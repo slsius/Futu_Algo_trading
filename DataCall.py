@@ -12,6 +12,9 @@ import backtrader as bt
 import backtrader.indicators as btind
 import argparse
 import strategy as strgy
+#from strategy import RVIin as strgy
+#from strategy import Buyin as bugy
+
 
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
@@ -199,14 +202,14 @@ class RVICross(bt.Strategy):
         RSILo=20,   
         RSIPer=6
     )
-    strgy.Buyin(self.data)
+    
     
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        
+        strgy.Buyin(self.data)
         
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
         self.IDC = strgy.RVIin(self.data)
