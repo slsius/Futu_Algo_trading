@@ -25,7 +25,7 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 5  #variable
+NumDay = 700  #variable
 
 #data set 1
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
