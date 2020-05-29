@@ -221,7 +221,7 @@ class RVICross(bt.Strategy):
         
     def next(self):
         print('@@@')
-        print(self.data.index)
+        print(self.data.datetime)
         print(self.tarsi0)
         print('@@@')
         if not self.position: 
