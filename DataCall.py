@@ -220,6 +220,10 @@ class RVICross(bt.Strategy):
         print('check work')
         
     def next(self):
+      print('@@@')
+      print(self.data.index)
+      print(self.tarsi0)
+      print('@@@')
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
