@@ -15,7 +15,7 @@ class RVIin(bt.Indicator):
         DEM = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
         if DEM ==0:
             self.lines.RVI[0] = 0
-        else
+        else:
             self.lines.RVI[0] = (NUM/6)/(DEM/6)
         try:
           self.lines.RVIR[0] = (self.lines.RVI + 2*self.lines.RVI[-1] + 2*self.lines.RVI[-2] + self.lines.RVI[-3])/6
