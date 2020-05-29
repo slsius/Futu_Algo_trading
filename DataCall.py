@@ -179,7 +179,7 @@ class RVICross(bt.Strategy):
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
         
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
-        self.mova = bt.MovingAverageSimple(self.data.close,period = 20)
+        self.mova = bt.SimpleMovingAverage(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         
