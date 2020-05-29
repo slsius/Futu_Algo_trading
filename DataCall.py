@@ -225,11 +225,15 @@ class RVICross(bt.Strategy):
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
               self.buy(size = 20)
               print('buy')
+              print('self.data.close')
+              print('^^^')
         if self.position:
           if self.crossover < 0:
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
               self.close(size = 20)
               print('close')
+              print('self.data.close')
+              print('^^^')
 
       
         
