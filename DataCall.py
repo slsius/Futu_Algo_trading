@@ -199,6 +199,7 @@ class RVICross(bt.Strategy):
         RSILo=20,   
         RSIPer=6
     )
+    strgy.Buyin(self.data)
     
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
@@ -208,15 +209,6 @@ class RVICross(bt.Strategy):
         
         
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
-     
-        '''
-        print(tarsi0)
-        print(tarsi1)
-        print(tarsi0 - tarsi1)
-        if((tarsi0 - tarsi1) != 0):
-           print('check work')
-        print('check000')
-        '''
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         print('check3')
