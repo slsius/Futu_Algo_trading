@@ -46,11 +46,11 @@ class Buyin(bt.Indicator):
         '''     
         if (self.tarsi0 <= self.p.Lo) or (self.tarsi0[-1] <= self.p.Lo) or (self.tarsi0[-2] <= self.p.Lo) or (self.tarsi0[-3] <= self.p.Lo):
             self.lines.sigin[0] = 0.5
-            '''
+            
             if self.crossover > 0:
                 self.lines.sigin[0] = 0.5
                 print('sigin')
-            '''
+            
                 
         if (self.tarsi0 >= self.p.Hi) or (self.tarsi0[-1] >= self.p.Hi) or (self.tarsi0[-2] >= self.p.Hi) or (self.tarsi0[-3] >= self.p.Hi):
             self.lines.sigout[0] = -0.5
