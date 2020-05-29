@@ -221,8 +221,8 @@ class RVICross(bt.Strategy):
         
     def next(self):
         print('@@@')
-        print(self.data.datetime)
-        print(self.tarsi0)
+        print(self.data.datetime[0])
+        print(self.tarsi0[0])
         print('@@@')
         if not self.position: 
           if self.crossover > 0:
