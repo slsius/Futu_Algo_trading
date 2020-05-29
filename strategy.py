@@ -38,9 +38,9 @@ class Buyin(bt.Indicator):
         self.rsidown = bt.ind.CrossDown(tarsi0,20)
              
     def next(self):
-        if self.rsiup > 0
+        if self.rsiup > 0:
             self.lines.sigin[0] = 0.5
-        if self.rsidown > 0
+        if self.rsidown > 0:
             self.lines.sigout[0] = -0.5
         `
         '''     
