@@ -12,8 +12,7 @@ import backtrader as bt
 import backtrader.indicators as btind
 import argparse
 import strategy as strgy
-#from strategy import RVIin as strgy
-#from strategy import Buyin as bugy
+
 
 
 def DayStr(Tday): #function to return date in specific format
@@ -25,8 +24,7 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 50 #Day2 > Day
-#NumDay2 = 2
+NumDay = 50 #set the number of day of data
 
 #data set 1
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_60M) 
@@ -52,16 +50,13 @@ quote_ctx.close() #close connection
 
 #Backtest
 # Initialize the `signals` DataFrame with the `signal` column, index is the time
+
 signals = pd.DataFrame() #index=data1.time_key
 plotdata1 = pd.DataFrame() #index=pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
-#print(plotdata1.dtypes)
 data1['time_key'] = pd.to_datetime(data1['time_key'],)
 #plotdata1['time_key'] =  pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
-print('--------data types------')
-print(plotdata1.dtypes)
 #pd.to_datetime(plotdata1)
-signals['signal'] = 0.0
-signals['openinterest'] = 0.0
+signals['signal'] = 0.0 #create 'signal 'coloumn with all data zero
 
 
 #RSI
@@ -75,7 +70,6 @@ Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1
 signals['RVI'] = data1['RVI'] = RVI = (Nem/6)/(Dem/6)
 signals['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
-#print('------------------rvi---------------------')
 
 # Create signals
 
@@ -102,11 +96,8 @@ SellRVI = np.where(signals['RVI'] <= signals['RVIR'],1.0,0.0)
 signals['sell'] = np.where((SellRSI == 1) & (SellRVI == 1),1.0,0.0)
 del [[temp1,temp2,RVIshift1,RVIshift2]]
 signals['positions'] = signals['signal'].diff()
-#print('-----------------signal-----------------')
 
-#print(signals)
 
-#print('-------------------data----------')
 #data1.index = data1['time_key']
 #data1.set_index('time_key', inplace=True)
 #data1.index.name = 'Date'
@@ -117,24 +108,9 @@ signals['positions'] = signals['signal'].diff()
 #sma_10 = talib.SMA(np.array(data1['Close']), 10)
 #sma_30 = talib.SMA(np.array(data1['Close']), 30)
 
-
-
-
-#創建圖框
-'''
-fig = plt.figure(figsize=(24, 8))
-ax = fig.add_subplot(1, 1, 1)
-ax.set_xticks(range(0, len(data1.index), 10))
-ax.set_xticklabels(data1.index[::10],rotation=90)
-
-ax2 = fig.add_axes([0,0.1,1,0.2])
-ax2.set_xticks(range(0, len(data1.index), 10))
-ax2.set_xticklabels(data1.index[::10],rotation=90)
-
-ax3 = fig.add_axes([0,0,1,0.1])
-'''
-
 #plotdata1.concat(pd.data1['open'], columns=['Open'],ignore_index=True)
+
+#-----------create a dataframen for plotting
 plotdata1['Open'] = data1['open']
 plotdata1['High'] = data1.high
 plotdata1['Low'] = data1.low
@@ -145,22 +121,14 @@ plotdata1['RVIR'] = data1.RVIR
 plotdata1.index.name = 'Date'
 plotdata1.rename(columns={'time_key':'Date'})
 plotdata1.index = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
-print(plotdata1)
-#print(plotdata1.dtypes)
+
 
 mc = mpf.make_marketcolors(up='g',down='r')
 s  = mpf.make_mpf_style(marketcolors=mc)
-'''
-apds = [ mpf.make_addplot(tcdf),
-         mpf.make_addplot(low_signal,scatter=True,markersize=200,marker='^'),
-         mpf.make_addplot(high_signal,scatter=True,markersize=200,marker='v'),
-         mpf.make_addplot((df['PercentB']),panel='lower',color='g')
-       ]
-       '''
 apds = [mpf.make_addplot(signals['signal'],panel='lower',color = 'g'),mpf.make_addplot(signals['sell'],panel='lower',color = 'r')]
 #mpf.plot(plotdata1,type='candle',volume=True,title='\n HK700, 5 Days',ylabel='Candles',ylabel_lower='Shares\nTraded',style=s,addplot=apds)
 
-#print(data1.dtypes)
+
 
 '''#print max row
 pd.set_option('display.max_rows', signals.shape[0]+1)
@@ -207,17 +175,12 @@ class RVICross(bt.Strategy):
     
     def __init__(self):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
-        
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        strgy.Buyin(self.data)
         
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
-        print('check3')
-        #bt.If((self.tarsi0) != 0,print('ok'),print('non'))
-        print('check work')
         
     def next(self):
         if not self.position: 
@@ -292,10 +255,4 @@ def parse_args():
                         help='Print the dataframe')
 
     return parser.parse_args()
-  
-'''
-  if __name__ == '__main__':
-    runstrat()
-'''
-print('start')
 runstrat() 
