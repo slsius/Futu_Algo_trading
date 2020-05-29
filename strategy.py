@@ -34,9 +34,16 @@ class Buyin(bt.Indicator):
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
         self.rvidata = RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.rvidata.RVI,self.rvidata.RVIR)
+        self.rsiup = bt.ind.CrossUp(tarsi0,60)
+        self.rsidown = bt.ind.CrossDown(tarsi0,20)
              
     def next(self):
-             
+        if self.rsiup > 0
+            self.lines.sigin[0] = 0.5
+        if self.rsidown > 0
+            self.lines.sigout[0] = -0.5
+        `
+        '''     
         if (self.tarsi0 <= self.p.Lo) or (self.tarsi0[-1] <= self.p.Lo) or (self.tarsi0[-2] <= self.p.Lo) or (self.tarsi0[-3] <= self.p.Lo):
             self.lines.sigin[0] = 0.5
             '''
@@ -52,4 +59,5 @@ class Buyin(bt.Indicator):
                 self.lines.sigout[0] = -0.5
                 print('sigout')
             '''
+        '''
         
