@@ -234,7 +234,7 @@ def runstrat():
     args = parse_args()
 
     # Create a cerebro entity
-    cerebro = bt.Cerebro(stdstats=False)
+    cerebro = bt.Cerebro(stdstats=True)
 
     # Add a strategy
     cerebro.addstrategy(RVICross)
