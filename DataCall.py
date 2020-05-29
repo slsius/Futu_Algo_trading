@@ -25,10 +25,11 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 50  #variable
+NumDay = 1000  #Day2 > Day
+NumDay2 =1100
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)-400), end=DayStr(today - timedelta(days=NumDay)-365), max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay2)), end=DayStr(today - timedelta(days=NumDay)), max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 
 if ret1 == RET_OK:
     print(data1)
