@@ -34,8 +34,8 @@ class Buyin(bt.Indicator):
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
         self.rvidata = RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.rvidata.RVI,self.rvidata.RVIR)
-        self.rsiup = bt.ind.CrossUp(tarsi0,60)
-        self.rsidown = bt.ind.CrossDown(tarsi0,20)
+        self.rsiup = bt.ind.CrossUp(self.tarsi0,60)
+        self.rsidown = bt.ind.CrossDown(self.tarsi0,20)
              
     def next(self):
         if self.rsiup > 0:
