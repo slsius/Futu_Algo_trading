@@ -25,7 +25,7 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 10 #Day2 > Day
+NumDay = 50 #Day2 > Day
 #NumDay2 = 2
 
 #data set 1
@@ -223,14 +223,14 @@ class RVICross(bt.Strategy):
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
-              self.buy(size = 20)
+              self.buy(size = 100)
               print('buy')
               print(self.data.close[0])
               print('^^^')
         if self.position:
           if self.crossover < 0:
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
-              self.close(size = 20)
+              self.close(size = 100)
               print('close')
               print(self.data.close[0])
               print('^^^')
