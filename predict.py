@@ -31,6 +31,8 @@ quote_ctx.close() #close connection
 
 data1['time_key']=pd.to_datetime(data1['time_key'])
 data1.rename(columns={'time_key':'Date'})
+print(data1.head())
+
 data1.set_index('Date', inplace=True)
 
 
