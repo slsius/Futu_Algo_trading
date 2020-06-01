@@ -29,7 +29,9 @@ df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
 '''
 quote_ctx.close() #close connection 
 
+
 data1['time_key']=pd.to_datetime(data1['time_key'])
+print(data1.dtypes)
 data1.rename(columns={'time_key':'Date'})
 print(data1.head())
 
