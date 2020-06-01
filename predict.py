@@ -22,3 +22,8 @@ if ret1 == RET_OK:
     print(data1['close'].values.tolist())   # 第一页收盘价转为list
 else:
     print('error:', data1)
+    
+df = pd.DataFrame(data) #insert data to panda frame
+df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
+
+quote_ctx.close() #close connection 
