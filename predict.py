@@ -54,6 +54,7 @@ Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1
 
 signals['RVI'] = data1['RVI'] = RVI = (Nem/6)/(Dem/6)
 signals['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
 
 #RSI -- variable
 signals['RSI'] = abstract.RSI(data1.close,RSIPeriod)
