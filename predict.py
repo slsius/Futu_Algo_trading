@@ -28,7 +28,7 @@ df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
 '''
 quote_ctx.close() #close connection 
 
-data1['time_key']=pd.to_datetime(data['time_key'])
+data1['time_key']=pd.to_datetime(data1['time_key'])
 data1.set_index('time_key', inplace=True)
 
 
