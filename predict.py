@@ -17,6 +17,7 @@ NumDay = 10 #set the number of day of data
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 
 if ret1 == RET_OK:
+    print('ok')
     #print(data1)
     #print(data1['code'][0])    # 取第一条的股票代码
     #print(data1['close'].values.tolist())   # 第一页收盘价转为list
