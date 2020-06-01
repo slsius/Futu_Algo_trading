@@ -31,12 +31,9 @@ quote_ctx.close() #close connection
 
 
 data1['time_key']=pd.to_datetime(data1['time_key'])
-print(data1.dtypes)
-data1.rename(columns={'time_key':'Date'})
-print(data1.head())
-
-#data1.set_index('Date', inplace=True)
-
+#data1.rename(columns={'time_key':'Date'})
+data1.set_index('time_key', inplace=True)
+data1.index.names = ['Date']
 
 print(data1.head())
 print('\n Data Types:')
