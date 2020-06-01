@@ -41,12 +41,14 @@ data1['time_key']=pd.to_datetime(data1['time_key'])
 data1.set_index('time_key', inplace=True)
 data1.index.names = ['Date']
 
+'''
 print(data1.head())
 print('\n Data Types:')
 print(data1.dtypes)
 print(data1)
+'''
 
-#Signak
+#Signal
 RSIPeriod = 6
 RSILo = 20
 RSIHi = 60
@@ -82,3 +84,5 @@ SellRSI = np.where((signals['RSI'] >= RSIHi) | (temp1 >=RSIHi) | (temp2 >=RSIHi)
 SellRVI = np.where(signals['RVI'] <= signals['RVIR'],1.0,0.0)
 signals['sell'] = np.where((SellRSI == 1) & (SellRVI == 1),1.0,0.0)
 del [[temp1,temp2,RVIshift1,RVIshift2]]
+
+print(signals)
