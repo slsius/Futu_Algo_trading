@@ -32,6 +32,6 @@ data1['time_key']=pd.to_datetime(data['time_key'])
 data1.set_index('time_key', inplace=True)
 
 
-print data1.head()
-print '\n Data Types:'
-print data1.dtypes
+print(data1.head())
+print('\n Data Types:')
+print(data1.dtypes)
