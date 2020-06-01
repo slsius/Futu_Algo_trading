@@ -7,6 +7,7 @@ from talib import abstract
 import pandas_ta as ta
 import numpy as np
 
+'''
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
@@ -32,8 +33,9 @@ df = pd.DataFrame(data1) #insert data to panda frame
 df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
 
 quote_ctx.close() #close connection 
+'''
 
-
+data1 = pd.read_csv('data.csv') 
 data1['time_key']=pd.to_datetime(data1['time_key'])
 #data1.rename(columns={'time_key':'Date'})
 data1.set_index('time_key', inplace=True)
