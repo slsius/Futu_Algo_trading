@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pylab as plt
 from futu import *
-
+import talib
+from talib import abstract
+import pandas_ta as ta
+import numpy as np
 
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
@@ -12,6 +15,7 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
 NumDay = 10 #set the number of day of data
+
 
 #data set 1
 ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
@@ -38,3 +42,38 @@ data1.index.names = ['Date']
 print(data1.head())
 print('\n Data Types:')
 print(data1.dtypes)
+
+#Signak
+RSIPeriod = 6
+RSILo = 20
+RSIHi = 60
+signals = pd.DataFrame()
+
+Nem =(data1.close-data1.open)+2*(data1.close.shift(1) - data1.open.shift(1))+2*(data1.close.shift(2) - data1.open.shift(2))+(data1.close.shift(3) - data1.open.shift(3))      
+Dem =data1.high-data1.low+2*(data1.high.shift(1) - data1.low.shift(1)) +2*(data1.high.shift(2) - data1.low.shift(2)) +(data1.high.shift(3) - data1.low.shift(3))
+
+signals['RVI'] = data1['RVI'] = RVI = (Nem/6)/(Dem/6)
+signals['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
+signals['RSI'] = abstract.RSI(data1.close,RSIPeriod)
+
+temp1 = signals['RSI'][:-1]
+temp1 = temp1.shift(1)
+temp2 = signals['RSI'][:-2]
+temp2 = temp1.shift(2)
+
+RVIshift1 = signals['RVI_diff'][:-1]
+RVIshift1 = signals['RVI_diff'].shift(1)
+RVIshift2 = signals['RVI_diff'][:-2]
+RVIshift2 = signals['RVI_diff'].shift(2)
+
+RSISignal = np.where((signals['RSI'] <= RSILo) | (temp1 <=RSILo) | (temp2 <=RSILo) , 1.0, 0.0)
+RVISignal = np.where((signals['RVI_diff'] >= 0) & (RVIshift1 <= 0),1.0,0.0)
+
+signals['signal'] = np.where((RSISignal == 1) & (RVISignal == 1),1.0,0.0)
+
+
+SellRSI = np.where((signals['RSI'] >= RSIHi) | (temp1 >=RSIHi) | (temp2 >=RSIHi),1.0,0.0)
+SellRVI = np.where(signals['RVI'] <= signals['RVIR'],1.0,0.0)
+signals['sell'] = np.where((SellRSI == 1) & (SellRVI == 1),1.0,0.0)
+del [[temp1,temp2,RVIshift1,RVIshift2]]
