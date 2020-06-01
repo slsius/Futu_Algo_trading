@@ -44,6 +44,7 @@ data1.index.names = ['Date']
 print(data1.head())
 print('\n Data Types:')
 print(data1.dtypes)
+print(data1)
 
 #Signak
 RSIPeriod = 6
