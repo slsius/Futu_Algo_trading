@@ -35,7 +35,7 @@ print(data1.dtypes)
 data1.rename(columns={'time_key':'Date'})
 print(data1.head())
 
-data1.set_index('Date', inplace=True)
+#data1.set_index('Date', inplace=True)
 
 
 print(data1.head())
