@@ -187,8 +187,11 @@ class RVICross(bt.Strategy):
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
-              self.buy(size = 100)
+              portfolio_value = self.broker.get_value()
+              
+              self.buy(size = hand = portfolio_value/self.data.close[0])
               print('buy')
+              print(portfolio_value)
               print(self.data.close[0])
               print('^^^')
         if self.position:
@@ -203,7 +206,7 @@ class RVICross(bt.Strategy):
           #(OPEN > CLOSE) AND (CLOSE < MID) AND HIGH > MID AND CLOSE < MID;
           if self.crossover < 0:
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
-              self.close(size = 100)
+              self.close(size = hand)
               print('close')
               print(self.data.close[0])
               print('^^^')
