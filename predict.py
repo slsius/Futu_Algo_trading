@@ -86,3 +86,5 @@ signals['sell'] = np.where((SellRSI == 1) & (SellRVI == 1),1.0,0.0)
 del [[temp1,temp2,RVIshift1,RVIshift2]]
 
 print(signals)
+
+#print(len(data1.index))
