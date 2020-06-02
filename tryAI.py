@@ -269,4 +269,6 @@ def parse_args():
                         help='Print the dataframe')
 
     return parser.parse_args()
+#-----------run------------  
 runstrat() 
+print(cerebro.broker.getvalue())
