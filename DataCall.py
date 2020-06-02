@@ -192,22 +192,22 @@ class RVICross(bt.Strategy):
               print(self.data.close[0])
               print('^^^')
         if self.position:
+          '''
           if (self.data.open[0] < self.data.close[0]) and (self.data.close[0] < self.mova) and (self.data.high[0] > self.mova) and self.data.close < self.mova:
             self.close(size = 100)
             print('close')
             print(self.data.close[0])
             print('^^^')
-              
+          '''    
           #MID:=MA(CLOSE,20);
           #(OPEN > CLOSE) AND (CLOSE < MID) AND HIGH > MID AND CLOSE < MID;
-          '''
           if self.crossover < 0:
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
               self.close(size = 100)
               print('close')
               print(self.data.close[0])
               print('^^^')
-          '''
+          
 
       
         
