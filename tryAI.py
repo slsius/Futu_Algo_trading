@@ -225,20 +225,20 @@ def parse_args():
   
   
   #def runstrat():
-    args = parse_args()
+args = parse_args()
 
     # Create a cerebro entity
-    cerebro = bt.Cerebro(stdstats=True)
+cerebro = bt.Cerebro(stdstats=True)
 
     # Add a strategy
-    mth = RVICross
-    cerebro.addstrategy(mth)
+mth = RVICross
+cerebro.addstrategy(mth)
     # Get a pandas dataframe
     #datapath = ('../../datas/2006-day-001.txt')
 
     # Simulate the header row isn't there if noheaders requested
-    skiprows = 1 if args.noheaders else 0
-    header = None if args.noheaders else 0
+skiprows = 1 if args.noheaders else 0
+header = None if args.noheaders else 0
     '''
     dataframe = pandas.read_csv(datapath,
                                 skiprows=skiprows,
@@ -246,24 +246,24 @@ def parse_args():
                                 parse_dates=True,
                                 index_col=0)
     '''
-    if not args.noprint:
-        print('--------------------------------------------------!')
-        print(plotdata1)
-        print('--------------------------------------------------!')
+if not args.noprint:
+  print('--------------------------------------------------!')
+  print(plotdata1)
+  print('--------------------------------------------------!')
 
-    # Pass it to the backtrader datafeed and add it to the cerebro
-    stockdata = bt.feeds.PandasData(dataname=plotdata1)
-    print('add data')
-    cerebro.adddata(stockdata)
-    cerebro.broker.setcash(100000.0)
-    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    print('Run')
-    # Run over everything
-    cerebro.run()
-    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+# Pass it to the backtrader datafeed and add it to the cerebro
+stockdata = bt.feeds.PandasData(dataname=plotdata1)
+print('add data')
+cerebro.adddata(stockdata)
+cerebro.broker.setcash(100000.0)
+print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+print('Run')
+# Run over everything
+cerebro.run()
+print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
 
-    # Plot the result
-    plotinfo = dict(subplot = True)
-    cerebro.plot(style='bar')
+# Plot the result
+plotinfo = dict(subplot = True)
+cerebro.plot(style='bar')
   #-----------run------------  
 #runstrat() 
