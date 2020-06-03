@@ -190,6 +190,7 @@ class RVICross(bt.Strategy):
               portfolio_value = self.broker.get_value()
               self.hand = portfolio_value/self.data.close[0]
               self.buy(size = self.hand)
+              print(self.hand)
               print('buy')
               print(portfolio_value)
               print(self.data.close[0])
@@ -208,6 +209,7 @@ class RVICross(bt.Strategy):
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
               self.close(size = self.hand)
               print('close')
+              print(self.hand)
               print(self.data.close[0])
               print('^^^')
           
