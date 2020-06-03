@@ -239,13 +239,13 @@ cerebro.addstrategy(mth)
     # Simulate the header row isn't there if noheaders requested
 skiprows = 1 if args.noheaders else 0
 header = None if args.noheaders else 0
-    '''
+'''
     dataframe = pandas.read_csv(datapath,
                                 skiprows=skiprows,
                                 header=header,
                                 parse_dates=True,
                                 index_col=0)
-    '''
+'''
 if not args.noprint:
   print('--------------------------------------------------!')
   print(plotdata1)
