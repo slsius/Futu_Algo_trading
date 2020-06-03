@@ -202,7 +202,7 @@ class RVICross(bt.Strategy):
             print(self.data.close[0])
             print('^^^')
       '''
-          '''    
+      '''    
           #MID:=MA(CLOSE,20);
           #(OPEN > CLOSE) AND (CLOSE < MID) AND HIGH > MID AND CLOSE < MID;
           if self.crossover < 0:
@@ -211,7 +211,7 @@ class RVICross(bt.Strategy):
               print('close')
               print(self.data.close[0])
               print('^^^')
-         ''' 
+      ''' 
     def action(self,choice):
       if choice == 0:
         self.buy(size = 100)
