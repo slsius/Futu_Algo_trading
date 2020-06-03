@@ -194,7 +194,7 @@ class RVICross(bt.Strategy):
               print(portfolio_value)
               print(self.data.close[0])
               print('^^^')
-        if self.position:
+        elif self.position:
           '''
           if (self.data.open[0] < self.data.close[0]) and (self.data.close[0] < self.mova) and (self.data.high[0] > self.mova) and self.data.close < self.mova:
             self.close(size = 100)
