@@ -268,6 +268,12 @@ start_q_table = None  # if we have a pickled Q table, we'll put the filename of 
 
 LEARNING_RATE = 0.1
 DISCOUNT = 0.95
+
+if start_q_table is None:
+    q_table = {}
+    for i in range(len(data1.index))
+      for ii in range(3)
+        q_table(i,ii) = [np.random.uniform(-5, 0) for i in range(4)]
 #--------------
 
 if not args.noprint:
