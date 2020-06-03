@@ -12,6 +12,7 @@ import backtrader as bt
 import backtrader.indicators as btind
 import argparse
 import strategy as strgy
+import pickle
 
 
 
@@ -184,6 +185,7 @@ class RVICross(bt.Strategy):
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
         
     def next(self):
+      '''
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
@@ -193,11 +195,13 @@ class RVICross(bt.Strategy):
               print('^^^')
         elif self.position:
           '''
+      '''
           if (self.data.open[0] < self.data.close[0]) and (self.data.close[0] < self.mova) and (self.data.high[0] > self.mova) and self.data.close < self.mova:
             self.close(size = 100)
             print('close')
             print(self.data.close[0])
             print('^^^')
+      '''
           '''    
           #MID:=MA(CLOSE,20);
           #(OPEN > CLOSE) AND (CLOSE < MID) AND HIGH > MID AND CLOSE < MID;
@@ -207,7 +211,12 @@ class RVICross(bt.Strategy):
               print('close')
               print(self.data.close[0])
               print('^^^')
-          
+         ''' 
+    def action(self,choice):
+      if choice == 0:
+        self.buy(size = 100)
+      elif choice == 1:
+        self.sell(size= 100)  
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -246,6 +255,21 @@ header = None if args.noheaders else 0
                                 parse_dates=True,
                                 index_col=0)
 '''
+
+#define parameter for RL
+HM_EPISODES = 25000
+HOLD_PENALTY = 1  # feel free to tinker with these!
+LOSS_PENALTY = 300  # feel free to tinker with these!
+PROFIT_REWARD = 25  # feel free to tinker with these!
+epsilon = 0.5  # randomness
+EPS_DECAY = 0.9999  # Every episode will be epsilon*EPS_DECAY
+
+start_q_table = None  # if we have a pickled Q table, we'll put the filename of it here.
+
+LEARNING_RATE = 0.1
+DISCOUNT = 0.95
+#--------------
+
 if not args.noprint:
   print('--------------------------------------------------!')
   print(plotdata1)
