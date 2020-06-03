@@ -205,7 +205,6 @@ class RVICross(bt.Strategy):
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
               self.close(size = 100)
               print('close')
-              print(self.hand)
               print(self.data.close[0])
               print('^^^')
           
