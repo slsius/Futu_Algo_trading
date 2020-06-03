@@ -189,7 +189,6 @@ class RVICross(bt.Strategy):
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
               self.buy(size = 100)
               print('buy')
-              print(portfolio_value)
               print(self.data.close[0])
               print('^^^')
         elif self.position:
