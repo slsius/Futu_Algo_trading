@@ -209,17 +209,30 @@ class RVICross(bt.Strategy):
               print('^^^')
           
 
-      
-        
-    
-def runstrat():
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Pandas test script')
+
+    parser.add_argument('--noheaders', action='store_true', default=False,
+                        required=False,
+                        help='Do not use header rows')
+
+    parser.add_argument('--noprint', action='store_true', default=False,
+                        help='Print the dataframe')
+
+    return parser.parse_args()
+
+  
+  
+  #def runstrat():
     args = parse_args()
 
     # Create a cerebro entity
     cerebro = bt.Cerebro(stdstats=True)
 
     # Add a strategy
-    cerebro.addstrategy(RVICross)
+    mth = RVICross
+    cerebro.addstrategy(mth)
     # Get a pandas dataframe
     #datapath = ('../../datas/2006-day-001.txt')
 
@@ -252,22 +265,5 @@ def runstrat():
     # Plot the result
     plotinfo = dict(subplot = True)
     cerebro.plot(style='bar')
-
-
-def parse_args():
-    parser = argparse.ArgumentParser(
-        description='Pandas test script')
-
-    parser.add_argument('--noheaders', action='store_true', default=False,
-                        required=False,
-                        help='Do not use header rows')
-
-    parser.add_argument('--noprint', action='store_true', default=False,
-                        help='Print the dataframe')
-
-    return parser.parse_args()
-
-  
-  
   #-----------run------------  
-runstrat() 
+#runstrat() 
