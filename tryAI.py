@@ -151,7 +151,7 @@ DISCOUNT = 0.95
 
 if start_q_table is None:
     q_table = {}
-    for i in range(len(data1.index))
+    for i in range(len(data1.index)):
       for ii in range(3)
         q_table(i,ii) = [np.random.uniform(-5, 0) for i in range(4)]
 #--------------
