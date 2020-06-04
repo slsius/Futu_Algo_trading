@@ -147,7 +147,7 @@ start_q_table = None  # if we have a pickled Q table, we'll put the filename of 
 LEARNING_RATE = 0.1
 DISCOUNT = 0.95
 
-class stocker(self):
+class stocker():
   def __init__(self):
       return()
   def __str__(self):
