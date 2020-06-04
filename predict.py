@@ -9,7 +9,7 @@ import numpy as np
 import random
 
 #for simulation import
-from PIL import Image  # for creating visual of our env
+#from PIL import Image  # for creating visual of our env
 import cv2  # for showing our visual live
 import matplotlib.pyplot as plplot  # for graphing our mean rewards over time
 import pickle  # to save/load Q-Tables
