@@ -16,6 +16,7 @@ import matplotlib.pyplot as plplot  # for graphing our mean rewards over time
 from matplotlib import style  # to make pretty charts because it matters.
 import time 
 
+
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
@@ -28,7 +29,7 @@ NumDay = 50 #set the number of day of data
 
 #data set 1
 #ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2018-01-01', end='2018-12-31', max_count=365, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2005-01-01', end='2019-12-31', max_count=5000, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret1 == RET_OK:
     print('ok')
     #print(data1)
@@ -38,8 +39,8 @@ else:
     print('error:', data1)
 
 df = pd.DataFrame(data1) #insert data to panda frame
-df.to_csv('data1.csv', encoding='utf-8', index=False) #write all the data to csv
-
+df.to_csv('alldata.csv', encoding='utf-8', index=False) #write all the data to csv
+'''
 #data2 
 ret1, data2, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2019-01-01', end='2019-12-31', max_count=365, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret1 == RET_OK:
@@ -54,13 +55,18 @@ df = pd.DataFrame(data2) #insert data to panda frame
 df.to_csv('data2.csv', encoding='utf-8', index=False) #write all the data to csv
 
 quote_ctx.close() #close connection 
-
 '''
-data1 = pd.read_csv('data.csv') 
+'''
+data1 = pd.read_csv('data1.csv') 
 data1['time_key']=pd.to_datetime(data1['time_key'])
 #data1.rename(columns={'time_key':'Date'})
 data1.set_index('time_key', inplace=True)
 data1.index.names = ['Date']
+
+data2 = pd.read_csv('data2.csv') 
+data2['time_key']=pd.to_datetime(data1['time_key'])
+data2.set_index('time_key', inplace=True)
+data2.index.names = ['Date']
 '''
 '''
 print(data1.head())
