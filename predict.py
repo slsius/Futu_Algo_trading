@@ -74,7 +74,7 @@ print('\n Data Types:')
 print(data1.dtypes)
 print(data1)
 '''
-
+'''
 #Signal
 RSIPeriod = 6
 RSILo = 20
@@ -118,9 +118,10 @@ del [[temp1,temp2,RVIshift1,RVIshift2]]
 
 #simulation set up
 '''
+'''
 q_table = np.zeros([len(data1.index), 3])
-
-
+'''
+'''
 
 
 for i in range(1, 100001):
@@ -138,7 +139,7 @@ alpha = 0.1
 gamma = 0.6
 epsilon = 0.1
 '''
-
+'''
 
 HM_EPISODES = 25000
 MOVE_PENALTY = 1
@@ -184,3 +185,4 @@ else:
 episode_rewards = []
     
 #for episode in range(HM_EPISODES):  
+'''
