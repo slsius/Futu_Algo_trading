@@ -72,6 +72,9 @@ signals['RVI'] = data1['RVI'] = RVI = (Nem/6)/(Dem/6)
 signals['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 signals['RVI_diff'] = signals['RVI'] - signals['RVIR']
 
+#rvi function
+#def RVI(data,period): # period
+   
 # Create signals
 
 #create temporary data for condition check
@@ -154,6 +157,30 @@ if start_q_table is None:
     for i in range(len(data1.index)):
       for ii in range(3):
         q_table[i,ii] = np.random.uniform(-5, 0)
+else:
+    with open(start_q_table, "rb") as f:
+        q_table = pickle.load(f)
+
+        
+episode_rewards = []
+#define buy
+
+#define sell
+
+for episode in range(HM_EPISODES):
+  episode_reward = 0
+  balance = 1000
+  bought = 0
+  stockpirce = 0 
+  for i in range(len(data1.index)):
+    obs = (balance - bought + stockprice)
+    if np.random.random() > epsilon:
+            # GET THE ACTION
+            action = np.argmax(q_table[obs])
+        else:
+            action = np.random.randint(0, 4)
+    
+  
 #--------------
 
 print(data1)
