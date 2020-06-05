@@ -85,14 +85,21 @@ class PandasData(bt.feed.DataBase):
         ('volume', 'Volume'),
     )
 
-    
+'''    
 class RVICross(bt.Strategy, para1,para2):
     params = dict(
         RSIHi=para1,  
         RSILo=para2,   
         RSIPer=6
     )
-    
+'''    
+class RVICross(bt.Strategy):
+    # list of parameters which are configurable for the strategy
+    params = dict(
+        RSIHi=60,  
+        RSILo=20,   
+        RSIPer=6
+    )    
     
     def __init__(self):        
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
@@ -104,17 +111,14 @@ class RVICross(bt.Strategy, para1,para2):
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
-              portfolio_value = self.broker.get_value()
-              self.hand = portfolio_value/self.data.close[0]
-              self.buy(size = self.hand)
+              self.buy(size = 1)
               print('buy')
-              print(portfolio_value)
               print(self.data.close[0])
               print('^^^')
         if self.position:  
           if self.crossover < 0:
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
-              self.close(size = self.hand)
+              self.close(size = 1)
               print('close')
               print(self.data.close[0])
               print('^^^')
@@ -136,46 +140,25 @@ def parse_args():
 
     return parser.parse_args()
   
-def runstrat():
-    args = parse_args()
+args = parse_args()
+cerebro = bt.Cerebro(stdstats=True)
 
-    # Create a cerebro entity
-    cerebro = bt.Cerebro(stdstats=True)
-
-    # Add a strategy
-    cerebro.addstrategy(RVICross)
-    # Get a pandas dataframe
-    #datapath = ('../../datas/2006-day-001.txt')
-
-    # Simulate the header row isn't there if noheaders requested
-    skiprows = 1 if args.noheaders else 0
-    header = None if args.noheaders else 0
-    '''
-    dataframe = pandas.read_csv(datapath,
-                                skiprows=skiprows,
-                                header=header,
-                                parse_dates=True,
-                                index_col=0)
-    '''
-    if not args.noprint:
-        print('--------------------------------------------------!')
-        print(plotdata1)
-        print('--------------------------------------------------!')
+cerebro.addstrategy(RVICross)
+skiprows = 1 if args.noheaders else 0
+header = None if args.noheaders else 0
+if not args.noprint:
+  print('--------------------------------------------------!')
+  print(plotdata1)
+  print('--------------------------------------------------!')
 
     # Pass it to the backtrader datafeed and add it to the cerebro
-    stockdata = bt.feeds.PandasData(dataname=plotdata1)
-    print('add data')
-    cerebro.adddata(stockdata)
-    cerebro.broker.setcash(100000.0)
-    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    print('Run')
-    # Run over everything
-    cerebro.run()
-    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-
-    # Plot the result
-    plotinfo = dict(subplot = True)
-    cerebro.plot(style='bar')
-
-
-runstrat()     
+stockdata = bt.feeds.PandasData(dataname=plotdata1)
+print('add data')
+cerebro.adddata(stockdata)
+cerebro.broker.setcash(1000.0)
+print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+cerebro.run()
+print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+# Plot the result
+#plotinfo = dict(subplot = True)
+#cerebro.plot(style='bar')
