@@ -95,9 +95,7 @@ class RVICross(bt.Strategy):
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
-        print(self.RSIHi)
-        print(self.RSILo)
-        print(self.RSIPer)
+
         
     def next(self):
         if not self.position: 
@@ -158,6 +156,9 @@ for tstperiod in range (20):
       RVICross.RSIHi = tsthi
       RVICross.RSILo = tstlo
       RVICross.RSIPer = tstperiod
+      print(self.RSIHi)
+      print(self.RSILo)
+      print(self.RSIPer)
       cerebro.broker.setcash(1000.0)
       print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
