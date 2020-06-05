@@ -140,17 +140,19 @@ cerebro.adddata(stockdata)
 
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
-for tstperiod in range (2,10):
-  for tsthi in range(50,100):
-    for tstlo in range(5,50):
+for tstperiod in range (2,10,2):
+  for tsthi in range(50,100,5):
+    for tstlo in range(5,50,5):
       RVICross.RSIPer = tstperiod
       RVICross.RSIHi = tsthi
       RVICross.RSILo = tstlo
       cerebro.addstrategy(RVICross)
       cerebro.broker.setcash(1000.0)
+      print('Period: %.2F',tstperiod)
       print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
       print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+      print('Get Cash %.2f'cerebro.broker.getcash())
       df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getcash()-1000}, ignore_index=True)
 df.to_csv('test_data.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
