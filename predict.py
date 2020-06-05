@@ -57,6 +57,7 @@ plotdata1.index.name = 'Date'
 plotdata1.rename(columns={'time_key':'Date'})
 plotdata1.index = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
 
+print(plotdata1)
 
 #-----------------------------------Back test-----------------------------------
 class PandasData(bt.feed.DataBase):
@@ -98,6 +99,7 @@ class RVICross(bt.Strategy):
 
         
     def next(self):
+        print("next")
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.RSILo) or (self.tarsi0[-1] <= self.RSILo) or (self.tarsi0[-2] <= self.RSILo) or (self.tarsi0[-3] <= self.RSILo):
