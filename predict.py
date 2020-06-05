@@ -98,7 +98,7 @@ class RVICross(bt.Strategy):
               print('buy')
               print(self.data.close[0])
               print('^^^')
-        if self.position:  
+        elif self.position:  
           if self.crossover < 0:
             if (self.tarsi0 >= self.RSIHi) or (self.tarsi0[-1] >= self.RSIHi) or (self.tarsi0[-2] >= self.RSIHi) or (self.tarsi0[-3] >= self.RSIHi):
               self.close(size = 1)
@@ -141,9 +141,9 @@ cerebro.adddata(stockdata)
 
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
-for tstperiod in range (2,20):
+for tstperiod in range (2,10):
   for tsthi in range(50,100):
-    for tstlo in range(1,50):
+    for tstlo in range(5,50):
       RVICross.RSIPer = tstperiod
       RVICross.RSIHi = tsthi
       RVICross.RSILo = tstlo
@@ -151,7 +151,7 @@ for tstperiod in range (2,20):
       cerebro.broker.setcash(1000.0)
       print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
-      print('Final Portfolio Value: %.2f' % cerebro.broker.getcash())
+      print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
       df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getcash()-1000}, ignore_index=True)
 df.to_csv('test_data.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
