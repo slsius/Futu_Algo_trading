@@ -86,15 +86,12 @@ class PandasData(bt.feed.DataBase):
     )
 
 
-class RVICross(bt.Strategy, para1,para2,para3):
-    params = dict(
-        RSIHi=para1,  
-        RSILo=para2,   
-        RSIPer=para3
-    )   
-    
-    def __init__(self):        
-        self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
+class RVICross(bt.Strategy):    
+    def __init__(self,para1,para2,para3):      
+        self.RSIPer = para3
+        self.RSIHi = para1
+        self.RSILo = para2
+        self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
@@ -102,14 +99,14 @@ class RVICross(bt.Strategy, para1,para2,para3):
     def next(self):
         if not self.position: 
           if self.crossover > 0:
-            if (self.tarsi0 <= self.p.RSILo) or (self.tarsi0[-1] <= self.p.RSILo) or (self.tarsi0[-2] <= self.p.RSILo) or (self.tarsi0[-3] <= self.p.RSILo):
+            if (self.tarsi0 <= self.RSILo) or (self.tarsi0[-1] <= self.RSILo) or (self.tarsi0[-2] <= self.RSILo) or (self.tarsi0[-3] <= self.RSILo):
               self.buy(size = 1)
               print('buy')
               print(self.data.close[0])
               print('^^^')
         if self.position:  
           if self.crossover < 0:
-            if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
+            if (self.tarsi0 >= self.RSIHi) or (self.tarsi0[-1] >= self.RSIHi) or (self.tarsi0[-2] >= self.RSIHi) or (self.tarsi0[-3] >= self.RSIHi):
               self.close(size = 1)
               print('close')
               print(self.data.close[0])
