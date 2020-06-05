@@ -153,7 +153,6 @@ for tstperiod in range (2,10,2):
       #print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
       #print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-      print('profit' % cerebro.broker.getcash())
       print('Get Cash %.2f' % cerebro.broker.getcash())
       df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getcash()-1000}, ignore_index=True)
 df.to_csv('test_data.csv', encoding='utf-8', index=False) #write all the data to csv      
