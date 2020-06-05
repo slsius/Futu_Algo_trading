@@ -86,11 +86,11 @@ class PandasData(bt.feed.DataBase):
     )
 
 
-class RVICross(bt.Strategy):    
+class RVICross(bt.Strategy):
     def __init__(self,RSIHi,RSILo,RSIPer):      
-        self.RSIPer = para3
-        self.RSIHi = para1
-        self.RSILo = para2
+        self.RSIPer = RSIHi
+        self.RSIHi = RSILo
+        self.RSILo = RSIPer
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
@@ -154,7 +154,7 @@ for tstperiod in range (20):
   print(tstperiod)
   for tsthi in range(50,100):
     for tstlo in range(0,50):
-      cerebro.addstrategy(RVICross(tsthi,tstlo,tstperiod))
+      cerebro.addstrategy(RVICross())
       cerebro.broker.setcash(1000.0)
       print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
