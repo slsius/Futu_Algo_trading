@@ -149,7 +149,7 @@ print('add data')
 cerebro.adddata(stockdata)
 
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
-df = pd.dataframe(hist,columns = ['RSI period','RSI Hi','RSI Lo','Profit/Loss'])
+df = pd.DataFrame(hist,columns = ['RSI period','RSI Hi','RSI Lo','Profit/Loss'])
 for tstperiod in range (20):
   print(tstperiod)
   for tsthi in range(50,100):
