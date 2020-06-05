@@ -85,21 +85,13 @@ class PandasData(bt.feed.DataBase):
         ('volume', 'Volume'),
     )
 
-'''    
-class RVICross(bt.Strategy, para1,para2):
+
+class RVICross(bt.Strategy, para1,para2,para3):
     params = dict(
         RSIHi=para1,  
         RSILo=para2,   
-        RSIPer=6
-    )
-'''    
-class RVICross(bt.Strategy):
-    # list of parameters which are configurable for the strategy
-    params = dict(
-        RSIHi=60,  
-        RSILo=20,   
-        RSIPer=6
-    )    
+        RSIPer=para3
+    )   
     
     def __init__(self):        
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
@@ -155,10 +147,19 @@ if not args.noprint:
 stockdata = bt.feeds.PandasData(dataname=plotdata1)
 print('add data')
 cerebro.adddata(stockdata)
-cerebro.broker.setcash(1000.0)
-print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
-cerebro.run()
-print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+
+hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
+df = pd.dataframe(hist,columns = ['RSI period','RSI Hi','RSI Lo','Profit/Loss'])
+for tstperiod in range (20):
+  for tsthi in range(50,100):
+    for tstlo in range(0,50):
+      cerebro.addstrategy(RVICross(para1 = tsthi, para2 = tstlo, para3 = tstperiod))
+      cerebro.broker.setcash(1000.0)
+      print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+      cerebro.run()
+      print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+      df = df.append({'RSI period','RSI Hi':tstperiod,'RSI Lo':tst,'Profit/Loss',cerebro.broker.getvalue()-1000}, ignore_index=True)
+      
 # Plot the result
 #plotinfo = dict(subplot = True)
 #cerebro.plot(style='bar')
