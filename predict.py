@@ -154,7 +154,7 @@ for tstperiod in range (20):
   print(tstperiod)
   for tsthi in range(50,100):
     for tstlo in range(0,50):
-      cerebro.addstrategy(RVICross(RSIHi = tsthi, RSILo = tstlo, RSIPer = tstperiod))
+      cerebro.addstrategy(RVICross(tsthi,tstlo,tstperiod))
       cerebro.broker.setcash(1000.0)
       print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
