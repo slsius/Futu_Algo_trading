@@ -152,7 +152,7 @@ for tstperiod in range (20):
   print(tstperiod)
   for tsthi in range(50,100):
     for tstlo in range(0,50):
-      RVICross.RSIPer = tstperiod
+      class RVICross.RSIPer = tstperiod
       print(RVICross.RSIPer)
       cerebro.addstrategy(RVICross)
       cerebro.broker.setcash(1000.0)
