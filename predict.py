@@ -85,14 +85,13 @@ class RVICross(bt.Strategy):
     RSIhi = 0
     def __init__(self):
         print("start strat")
-        self.tarsi0 = bt.indicators.RSI(self.data, period= 2)
+        self.tarsi0 = bt.indicators.RSI(self.data, period= RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
 
         
     def next(self):
-        print("next")
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.RSILo) or (self.tarsi0[-1] <= self.RSILo) or (self.tarsi0[-2] <= self.RSILo) or (self.tarsi0[-3] <= self.RSILo):
@@ -143,7 +142,7 @@ cerebro.adddata(stockdata)
 
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
-for tstperiod in range (1,20):
+for tstperiod in range (2,20):
   print(tstperiod)
   for tsthi in range(50,100):
     for tstlo in range(1,50):
