@@ -12,14 +12,6 @@ import backtrader.indicators as btind
 import argparse
 import strategy as strgy
 
-#for simulation import
-#from PIL import Image  # for creating visual of our env
-#import cv2  # for showing our visual live
-import matplotlib.pyplot as plplot  # for graphing our mean rewards over time
-#import pickle  # to save/load Q-Tables
-from matplotlib import style  # to make pretty charts because it matters.
-import time 
-
 
 def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
@@ -93,7 +85,7 @@ class RVICross(bt.Strategy):
     RSIhi = 0
     def __init__(self):
         print("start strat")
-        self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
+        self.tarsi0 = bt.indicators.RSI(self.data, period= 2)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
