@@ -92,6 +92,7 @@ class RVICross(bt.Strategy):
     RSILo = 0
     RSIhi = 0
     def __init__(self):
+        print("start strat")
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
