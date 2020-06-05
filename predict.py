@@ -87,9 +87,9 @@ class PandasData(bt.feed.DataBase):
 
 
 class RVICross(bt.Strategy):
-    RSIHi=Null
-    RSILo=Null
-    RSIPer=Null
+    RSIHi=None
+    RSILo=None
+    RSIPer=None
     def __init__(self):      
         self.RSIPer = RSIHi
         self.RSIHi = RSILo
