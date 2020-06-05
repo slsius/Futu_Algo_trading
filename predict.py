@@ -95,6 +95,9 @@ class RVICross(bt.Strategy):
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
+        print(self.RSIHi)
+        print(self.RSILo)
+        print(self.RSIPer)
         
     def next(self):
         if not self.position: 
@@ -148,6 +151,7 @@ cerebro.adddata(stockdata)
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.dataframe(hist,columns = ['RSI period','RSI Hi','RSI Lo','Profit/Loss'])
 for tstperiod in range (20):
+  print(tstperiod)
   for tsthi in range(50,100):
     for tstlo in range(0,50):
       cerebro.addstrategy(RVICross(para1 = tsthi, para2 = tstlo, para3 = tstperiod))
