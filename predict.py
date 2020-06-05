@@ -84,7 +84,6 @@ class RVICross(bt.Strategy):
     RSILo = 0
     RSIhi = 0
     def __init__(self):
-        print("start strat")
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
@@ -143,21 +142,17 @@ cerebro.adddata(stockdata)
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
 for tstperiod in range (2,20):
-  print(tstperiod)
   for tsthi in range(50,100):
     for tstlo in range(1,50):
       RVICross.RSIPer = tstperiod
       RVICross.RSIHi = tsthi
       RVICross.RSILo = tstlo
-      print(RVICross.RSIPer)
-      print(RVICross.RSIHi)
-      print(RVICross.RSILo)
       cerebro.addstrategy(RVICross)
       cerebro.broker.setcash(1000.0)
       print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
-      print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-      df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-1000}, ignore_index=True)
+      print('Final Portfolio Value: %.2f' % cerebro.broker.getcash())
+      df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getcash()-1000}, ignore_index=True)
 df.to_csv('test_data.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
