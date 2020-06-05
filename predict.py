@@ -7,6 +7,10 @@ import talib
 from talib import abstract
 import numpy as np
 import random
+import backtrader as bt
+import backtrader.indicators as btind
+import argparse
+import strategy as strgy
 
 #for simulation import
 #from PIL import Image  # for creating visual of our env
