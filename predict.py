@@ -159,7 +159,7 @@ for tstperiod in range (20):
       cerebro.run()
       print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
       df = df.append({'RSI period','RSI Hi':tstperiod,'RSI Lo':tst,'Profit/Loss',cerebro.broker.getvalue()-1000}, ignore_index=True)
-      
+df.to_csv('test_data.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
 #cerebro.plot(style='bar')
