@@ -149,7 +149,7 @@ for tstperiod in range (2,10,2):
       cerebro.addstrategy(RVICross)
       cerebro.broker.setcash(1000.0)
       print('Period: %.2F' % tstperiod)
-      print('set cash' % cerebro.broker.getcash())
+      print('set cash %.2F' % cerebro.broker.getcash())
       #print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
       cerebro.run()
       #print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
