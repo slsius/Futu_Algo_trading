@@ -148,11 +148,11 @@ cerebro.adddata(stockdata)
 
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
-for tstperiod in range (20):
+for tstperiod in range (1,20):
   print(tstperiod)
   for tsthi in range(50,100):
-    for tstlo in range(0,50):
-      class RVICross.RSIPer = tstperiod
+    for tstlo in range(1,50):
+      RVICross.RSIPer = tstperiod
       print(RVICross.RSIPer)
       cerebro.addstrategy(RVICross)
       cerebro.broker.setcash(1000.0)
