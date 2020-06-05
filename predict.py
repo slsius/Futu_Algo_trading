@@ -90,10 +90,7 @@ class RVICross(bt.Strategy):
     RSIHi=None
     RSILo=None
     RSIPer=None
-    def __init__(self):      
-        self.RSIPer = RSIHi
-        self.RSIHi = RSILo
-        self.RSILo = RSIPer
+    def __init__(self):
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
