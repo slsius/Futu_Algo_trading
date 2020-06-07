@@ -146,7 +146,6 @@ for tstperiod in range (4,6,1):  # chang value here
       RVICross.RSIPer = tstperiod
       RVICross.RSIHi = tsthi
       RVICross.RSILo = tstlo
-      cerebro.addstrategy(RVICross)
       cerebro.broker.setcash(1000.0)
       print('Period: %.2F' % tstperiod)
       print('set cash %.2F' % cerebro.broker.getcash())
