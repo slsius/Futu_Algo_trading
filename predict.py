@@ -104,6 +104,7 @@ class RVICross(bt.Strategy):
               print('close')
               print(self.data.close[0])
               print('^^^')
+              continue
           
 
       
