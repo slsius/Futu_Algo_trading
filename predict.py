@@ -146,7 +146,7 @@ df = pd.DataFrame(columns = hist)
 for tstperiod in range (2,20,2):  # chang value here
   for tsthi in range(50,100,5):
     for tstlo in range(1,50,5):
-      for tstmova in range(2,8,1)
+      for tstmova in range(2,8,1):
         RVICross.RSIPer = tstperiod
         RVICross.RSIHi = tsthi
         RVICross.RSILo = tstlo
