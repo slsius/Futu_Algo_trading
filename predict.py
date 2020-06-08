@@ -10,7 +10,7 @@ import random
 import backtrader as bt
 import backtrader.indicators as btind
 import argparse
-import strategy as strgy
+import strategytst as strgy
 
 
 def DayStr(Tday): #function to return date in specific format
