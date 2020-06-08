@@ -24,7 +24,7 @@ NumDay = 365 #set the number of day of data
 
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.800000', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_60M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.1085', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_60M) 
 #ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2005-01-01', end='2009-12-31', max_count=5000, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret1 == RET_OK:
     print('ok')
@@ -96,14 +96,14 @@ class RVICross(bt.Strategy):
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.RSILo) or (self.tarsi0[-1] <= self.RSILo) or (self.tarsi0[-2] <= self.RSILo) or (self.tarsi0[-3] <= self.RSILo):
-              self.buy(size = 1)
+              self.buy(size = 2000)
               print('buy')
               print(self.data.close[0])
         elif self.position:  
           if self.crossover < 0:
             if (self.tarsi0 >= self.RSIHi) or (self.tarsi0[-1] >= self.RSIHi) or (self.tarsi0[-2] >= self.RSIHi) or (self.tarsi0[-3] >= self.RSIHi):
               if(self.data.close <= self.mova):
-                self.close(size = 1)
+                self.close(size = 2000)
                 print('close')
                 print(self.data.close[0])
                 print('^^^')
@@ -151,7 +151,7 @@ for tstperiod in range (2,8,2):  # chang value here
         RVICross.RSIHi = tsthi
         RVICross.RSILo = tstlo
         RVICross.maperiod = tstmova
-        cerebro.broker.setcash(30000.0)
+        cerebro.broker.setcash(5000.0)
         print('Period: %.2F' % tstperiod)
         print('set cash %.2F' % cerebro.broker.getcash())
         #print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
