@@ -245,7 +245,7 @@ def runstrat():
     stockdata = bt.feeds.PandasData(dataname=plotdata1)
     print('add data')
     cerebro.adddata(stockdata)
-    cerebro.broker.setcash(100000.0)
+    cerebro.broker.setcash(500.0)
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     print('Run')
     # Run over everything
