@@ -169,7 +169,7 @@ class RVICross(bt.Strategy):
     params = dict(
         RSIHi=65,  
         RSILo=20,   
-        RSIPer=2
+        RSIPer=2,
         maperiod = 5
     )
     
