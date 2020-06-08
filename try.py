@@ -24,7 +24,7 @@ NumDay = 35 #set the number of day of data
 
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.HSIMAIN', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 #ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2005-01-01', end='2009-12-31', max_count=5000, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret1 == RET_OK:
     print('ok')
@@ -151,14 +151,14 @@ for tstperiod in range (2,4,2):  # chang value here
         RVICross.RSIHi = tsthi
         RVICross.RSILo = tstlo
         RVICross.maperiod = tstmova
-        cerebro.broker.setcash(1000.0)
+        cerebro.broker.setcash(30000.0)
         print('Period: %.2F' % tstperiod)
         print('set cash %.2F' % cerebro.broker.getcash())
         #print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
         cerebro.run()
         #print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
         print('Get Cash %.2f' % cerebro.broker.getcash())
-        df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-1000,'MA':tstmova}, ignore_index=True)
+        df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-30000,'MA':tstmova}, ignore_index=True)
 df.to_csv('test_data_old60M.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
