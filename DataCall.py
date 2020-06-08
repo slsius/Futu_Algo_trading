@@ -167,9 +167,9 @@ class PandasData(bt.feed.DataBase):
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
-        RSIHi=60,  
-        RSILo=20,   
-        RSIPer=6
+        RSIHi=70,  
+        RSILo=26,   
+        RSIPer=2
     )
     
     
