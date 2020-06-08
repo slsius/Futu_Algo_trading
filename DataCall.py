@@ -24,10 +24,10 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 35 #set the number of day of data
+NumDay = 500 #set the number of day of data
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_60M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.02013', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_60M) 
 
 if ret1 == RET_OK:
     print(data1)
@@ -167,9 +167,10 @@ class PandasData(bt.feed.DataBase):
 class RVICross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
-        RSIHi=70,  
-        RSILo=26,   
+        RSIHi=65,  
+        RSILo=20,   
         RSIPer=2
+        maperiod = 5
     )
     
     
@@ -177,7 +178,7 @@ class RVICross(bt.Strategy):
         #self.rsi = bt.talib.RSI(self.data, timeperiod=self.p.RSIPer)
         #sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average  
         #self.btsma1 = bt.indicators.RSI_SMA(self.data,lookback = 1,period = 6,safediv = True)
-        
+        self.mova = bt.ind.SMA(self.data.close,period = self.p.maperiod)
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.p.RSIPer)
         self.mova = bt.ind.SMA(self.data.close,period = 20)
         self.IDC = strgy.RVIin(self.data)
@@ -206,10 +207,11 @@ class RVICross(bt.Strategy):
           #(OPEN > CLOSE) AND (CLOSE < MID) AND HIGH > MID AND CLOSE < MID;
           if self.crossover < 0:
             if (self.tarsi0 >= self.p.RSIHi) or (self.tarsi0[-1] >= self.p.RSIHi) or (self.tarsi0[-2] >= self.p.RSIHi) or (self.tarsi0[-3] >= self.p.RSIHi):
-              self.close(size = self.hand)
-              print('close')
-              print(self.data.close[0])
-              print('^^^')
+              if self.data.close <= self.mova:
+                self.close(size = self.hand)
+                print('close')
+                print(self.data.close[0])
+                print('^^^')
           
 
       
