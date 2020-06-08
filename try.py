@@ -20,7 +20,7 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 365 #set the number of day of data
+NumDay = 10 #set the number of day of data
 
 
 #data set 1
@@ -159,7 +159,7 @@ for tstperiod in range (2,8,2):  # chang value here
         #print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
         print('Get Cash %.2f' % cerebro.broker.getcash())
         df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova}, ignore_index=True)
-df.to_csv('test_data_old60M.csv', encoding='utf-8', index=False) #write all the data to csv      
+df.to_csv('test_data_60M.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
 #cerebro.plot(style='bar')
