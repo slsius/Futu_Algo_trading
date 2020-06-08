@@ -96,14 +96,14 @@ class RVICross(bt.Strategy):
         if not self.position: 
           if self.crossover > 0:
             if (self.tarsi0 <= self.RSILo) or (self.tarsi0[-1] <= self.RSILo) or (self.tarsi0[-2] <= self.RSILo) or (self.tarsi0[-3] <= self.RSILo):
-              self.buy(size = 2000)
+              self.buy(size = 1000)
               print('buy')
               print(self.data.close[0])
         elif self.position:  
           if self.crossover < 0:
             if (self.tarsi0 >= self.RSIHi) or (self.tarsi0[-1] >= self.RSIHi) or (self.tarsi0[-2] >= self.RSIHi) or (self.tarsi0[-3] >= self.RSIHi):
               if(self.data.close <= self.mova):
-                self.close(size = 2000)
+                self.close(size = 1000)
                 print('close')
                 print(self.data.close[0])
                 print('^^^')
@@ -151,14 +151,14 @@ for tstperiod in range (2,8,2):  # chang value here
         RVICross.RSIHi = tsthi
         RVICross.RSILo = tstlo
         RVICross.maperiod = tstmova
-        cerebro.broker.setcash(5000.0)
+        cerebro.broker.setcash(10000.0)
         print('Period: %.2F' % tstperiod)
         print('set cash %.2F' % cerebro.broker.getcash())
         #print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
         cerebro.run()
         #print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
         print('Get Cash %.2f' % cerebro.broker.getcash())
-        df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-30000,'MA':tstmova}, ignore_index=True)
+        df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova}, ignore_index=True)
 df.to_csv('test_data_old60M.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
