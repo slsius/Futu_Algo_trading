@@ -28,8 +28,11 @@ def datacall(code):
         print('error:', data)   
     #snap
     ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
-    print(tempdata.iloc[-2:-1,:].time_key)
-    data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
+    print(tempdata.iloc[-2:-1,:])
+    if empdata.iloc[-2:-1,:].time_key == data.iloc[-1:,:]:
+        data = data.append(tempdata.iloc[-1:,:],ignore_index=True)    
+    else:
+        data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
     print(data)
     '''
     df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
