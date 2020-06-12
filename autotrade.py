@@ -107,7 +107,7 @@ def sell():
     trd_ctx.close()
 #----main---
 code = input("Stock code:")
-data = datacall(code)
+data,price = datacall(code)
 '''
 while true:
     print('loop')
