@@ -10,13 +10,6 @@ import random
 import argparse
 
 
-code = input("Stock code:")
-datacall(code)
-'''
-while true:
-    print('loop')
-    time.sleep(15)
-'''
 #-----get data    
 def datacall(code):    
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
@@ -49,3 +42,11 @@ def trade():
 
     #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY))
     trd_ctx.close()
+#----main
+code = input("Stock code:")
+datacall(code)
+'''
+while true:
+    print('loop')
+    time.sleep(15)
+'''
