@@ -9,24 +9,34 @@ import numpy as np
 import random
 import argparse
 
+#set today
+today = datetime.today()
+today = today.strftime("%Y-%m-%d")
 
 #-----get data    
 def datacall(code):    
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
     while len(str(code)) <= 4:
         code = '0' + str(code)
-    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start='2020-06-10', end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
     if ret == RET_OK:
         print('ok')
     else:
         print('error:', data)   
     print(data)
-    quote_ctx.close() #close connection  
-def snap():
-    quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
-    get_market_snapshot(self, code_list)
-    quote_ctx.close() #close connection 
-  
+    #snap
+    ret, tempdata = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
+    print(tempdata.iloc[-2:,:])
+    data.append(tempdata.iloc[-2:,:])
+    print(data)
+    '''
+    df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
+    df.append(df2)
+    
+    In iloc, [initial row:ending row, initial column:ending column]
+    df.iloc[-1:,:]
+    '''
+    quote_ctx.close() #close connection   
 #-----trade------
 def trade():
     pwd_unlock = '878900'
@@ -42,7 +52,7 @@ def trade():
 
     #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY))
     trd_ctx.close()
-#----main
+#----main---
 code = input("Stock code:")
 datacall(code)
 '''
