@@ -48,7 +48,7 @@ def datacall(code):
     quote_ctx.close() #close connection   
     return data
 #---calculate signal---
-def signal():
+def signal(data,price):
     data['RSI'] = abstract.RSI(data.close,2)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
@@ -65,12 +65,12 @@ def signal():
         if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR and data.iloc[-2:,:].RVI <= data.iloc[-2:,:].RVIR:
             print('buy')
     if data.iloc[-1:,:].RSI >=RSIHi or data.iloc[-2:,:].RSI <=RSIHi or data.iloc[-3:,:].RSI <=RSIHi:  
-        if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR
-            
-            
-    
+        if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
+            if data.iloc[-1:,:].MA <= price:
+                print('sell')
+                   
 #-----trade------
-def trade():
+def buy():
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
@@ -83,6 +83,17 @@ def trade():
 
 
     #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY))
+    trd_ctx.close()
+
+    
+def sell():
+    pwd_unlock = '878900'
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    
+    print(trd_ctx.unlock_trade(pwd_unlock))
+    ret_code, info_data = trd_ctx.accinfo_query()
+    print(info_data)
+    
     trd_ctx.close()
 #----main---
 code = input("Stock code:")
