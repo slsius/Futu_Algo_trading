@@ -9,7 +9,17 @@ import numpy as np
 import random
 import argparse
 
+#-----get data
+quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.59350', start="", end='', max_count=110, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+if ret1 == RET_OK:
+    print('ok')
+else:
+    print('error:', data1)
+    
+quote_ctx.close() #close connection    
+#-----trade------
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
@@ -18,6 +28,9 @@ print(info_data)
 print(info_data.cash)
 
 print(trd_ctx.position_list_query())
+
+print(trd_ctx.order_list_query())
+
 
 #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY))
 trd_ctx.close()
