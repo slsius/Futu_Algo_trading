@@ -26,7 +26,7 @@ def datacall(code):
         print('ok')
     else:
         print('error:', data)   
-    data['time_key'] = pd.to_datetime(data1['time_key'],)
+    data['time_key'] = pd.to_datetime(data['time_key'],)
     #snap
     ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
     if ret == RET_OK:
@@ -34,7 +34,7 @@ def datacall(code):
     else:
         print('error:', data) 
         
-    tempdata['time_key'] = pd.to_datetime(data1['time_key'],)
+    tempdata['time_key'] = pd.to_datetime(tempdata['time_key'],)
     
     if np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-2:-1,:].time_key,True,False):
         print('no data added')
