@@ -9,6 +9,9 @@ import numpy as np
 import random
 import argparse
 
+#set parameter
+RSIHi = 70
+RSILo = 11
 #set today
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
@@ -39,7 +42,15 @@ def datacall(code):
     return data
 #---calculate signal---
 def signal():
-    print('signal')
+    data['RSI'] = abstract.RSI(data.close,2)
+    
+    #RVI
+    Nem =(data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3))     
+    Dem =data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3))
+    
+    data['RVI'] = data['RVI'] = RVI = (Nem/6)/(Dem/6)
+    data['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+    data['RVI_diff'] = signals['RVI'] - signals['RVIR']
     
 #-----trade------
 def trade():
