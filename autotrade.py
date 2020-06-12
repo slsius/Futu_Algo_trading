@@ -12,7 +12,7 @@ import argparse
 #-----get data
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
-ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start='2020-06-01', end='', max_count=110, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700', start='2020-06-10', end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 if ret == RET_OK:
     print('ok')
 else:
