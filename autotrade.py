@@ -40,6 +40,8 @@ def datacall(code):
         print('no data added')
     elif np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-1:,:].time_key.squeeze(),True,False):
         data = data.append(tempdata.iloc[-1:,:],ignore_index=True)    
+    elif np.where(tempdata.iloc[-1:,:].time_key == data.iloc[-1:,:].time_key.squeeze(),True,False):
+        print('no data added')
     else:
         data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
     print(data)
