@@ -34,6 +34,9 @@ def datacall(code):
     else:
         data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
     print(data)
+    
+    ret, tempdata =quote_ctx.get_market_snapshot(['HK.' + code])
+    price = tempdata.last_price
     '''
     df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
     df.append(df2)
@@ -46,14 +49,24 @@ def datacall(code):
 #---calculate signal---
 def signal():
     data['RSI'] = abstract.RSI(data.close,2)
-    
+    data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
+    #Nem = data.close-data.open + 2*(data.iloc[-1:,:].close - data.iloc[-1:,:].open) + 2*(data.iloc[-2:,:].close - data.iloc[-1:,:].open) + data.iloc[-3:,:].close - data.iloc[-3:,:].open
     Nem =(data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3))     
     Dem =data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3))
+    #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
     
-    data['RVI'] = data['RVI'] = RVI = (Nem/6)/(Dem/6)
-    data['RVIR'] = data1['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
-    data['RVI_diff'] = signals['RVI'] - signals['RVIR']
+    
+    data['RVI'] = RVI = (Nem/6)/(Dem/6)
+    data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.ishift(3))/6
+
+    if data.iloc[-1:,:].RSI <=RSILo or data.iloc[-2:,:].RSI <=RSILo or data.iloc[-3:,:].RSI <=RSILo:
+        if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR and data.iloc[-2:,:].RVI <= data.iloc[-2:,:].RVIR:
+            print('buy')
+    if data.iloc[-1:,:].RSI >=RSIHi or data.iloc[-2:,:].RSI <=RSIHi or data.iloc[-3:,:].RSI <=RSIHi:  
+        if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR
+            
+            
     
 #-----trade------
 def trade():
