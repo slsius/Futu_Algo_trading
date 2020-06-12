@@ -8,7 +8,6 @@ from talib import abstract
 import numpy as np
 import random
 import argparse
-import strategy as strgy
 
 
 pwd_unlock = '878900'
