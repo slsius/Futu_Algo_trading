@@ -102,6 +102,8 @@ def sell():
 code = input("Stock code:")
 data,price = datacall(code)
 print(price)
+
+signal(data,price)
 '''
 while true:
     print('loop')
