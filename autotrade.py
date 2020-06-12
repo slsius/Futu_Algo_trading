@@ -18,6 +18,7 @@ if ret == RET_OK:
 else:
     print('error:', data)
 
+print(data)    
 '''
 ret, realdata = quote_ctx.get_cur_kline('HK.59350', 50, ktype=SubType.K_3M, autype=AuType.QFQ)
 if ret == RET_OK:
@@ -32,7 +33,6 @@ trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
 ret_code, info_data = trd_ctx.accinfo_query()
 print(info_data)
-print(info_data.cash)
 
 print(trd_ctx.position_list_query())
 
