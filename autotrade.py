@@ -23,14 +23,14 @@ def datacall(code):
         code = '0' + str(code)
     ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
     if ret == RET_OK:
-        print('ok')
+        print('main data ok')
     else:
         print('error:', data)   
     data['time_key'] = pd.to_datetime(data['time_key'],)
     #snap
     ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
     if ret == RET_OK:
-        print('ok')
+        print('snap ok')
     else:
         print('error:', data) 
         
@@ -44,17 +44,10 @@ def datacall(code):
         print('no data added')
     else:
         data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
-    print(data)
     
     ret, tempdata =quote_ctx.get_market_snapshot(['HK.' + code])
     price = tempdata.last_price
-    '''
-    df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
-    df.append(df2)
-    
-    In iloc, [initial row:ending row, initial column:ending column]
-    df.iloc[-1:,:]
-    '''
+
     quote_ctx.close() #close connection   
     return data,price
 #---calculate signal---
@@ -108,6 +101,7 @@ def sell():
 #----main---
 code = input("Stock code:")
 data,price = datacall(code)
+print(price)
 '''
 while true:
     print('loop')
