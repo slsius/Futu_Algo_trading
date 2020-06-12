@@ -11,6 +11,7 @@ import argparse
 
 
 code = input("Stock code:")
+datacall(code)
 '''
 while true:
     print('loop')
