@@ -18,7 +18,7 @@ if ret == RET_OK:
 else:
     print('error:', data)
 
-ret, realdata = quote_ctx.get_cur_kline(self, 'HK.59350', 50, ktype=SubType.K_3M, autype=AuType.QFQ)
+ret, realdata = quote_ctx.get_cur_kline('HK.59350', 50, ktype=SubType.K_3M, autype=AuType.QFQ)
 if ret == RET_OK:
     print('ok')
 else:
