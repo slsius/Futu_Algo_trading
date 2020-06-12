@@ -25,7 +25,7 @@ def datacall(code):
         print('error:', data)   
     print(data)
     #snap
-    ret, tempdata = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
+    ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
     print(tempdata.iloc[-2:,:])
     data.append(tempdata.iloc[-2:,:])
     print(data)
