@@ -49,7 +49,7 @@ def datacall(code):
     price = tempdata.last_price
 
     quote_ctx.close() #close connection   
-    return data,price.iloc[0][1]
+    return data,price.iloc[0]
 #---calculate signal---
 def signal(data,price):
     data['RSI'] = abstract.RSI(data.close,2)
