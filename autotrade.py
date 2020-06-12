@@ -26,7 +26,7 @@ def datacall(code):
     #snap
     ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
     print(tempdata.iloc[-2:,:])
-    data.append(tempdata.iloc[-2:,:],ignore_index=True)
+    data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
     print(data)
     '''
     df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
