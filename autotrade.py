@@ -38,7 +38,7 @@ def datacall(code):
     
     if np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-2:-1,:].time_key.squeeze(),True,False):
         print('no data added')
-    elif np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-1:,:].time_key,True,False):
+    elif np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-1:,:].time_key.squeeze(),True,False):
         data = data.append(tempdata.iloc[-1:,:],ignore_index=True)    
     else:
         data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
@@ -54,7 +54,7 @@ def datacall(code):
     df.iloc[-1:,:]
     '''
     quote_ctx.close() #close connection   
-    return data
+    return data,price
 #---calculate signal---
 def signal(data,price):
     data['RSI'] = abstract.RSI(data.close,2)
