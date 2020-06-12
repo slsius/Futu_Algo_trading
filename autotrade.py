@@ -64,10 +64,10 @@ def signal(data,price):
     data['RVI'] = RVI = (Nem/6)/(Dem/6)
     data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
 
-    if data.iloc[-1:,:].RSI <=RSILo | data.iloc[-2:,:].RSI <=RSILo | data.iloc[-3:,:].RSI <=RSILo:
-        if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR & data.iloc[-2:,:].RVI <= data.iloc[-2:,:].RVIR:
+    if data.iloc[-1:,:].RSI <=RSILo | data.iloc[-2:-1,:].RSI <=RSILo | data.iloc[-3:-2,:].RSI <=RSILo:
+        if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR & data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR:
             print('buy')
-    if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:,:].RSI <=RSIHi | data.iloc[-3:,:].RSI <=RSIHi:  
+    if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
         if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
             if data.iloc[-1:,:].MA <= price:
                 print('sell')
