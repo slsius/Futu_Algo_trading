@@ -26,7 +26,7 @@ def datacall(code):
         print('ok')
     else:
         print('error:', data)   
-    
+    print(data)
     quote_ctx.close() #close connection  
 def snap():
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
