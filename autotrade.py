@@ -17,7 +17,8 @@ if ret1 == RET_OK:
     print('ok')
 else:
     print('error:', data1)
-    
+
+uote_ctx.get_cur_kline(self, 'HK.59350', 50, ktype=SubType.K_3M, autype=AuType.QFQ)    
 quote_ctx.close() #close connection    
 #-----trade------
 pwd_unlock = '878900'
