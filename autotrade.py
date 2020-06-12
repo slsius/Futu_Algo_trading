@@ -36,6 +36,11 @@ def datacall(code):
     df.iloc[-1:,:]
     '''
     quote_ctx.close() #close connection   
+    return data
+#---calculate signal---
+def signal():
+    print('signal')
+    
 #-----trade------
 def trade():
     pwd_unlock = '878900'
@@ -53,7 +58,7 @@ def trade():
     trd_ctx.close()
 #----main---
 code = input("Stock code:")
-datacall(code)
+data = datacall(code)
 '''
 while true:
     print('loop')
