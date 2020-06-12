@@ -36,7 +36,7 @@ def datacall(code):
         
     tempdata['time_key'] = pd.to_datetime(tempdata['time_key'],)
     
-    if np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-2:-1,:].time_key,True,False):
+    if np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-2:-1,:].time_key.squeeze(),True,False):
         print('no data added')
     elif np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-1:,:].time_key,True,False):
         data = data.append(tempdata.iloc[-1:,:],ignore_index=True)    
