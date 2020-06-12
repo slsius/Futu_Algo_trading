@@ -17,7 +17,7 @@ while true:
     time.sleep(15)
 '''
 #-----get data    
-def datacall(code)    
+def datacall(code):    
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
     while len(str(code)) <= 4:
         code = '0' + str(code)
@@ -28,13 +28,13 @@ def datacall(code)
         print('error:', data)   
     
     quote_ctx.close() #close connection  
-def snap()
+def snap():
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
     get_market_snapshot(self, code_list)
     quote_ctx.close() #close connection 
   
 #-----trade------
-def trade()
+def trade():
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
