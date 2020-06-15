@@ -12,18 +12,43 @@ import argparse
 #set parameter
 RSIHi = 70
 RSILo = 11
+
 #set today
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
 
-def DayStr(Tday): #function to return date in specific format
-  Tday = Tday.strftime("%Y-%m-%d")
-  return Tday
+#set globe parameter
+NumPos = 0
+size = 0
 
-today = datetime.today()
-NumDay = 10 #set the number of day of data
+#-----init
+def init()
+    quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
+    ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
+    if ret == RET_OK:
+        print('snap ok')
+    else:
+        print('error:', data)
+    quote_ctx.close() #close connection  
+    size = snapdata.lot_size
 #-----get data    
-def datacall(code):    
+def datacall(code):
+    while len(str(code)) <= 4: #match the format 
+        code = '0' + str(code)
+    quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False) #subscirbe the call
+    if ret_sub == RET_OK:  # 订阅成功
+    ret, data = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M) 
+      if ret == RET_OK:
+        print(data)
+        print(data['turnover_rate'][0])   # 取第一条的换手率
+        print(data['turnover_rate'].values.tolist())   # 转为list
+      else:
+        print('error:', data)
+    else:
+      print('subscription failed', err_message)
+
+    '''
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
     while len(str(code)) <= 4:
         code = '0' + str(code)
@@ -35,13 +60,8 @@ def datacall(code):
     data['time_key'] = pd.to_datetime(data['time_key'],)
     #snap
     '''
-    ret, tempdata =quote_ctx.get_market_snapshot(['HK.' + code])
-    #ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
-    if ret == RET_OK:
-        print('snap ok')
-    else:
-        print('error:', data) 
-        
+    
+    '''    
     tempdata['time_key'] = pd.to_datetime(tempdata['time_key'],)
     
     if np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-2:-1,:].time_key.squeeze(),True,False):
@@ -56,11 +76,12 @@ def datacall(code):
     
     price = tempdata.last_price
     '''
+    
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
     return data
 #---calculate signal---
-def signal(data,price):
+def signal(data):
     data['RSI'] = abstract.RSI(data.close,2)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
@@ -76,6 +97,7 @@ def signal(data,price):
     if data.iloc[-1:,:].RSI <=RSILo | data.iloc[-2:-1,:].RSI <=RSILo | data.iloc[-3:-2,:].RSI <=RSILo:
         if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR & data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR:
             print('buy')
+            NumPos = NumPos + snapdata.iloc[0].lot_size
     if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
         if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
             if data.iloc[-1:,:].MA <= price:
@@ -88,6 +110,7 @@ def buy():
     print(trd_ctx.unlock_trade(pwd_unlock))
     ret_code, info_data = trd_ctx.accinfo_query()
     print(info_data)
+    
 
     print(trd_ctx.position_list_query())
 
@@ -107,15 +130,14 @@ def sell():
     print(info_data)
     
     trd_ctx.close()
-#----main---
-code = input("Stock code:")
-#data,price = datacall(code)
-data = datacall(code)
-#print(price)
 
-print(data)
-price = 441
-signal(data,price)
+#----start program---
+code = input("Stock code:")
+#intialise
+
+#main
+data = datacall(code)
+signal(data)
 '''
 while true:
     print('loop')
