@@ -17,6 +17,12 @@ RSILo = 11
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
 
+#set trade period
+today930 = now.replace(hour=9, minute=35, second=0, microsecond=0)
+today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
+today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
+today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
+
 #set globe parameter
 NumPos = 0
 size = 0
@@ -96,8 +102,11 @@ def signal(data):
 
     if data.iloc[-1:,:].RSI <=RSILo | data.iloc[-2:-1,:].RSI <=RSILo | data.iloc[-3:-2,:].RSI <=RSILo:
         if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR & data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR:
-            print('buy')
-            NumPos = NumPos + snapdata.iloc[0].lot_size
+            now = datetime.now()
+            if (now > today930 and now < today11) or (now > today13 and now < today15):
+                print('place order')
+                
+                
     if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
         if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
             if data.iloc[-1:,:].MA <= price:
@@ -117,9 +126,12 @@ def buy():
     print(trd_ctx.order_list_query())
 
 
-    #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY))
+    #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    
+    #check successful trade
+    
     trd_ctx.close()
-
+    NumPos = NumPos + size
     
 def sell():
     pwd_unlock = '878900'
