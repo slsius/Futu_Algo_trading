@@ -24,6 +24,7 @@ def datacall(code):
     ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
     if ret == RET_OK:
         print('main data ok')
+        print(data)
     else:
         print('error:', data)   
     data['time_key'] = pd.to_datetime(data['time_key'],)
