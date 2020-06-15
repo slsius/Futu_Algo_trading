@@ -38,11 +38,12 @@ for code in range(1,9999,1):
   ret, snapdata = quote_ctx.get_market_snapshot(['HK.' + code])
   if ret == RET_OK:
     print('snap ok')
+    print(snapdata)
   else:
     print('error:', data)
     
   #check lot size and price per lot
-  if snapdata.iloc[-1:,:].lot_size * snapdata.iloc[-1:,:].last_price >= 10000:
+  if snapdata.iloc[0,'lot_size'] * snapdata.iloc[0,'last_price'] >= 10000:
     break
   
   #calculate bias
