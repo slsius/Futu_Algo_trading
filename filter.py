@@ -49,7 +49,7 @@ for code in range(1,9999,1):
   print('lot_size')
   print(snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price)
   if snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price > 10000:
-    break
+    continue
   
   #calculate bias
   MA = abstract.MA(data.close, timeperiod=12, matype=0)
