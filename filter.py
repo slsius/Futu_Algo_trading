@@ -47,14 +47,14 @@ for code in range(1,9999,1):
     continue
     
   #check lot size and price per lot
-  print('lot_size')
-  print(snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price)
+  #print('lot_size')
+  #print(snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price)
   if snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price > 10000:
     continue
   
   #calculate bias
   MA = abstract.MA(data.close, timeperiod=12, matype=0)
-  print(MA)
+  print('MA:' + str(MA))
   bias = (data.iloc[-1].close - MA[len(MA)-1])/(MA[len(MA)-1])
   if bias < 0:
     df = df.append({'Stock number':code}, ignore_index=True)  
