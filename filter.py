@@ -44,6 +44,7 @@ for code in range(1,9999,1):
     print('snap ok')
   else:
     print('error:', data)
+    continue
     
   #check lot size and price per lot
   print('lot_size')
@@ -55,7 +56,6 @@ for code in range(1,9999,1):
   MA = abstract.MA(data.close, timeperiod=12, matype=0)
   print(MA)
   bias = (data.iloc[-1].close - MA[len(MA)-1])/(MA[len(MA)-1])
-  print(bias)
   if bias < 0:
     df = df.append({'Stock number':code}, ignore_index=True)  
 quote_ctx.close() #close connection
