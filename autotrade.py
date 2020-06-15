@@ -126,24 +126,21 @@ def buy():
    
     
 
-    print(trd_ctx.position_list_query())
-
-    
-
-
-    #print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    #print(trd_ctx.position_list_query())
+    #place order
+    print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
         time.sleep(5)
         ret, query = trd_ctx.order_list_query()
-        if count < 12
-            count +=1
-        else
-            trd_ctx.cancel_all_order()
-            break
         if query[-1].order_status == FILLED_ALL:
             NumPos = NumPos + size
+            break
+        elif count < 12:
+            count +=1
+        else:
+            trd_ctx.cancel_all_order()
             break
     trd_ctx.close()
     
