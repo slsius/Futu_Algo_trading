@@ -108,7 +108,7 @@ data = datacall(code)
 #print(price)
 
 print(data)
-
+price = 400
 signal(data,price)
 '''
 while true:
