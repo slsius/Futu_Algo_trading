@@ -25,6 +25,7 @@ def datacall(code):
     if ret == RET_OK:
         print('main data ok')
         print(data)
+        print(today)
     else:
         print('error:', data)   
     data['time_key'] = pd.to_datetime(data['time_key'],)
