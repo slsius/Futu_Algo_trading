@@ -13,5 +13,5 @@ print(today11)
 print(today13)
 print(today15)
 
-if (now > today930 and < today11) or (now > today13 and now < today15)
+if (now > today930 and now < today11) or (now > today13 and now < today15)
   print('trade')
