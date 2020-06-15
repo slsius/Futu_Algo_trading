@@ -47,7 +47,7 @@ for code in range(1,9999,1):
     
   #check lot size and price per lot
   print('lot_size')
-  print(napdata.iloc[0].lot_size * snapdata.iloc[0].last_price)
+  print(snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price)
   if snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price > 10000:
     break
   
