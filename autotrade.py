@@ -20,12 +20,14 @@ def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
 
+today = datetime.today()
+NumDay = 10 #set the number of day of data
 #-----get data    
 def datacall(code):    
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
     while len(str(code)) <= 4:
         code = '0' + str(code)
-    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(datetime.today() - timedelta(days=1)), end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(today - timedelta(days=NumDay)), end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
     if ret == RET_OK:
         print('main data ok')
     else:
