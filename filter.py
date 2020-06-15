@@ -36,9 +36,9 @@ for code in range(1,9999,1):
   ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(today - timedelta(days=NumDay)), end='', max_count=100, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
   if ret == RET_OK:
     print('data ok')
-    print(data)
   else:
     print('error:', data)
+    continue
   #get snap data
   ret, snapdata = quote_ctx.get_market_snapshot(['HK.' + code])
   if ret == RET_OK:
