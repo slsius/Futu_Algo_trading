@@ -24,7 +24,7 @@ def DayStr(Tday): #function to return date in specific format
 
 today = datetime.today()
 #today = today.strftime("%Y-%m-%d")
-NumDay = 50 #set the number of day of data
+NumDay = 30 #set the number of day of data
 
 
 
