@@ -105,7 +105,7 @@ def sell():
 code = input("Stock code:")
 #data,price = datacall(code)
 data = datacall(code)
-print(price)
+#print(price)
 
 print(data)
 
