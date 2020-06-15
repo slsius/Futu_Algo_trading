@@ -16,6 +16,10 @@ RSILo = 11
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
 
+def DayStr(Tday): #function to return date in specific format
+  Tday = Tday.strftime("%Y-%m-%d")
+  return Tday
+
 #-----get data    
 def datacall(code):    
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
