@@ -103,6 +103,8 @@ code = input("Stock code:")
 data,price = datacall(code)
 print(price)
 
+print(data)
+
 signal(data,price)
 '''
 while true:
