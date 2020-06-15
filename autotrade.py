@@ -137,15 +137,15 @@ def buy():
     while True:
         time.sleep(5)
         ret, query = trd_ctx.order_list_query()
+        if count < 12
+            count +=1
+        else
+            trd_ctx.cancel_all_order()
+            break
         if query[-1].order_status == FILLED_ALL:
-            if counter < 12
-                NumPos = NumPos + size
-                break
-            else
-                #delete the order
-                trd_ctx.cancel_all_order()
+            NumPos = NumPos + size
+            break
     trd_ctx.close()
-    NumPos = NumPos + size
     
     #check successful trade
 def sell():
@@ -175,8 +175,12 @@ signal(data)
 '''
 while true:
     print('loop')
+    data = datacall(code)
+    signal(data)
     time.sleep(15)
     now = datetime.now()
     if now > today1530:
         closeall()
+        break
+        
 '''
