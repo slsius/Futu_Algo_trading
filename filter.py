@@ -44,7 +44,7 @@ for code in range(1,9999,1):
     print('error:', data)
     
   #check lot size and price per lot
-  if snapdata.iloc[0,'lot_size'] * snapdata.iloc[0,'last_price'] >= 10000:
+  if snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price >= 10000:
     break
   
   #calculate bias
