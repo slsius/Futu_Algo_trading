@@ -11,21 +11,40 @@ def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
 
+
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
+#set today
 today = datetime.today()
-NumDay = 73 #set the number of day of data
+today = today.strftime("%Y-%m-%d")
+NumDay = 50 #set the number of day of data
 
 
-#data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.54796', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
-#ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2005-01-01', end='2009-12-31', max_count=5000, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
-if ret1 == RET_OK:
-    print('ok')
-    #print(data1)
-    #print(data1['code'][0])    # 取第一条的股票代码
-    #print(data1['close'].values.tolist())   # 第一页收盘价转为list
-else:
-    print('error:', data1)
+
+for code in range(1,9999,1):
+  while len(str(code)) <= 4:#stock code to sting
+    code = '0' + str(code)
+  #get history data  
+  ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(today - timedelta(days=NumDay)), end='', max_count=100, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
+  if ret == RET_OK:
+    print('data ok')
+  else:
+    print('error:', data)
+  #get snap data
+  ret, snapdata = quote_ctx.get_market_snapshot(['HK.' + code])
+  if ret == RET_OK:
+    print('snap ok')
+  else:
+    print('error:', data)
+    
+  #check lot size and price per lot
+  if snapdata.iloc[-1:,:].lot_size * snapdata.iloc[-1:,:].last_price >= 10000:
+    break
   
+  #calculate bias
+  MA = abstract.MA(data.close, timeperiod=12, matype=0)
+  bias = (data.iloc[-1:,:].close - MA.iloc[-1:,:])/MA.iloc[-1:,:]
+  if bias < 0:
+    df = df.append({'Stock number':code}, ignore_index=True)  
 quote_ctx.close() #close connection
+df.to_csv('filter.csv', encoding='utf-8', index=False)
