@@ -18,6 +18,7 @@ today = datetime.today()
 today = today.strftime("%Y-%m-%d")
 
 #set trade period
+now = datetime.now()
 today930 = now.replace(hour=9, minute=35, second=0, microsecond=0)
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
 today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
