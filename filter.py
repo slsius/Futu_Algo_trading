@@ -53,7 +53,8 @@ for code in range(1,9999,1):
   
   #calculate bias
   MA = abstract.MA(data.close, timeperiod=12, matype=0)
-  bias = (data.iloc[-1:,:].close - MA.iloc[-1:,:])/MA.iloc[-1:,:]
+  print(MA)
+  bias = (data.iloc[-1].close - MA.iloc[-1])/MA.iloc[-1]
   if bias < 0:
     df = df.append({'Stock number':code}, ignore_index=True)  
 quote_ctx.close() #close connection
