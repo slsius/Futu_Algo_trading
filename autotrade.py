@@ -28,6 +28,7 @@ def datacall(code):
         print('error:', data)   
     data['time_key'] = pd.to_datetime(data['time_key'],)
     #snap
+    '''
     ret, tempdata =quote_ctx.get_market_snapshot(['HK.' + code])
     #ret, tempdata, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=today, end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_1M) 
     if ret == RET_OK:
@@ -48,9 +49,10 @@ def datacall(code):
     
     
     price = tempdata.last_price
-
+    '''
     quote_ctx.close() #close connection   
-    return data,price.iloc[0]
+    #return data,price.iloc[0]
+    return data
 #---calculate signal---
 def signal(data,price):
     data['RSI'] = abstract.RSI(data.close,2)
