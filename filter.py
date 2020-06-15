@@ -53,6 +53,8 @@ for code in range(1,9999,1):
     continue
   
   #calculate bias
+  print('data')
+  print(data.close)
   MA = abstract.MA(data.close, timeperiod=12, matype=0)
   print('MA:' + str(MA))
   bias = (data.iloc[-1].close - MA[len(MA)-1])/(MA[len(MA)-1])
