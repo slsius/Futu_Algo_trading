@@ -166,6 +166,7 @@ def closeall()
         place_order(code = postlist[i].code, qty = postlist[0].qty,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 #----start program---
+pdb.set_trace()
 code = input("Stock code:")
 #intialise
 
