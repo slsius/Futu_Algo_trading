@@ -1,3 +1,3 @@
 from datetime import datetime
 
-print(datetime.hour())
+print(datetime.time())
