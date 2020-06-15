@@ -15,8 +15,12 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 #set today
+def DayStr(Tday): #function to return date in specific format
+  Tday = Tday.strftime("%Y-%m-%d")
+  return Tday
+
 today = datetime.today()
-today = today.strftime("%Y-%m-%d")
+#today = today.strftime("%Y-%m-%d")
 NumDay = 50 #set the number of day of data
 
 
