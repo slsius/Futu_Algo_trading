@@ -22,6 +22,7 @@ today930 = now.replace(hour=9, minute=35, second=0, microsecond=0)
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
 today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
 today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
+today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 
 #set globe parameter
 NumPos = 0
@@ -104,7 +105,10 @@ def signal(data):
         if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR & data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR:
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
-                print('place order')
+                ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
+                if info_data.cash > data.close[-1]*size:
+                    print('place order')
+                    buy()
                 
                 
     if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
@@ -117,8 +121,8 @@ def buy():
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
-    ret_code, info_data = trd_ctx.accinfo_query()
-    print(info_data)
+    
+   
     
 
     print(trd_ctx.position_list_query())
@@ -126,13 +130,14 @@ def buy():
     print(trd_ctx.order_list_query())
 
 
-    #print(trd_ctx.place_order(price=700.0, qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    #print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     
     trd_ctx.close()
     NumPos = NumPos + size
-    
+    time.sleep(60)
+    #check successful trade
 def sell():
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
@@ -143,6 +148,12 @@ def sell():
     
     trd_ctx.close()
 
+def closeall()
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    postlist = trd_ctx.position_list_query()
+    for i in range (0,len(postlist),1):
+        place_order(code = postlist[i].code, qty = postlist[0].qty,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+    trd_ctx.close()
 #----start program---
 code = input("Stock code:")
 #intialise
@@ -154,4 +165,7 @@ signal(data)
 while true:
     print('loop')
     time.sleep(15)
+    now = datetime.now()
+    if now > today1530:
+        closeall()
 '''
