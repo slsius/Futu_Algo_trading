@@ -11,6 +11,9 @@ def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
 
+#create empty dataframe
+column_names = ["Stock"]
+df = pd.DataFrame(columns = column_names)
 
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
