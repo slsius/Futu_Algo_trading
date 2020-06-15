@@ -25,7 +25,7 @@ def datacall(code):
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
     while len(str(code)) <= 4:
         code = '0' + str(code)
-    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(today - timedelta(days=1)), end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(datetime.today() - timedelta(days=1)), end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
     if ret == RET_OK:
         print('main data ok')
     else:
