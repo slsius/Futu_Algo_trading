@@ -38,7 +38,8 @@ for code in range(1,9999,1):
   ret, snapdata = quote_ctx.get_market_snapshot(['HK.' + code])
   if ret == RET_OK:
     print('snap ok')
-    print(snapdata)
+    print(snapdata.lot_size)
+    print(snapdata.last_price)
   else:
     print('error:', data)
     
