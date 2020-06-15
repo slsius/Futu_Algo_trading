@@ -29,6 +29,7 @@ NumDay = 50 #set the number of day of data
 
 
 for code in range(1,9999,1):
+  print('stock' + str(code))
   while len(str(code)) <= 4:#stock code to sting
     code = '0' + str(code)
   #get history data  
@@ -41,13 +42,13 @@ for code in range(1,9999,1):
   ret, snapdata = quote_ctx.get_market_snapshot(['HK.' + code])
   if ret == RET_OK:
     print('snap ok')
-    print(snapdata.lot_size)
-    print(snapdata.last_price)
   else:
     print('error:', data)
     
   #check lot size and price per lot
-  if snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price >= 10000:
+  print('lot_size')
+  print(napdata.iloc[0].lot_size * snapdata.iloc[0].last_price)
+  if snapdata.iloc[0].lot_size * snapdata.iloc[0].last_price > 10000:
     break
   
   #calculate bias
