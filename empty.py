@@ -15,3 +15,5 @@ print(today15)
 
 if (now > today930 and now < today11) or (now > today13 and now < today15):
   print('trade')
+else:
+  print('no trade')
