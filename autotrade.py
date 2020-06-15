@@ -118,6 +118,7 @@ def signal(data):
                    
 #-----trade------
 def buy():
+    count = 0
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
@@ -127,16 +128,25 @@ def buy():
 
     print(trd_ctx.position_list_query())
 
-    print(trd_ctx.order_list_query())
+    
 
 
     #print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
-    
+    while True:
+        time.sleep(5)
+        ret, query = trd_ctx.order_list_query()
+        if query[-1].order_status == FILLED_ALL:
+            if counter < 12
+                NumPos = NumPos + size
+                break
+            else
+                #delete the order
+                trd_ctx.cancel_all_order()
     trd_ctx.close()
     NumPos = NumPos + size
-    time.sleep(60)
+    
     #check successful trade
 def sell():
     pwd_unlock = '878900'
@@ -146,6 +156,7 @@ def sell():
     ret_code, info_data = trd_ctx.accinfo_query()
     print(info_data)
     
+    place_order(code = code, qty = size,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 
 def closeall()
