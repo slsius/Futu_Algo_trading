@@ -46,48 +46,19 @@ def datacall(code):
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
     ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False) #subscirbe the call
     if ret_sub == RET_OK:  # 订阅成功
-        ret, data = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M) 
+        ret, newdata = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M) 
         if ret == RET_OK:
-            print(data)
-            print(data['turnover_rate'][0])   # 取第一条的换手率
-            print(data['turnover_rate'].values.tolist())   # 转为list
+            print(newdata)
+            print(newdata['turnover_rate'][0])   # 取第一条的换手率
+            print(newdata['turnover_rate'].values.tolist())   # 转为list
         else:
             print('error:', data)
     else:
       print('subscription failed', err_message)
 
-    '''
-    quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
-    while len(str(code)) <= 4:
-        code = '0' + str(code)
-    ret, data, page_req_key = quote_ctx.request_history_kline('HK.' + code, start=DayStr(today - timedelta(days=NumDay)), end='', max_count=1000, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
-    if ret == RET_OK:
-        print('main data ok')
-    else:
-        print('error:', data)   
-    data['time_key'] = pd.to_datetime(data['time_key'],)
-    #snap
-    '''
-    
-    '''    
-    tempdata['time_key'] = pd.to_datetime(tempdata['time_key'],)
-    
-    if np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-2:-1,:].time_key.squeeze(),True,False):
-        print('no data added')
-    elif np.where(tempdata.iloc[-2:-1,:].time_key == data.iloc[-1:,:].time_key.squeeze(),True,False):
-        data = data.append(tempdata.iloc[-1:,:],ignore_index=True)    
-    elif np.where(tempdata.iloc[-1:,:].time_key == data.iloc[-1:,:].time_key.squeeze(),True,False):
-        print('no data added')
-    else:
-        data = data.append(tempdata.iloc[-2:,:],ignore_index=True)
-    
-    
-    price = tempdata.last_price
-    '''
-    
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
-    return data
+    return newdata
 #---calculate signal---
 def signal(data):
     data['RSI'] = abstract.RSI(data.close,2)
