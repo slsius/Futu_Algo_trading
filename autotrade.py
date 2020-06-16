@@ -8,7 +8,7 @@ from talib import abstract
 import numpy as np
 import random
 import argparse
-import pdb
+#import pdb
 #set parameter
 RSIHi = 70
 RSILo = 11
