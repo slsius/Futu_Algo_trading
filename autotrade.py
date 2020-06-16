@@ -80,7 +80,7 @@ def signal(data):
                     print('place order')
                     buy()
                 
-    if size != 0            
+    if size != 0:            
         if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
             if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
                 if data.iloc[-1:,:].MA <= price:
