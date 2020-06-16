@@ -41,8 +41,6 @@ def init():
     size = snapdata.lot_size
 #-----get data    
 def datacall(code):
-    while len(str(code)) <= 4: #match the format 
-        code = '0' + str(code)
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
     ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False) #subscirbe the call
     if ret_sub == RET_OK:  # 订阅成功
@@ -82,11 +80,11 @@ def signal(data):
                     print('place order')
                     buy()
                 
-                
-    if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
-        if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
-            if data.iloc[-1:,:].MA <= price:
-                print('sell')
+    if size != 0            
+        if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
+            if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
+                if data.iloc[-1:,:].MA <= price:
+                    print('sell')
                    
 #-----trade------
 def buy():
@@ -100,7 +98,7 @@ def buy():
 
     #print(trd_ctx.position_list_query())
     #place order
-    print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code="HK.00700", trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
@@ -115,8 +113,6 @@ def buy():
             trd_ctx.cancel_all_order()
             break
     trd_ctx.close()
-    
-    #check successful trade
 def sell():
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
@@ -135,8 +131,9 @@ def closeall():
         place_order(code = postlist[i].code, qty = postlist[0].qty,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 #----start program---
-pdb.set_trace()
 code = input("Stock code:")
+while len(str(code)) <= 4: #match the format 
+    code = '0' + str(code)
 #intialise
 
 #main
