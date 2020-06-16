@@ -52,8 +52,9 @@ def datacall(code):
         else:
             print('error:', data)
     else:
-      print('subscription failed', err_message)
-
+        print('subscription failed', err_message)
+        newdata = 0
+        
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
     return newdata
@@ -85,6 +86,7 @@ def signal(data):
             if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
                 if data.iloc[-1:,:].MA <= price:
                     print('sell')
+                    sell()
                    
 #-----trade------
 def buy():
