@@ -142,7 +142,7 @@ pdb.set_trace()
 data = datacall(code)
 signal(data)
 '''
-while true:
+while True:
     print('loop')
     data = datacall(code)
     signal(data)
