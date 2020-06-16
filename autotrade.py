@@ -140,6 +140,7 @@ code = input("Stock code:")
 #intialise
 
 #main
+'''
 pdb.set_trace()
 data = datacall(code)
 signal(data)
@@ -154,4 +155,3 @@ while true:
         closeall()
         break
         
-'''
