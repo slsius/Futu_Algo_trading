@@ -37,12 +37,10 @@ pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
-    if ret == RET_OK:
-        print(data[-3:])
-        #print(data['turnover_rate'][0])   # 取第一条的换手率
-        #print(data['turnover_rate'].values.tolist())   # 转为list
-    else:
-        print('error:', data) 
+if ret == RET_OK:
+  print(data[-3:])
+else:
+  print('error:', data) 
         
 print(trd_ctx.unlock_trade(pwd_unlock))
     
