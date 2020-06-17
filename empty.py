@@ -73,5 +73,7 @@ while True:
   else:
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
     break
+
+place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
 trd_ctx.close()  
 quote_ctx.close()
