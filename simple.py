@@ -9,6 +9,7 @@ import numpy as np
 import random
 import argparse
 import pdb
+import os
 #set parameter
 RSIHi = 70
 RSILo = 11
@@ -44,7 +45,10 @@ if ret == RET_OK:
 else:
     print('error:', data) 
 
-
+def notify(title, text):
+    os.system("""
+              osascript -e 'display notification "{}" with title "{}"'
+              """.format(text, title))
 #-----make subscribetion
 ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
 
@@ -70,6 +74,7 @@ def signal(data):
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         if (data.iloc[-1].RVI >= data.iloc[-1].RVIR) & (data.iloc[-2].RVI <= data.iloc[-2].RVIR):
             print('-----buy signal-----')
+            notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
                 ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
