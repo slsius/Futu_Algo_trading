@@ -178,4 +178,5 @@ while True:
     if datetime.now() > today1530:
         print('close all trade')
         closeall(data.iloc[-1].close)
+        break
 quote_ctx.close()
