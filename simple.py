@@ -91,7 +91,12 @@ def buy():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
     
-    #print(trd_ctx.position_list_query())
+    ret,orderinfo = trd_ctx.order_list_query()
+    datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
+    diff = datetime_object - datetime.now()
+    
+    if diff.second < 120:
+        return 0
     #place order
     print(trd_ctx.place_order(OrderType = 'MARKET', qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
