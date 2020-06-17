@@ -82,12 +82,14 @@ if ret == RET_OK:
 else:
   print('fail')
   print(orderlist.order_id)
+print('pt1')
 for i in range (-1,-len(orderlist)+1):
+  print('pt2')
   print(orderlist[i].order_id)
   print(trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE))
 count = 0
     #break
-
+'''
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
 print(info_data)
 trd_ctx.place_order(price = data.iloc[-1].close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
@@ -101,5 +103,6 @@ for i in range (-1,-len(postlist)+1):
   print('loop')
   print(i)
   trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+'''
 trd_ctx.close()  
 quote_ctx.close()
