@@ -53,6 +53,35 @@ if ret_sub == RET_OK:  # 订阅成功
 else:
     print('subscription failed', err_message)
 
+#define signal
+def signal(data):
+    data['RSI'] = abstract.RSI(data.close,2)
+    data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
+    #RVI
+    #Nem = data.close-data.open + 2*(data.iloc[-1:,:].close - data.iloc[-1:,:].open) + 2*(data.iloc[-2:,:].close - data.iloc[-1:,:].open) + data.iloc[-3:,:].close - data.iloc[-3:,:].open
+    Nem =(data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3))     
+    Dem =data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3))
+    #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
+    
+    
+    data['RVI'] = RVI = (Nem/6)/(Dem/6)
+    data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+
+    if data.iloc[-1:,:].RSI <=RSILo | data.iloc[-2:-1,:].RSI <=RSILo | data.iloc[-3:-2,:].RSI <=RSILo:
+        if data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR & data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR:
+            now = datetime.now()
+            if (now > today930 and now < today11) or (now > today13 and now < today15):
+                ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
+                if info_data.cash > data.close[-1]*size:
+                    print('place order')
+                    #buy()
+                
+    if size != 0:            
+        if data.iloc[-1:,:].RSI >=RSIHi | data.iloc[-2:-1,:].RSI <=RSIHi | data.iloc[-3:-1,:].RSI <=RSIHi:  
+            if data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR:
+                if data.iloc[-1:,:].MA <= price:
+                    print('sell')
+                    #sell()
 #loop    
 while True:
     ret, data = quote_ctx.query_subscription()
@@ -68,5 +97,6 @@ while True:
         print(data['turnover_rate'].values.tolist())   # 转为list
     else:
         print('error:', data)    
+    signal(data)
     time.sleep(2)
 quote_ctx.close()
