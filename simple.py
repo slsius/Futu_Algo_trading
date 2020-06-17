@@ -78,7 +78,7 @@ def signal(data):
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
                 ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
-                if info_data[-1].hk_cash > data.close[-1]*size:
+                if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
                     #buy()
                 
