@@ -40,10 +40,11 @@ print(trd_ctx.unlock_trade(pwd_unlock))
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(orderinfo)
 print(len(orderinfo))
-datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
-diff = datetime_object - datetime.now()
+if len(orderinfo) > 0: 
+  datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
+  diff = datetime_object - datetime.now()
     
-    #place order
+#place order
 print(trd_ctx.place_order(OrderType = 'MARKET', qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
