@@ -91,7 +91,7 @@ def buy():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
     
-    ret,orderinfo = trd_ctx.order_list_query()
+    ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
     diff = datetime_object - datetime.now()
     
@@ -103,14 +103,14 @@ def buy():
     #check successful trade
     while True:
         time.sleep(5)
-        ret, query = trd_ctx.order_list_query()
+        ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         if query[-1].order_status == FILLED_ALL:
             NumPos = NumPos + size
             break
         elif count < 12:
             count +=1
         else:
-            trd_ctx.cancel_all_order()
+            trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
             break
     trd_ctx.close()
 def sell():
@@ -118,7 +118,7 @@ def sell():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     
     print(trd_ctx.unlock_trade(pwd_unlock))
-    ret_code, info_data = trd_ctx.accinfo_query()
+    ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
     place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
