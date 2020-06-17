@@ -114,6 +114,7 @@ def buy(close):
     print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
+    '''
     while True:
         time.sleep(5)
         ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
@@ -125,6 +126,7 @@ def buy(close):
         else:
             print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
             break
+    '''        
     trd_ctx.close()
 def sell(close):
     pwd_unlock = '878900'
