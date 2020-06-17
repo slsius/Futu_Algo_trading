@@ -66,6 +66,17 @@ def datacall(code):
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
     type(newdata)
+    
+    
+    
+    ret, data = quote_ctx.request_history_kline('HK.00700', start='2020-06-17', end='', max_count= 100,  SubType.K_1M)  # 每页5个，请求第一页
+    if ret == RET_OK:
+        print(data)
+        print(data['code'][0])    # 取第一条的股票代码
+        print(data['close'].values.tolist())   # 第一页收盘价转为list
+    else:
+        print('error:', data)
+    
     return newdata
 #---calculate signal---
 def signal(data):
