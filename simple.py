@@ -135,7 +135,8 @@ def closeall():
     print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
     postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     for i in range (-1,-len(postlist)+1):
-        trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+        print(i)
+        trd_ctx.place_order(code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()    
 #-----loop    
 while True:
