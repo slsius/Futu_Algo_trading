@@ -117,7 +117,7 @@ def sell():
     ret_code, info_data = trd_ctx.accinfo_query()
     print(info_data)
     
-    place_order(code = code, qty = NumPos,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+    place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 #-----loop    
 while True:
@@ -135,5 +135,5 @@ while True:
     else:
         print('error:', data)    
     signal(data)
-    time.sleep(2)
+    time.sleep(15)
 quote_ctx.close()
