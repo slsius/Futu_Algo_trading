@@ -38,6 +38,7 @@ trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
     
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+print(orderinfo)
 datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
 diff = datetime_object - datetime.now()
     
