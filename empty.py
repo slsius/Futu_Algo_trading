@@ -30,6 +30,7 @@ if (now > today930 and now < today11) or (now > today13 and now < today15):
 else:
   print('no trade')
 
+NumPos = 0  
 count = 0
 size = 50
 code = '00981'
