@@ -37,11 +37,11 @@ def init():
         print('snap ok')
     else:
         print('error:', data)
-    quote_ctx.close() #close connection  
+    #quote_ctx.close() #close connection  
     size = snapdata.lot_size
 #-----get data    
-def datacall(code):
-    quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
+def datacall(code):    
+    #quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
     '''
     ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M]) #subscribe the call
     if ret_sub == RET_OK:  # subscribtion success
@@ -63,7 +63,7 @@ def datacall(code):
             #print(newdata['turnover_rate'].values.tolist()) 
     else:
             print('error:', newdata)
-    quote_ctx.close() #close connection   
+    #quote_ctx.close() #close connection   
     #return data,price.iloc[0]
     type(newdata)
     
@@ -156,10 +156,11 @@ while len(str(code)) <= 4: #match the format
 #intialise
 
 #main
-'''
+
 pdb.set_trace()
 data = datacall(code)
 signal(data)
+
 '''
 while True:
     print('loop')
@@ -172,4 +173,4 @@ while True:
     if now > today1530:
         closeall()
         break
-        
+'''        
