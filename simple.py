@@ -81,7 +81,11 @@ def signal(data):
                 if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
                     buy(data.iloc[-1].close)
-                
+    #------------for testing------------
+    buy(data.iloc[-1].close)
+    sell(data.iloc[-1].close)
+    closeall()
+    #------------for testing------------
     if NumPos > 0:            
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
@@ -115,7 +119,7 @@ def buy(close):
         elif count < 12:
             count +=1
         else:
-            trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
+            print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
             break
     trd_ctx.close()
 def sell(close):
@@ -126,7 +130,7 @@ def sell(close):
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
-    trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+    print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()
     NumPos = 0
     
@@ -136,7 +140,7 @@ def closeall():
     postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     for i in range (-1,-len(postlist)+1):
         print(i)
-        trd_ctx.place_order(code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+        print(trd_ctx.place_order(code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()    
 #-----loop    
 while True:
