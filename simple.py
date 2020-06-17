@@ -90,11 +90,6 @@ def signal(data):
                 if data.iloc[-1].MA <= price:
                     print('sell')
                     sell(data.iloc[-1].close)
-    #------------for testing------------
-    buy(data.iloc[-1].close)
-    NumPos = 500
-    sell(data.iloc[-1].close)
-    closeall(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
 def buy(close):
@@ -174,9 +169,9 @@ while True:
         print('error:', data)    
     signal(data)
     print('---------' + str(NumPos) + '--------')
-    time.sleep(15)
     if datetime.now() > today1530:
         print('close all trade')
         closeall(data.iloc[-1].close)
         break
+    time.sleep(15)
 quote_ctx.close()
