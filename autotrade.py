@@ -50,7 +50,7 @@ def datacall(code):
             print(newdata['turnover_rate'][0])   # 取第一条的换手率
             print(newdata['turnover_rate'].values.tolist())   # 转为list
         else:
-            print('error:', data)
+            print('error:', newdata)
     else:
         print('subscription failed', err_message)
         newdata = 0
