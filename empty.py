@@ -86,7 +86,7 @@ print('pt1')
 for i in range (1,len(orderlist)-1,):
   print(i)
   print('pt2')
-  print(orderlist[i].order_id)
+  print(orderlist.iloc[i].order_id)
   print(trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE))
 count = 0
     #break
