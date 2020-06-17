@@ -146,7 +146,7 @@ while True:
     print('loop')
     data = datacall(code)
     type(data)
-    signal(data)
+    #signal(data)
     time.sleep(15)
     now = datetime.now()
     if now > today1530:
