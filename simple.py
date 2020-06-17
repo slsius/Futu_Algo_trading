@@ -31,6 +31,7 @@ size = 0
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
+trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 
 #set code
 code = input("Stock code:")
