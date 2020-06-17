@@ -83,6 +83,7 @@ def signal(data):
                     buy(data.iloc[-1].close)
     #------------for testing------------
     buy(data.iloc[-1].close)
+    NumPos = 500
     sell(data.iloc[-1].close)
     closeall()
     #------------for testing------------
@@ -126,7 +127,8 @@ def buy(close):
         else:
             print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
             break
-    '''        
+    ''' 
+    
     trd_ctx.close()
 def sell(close):
     pwd_unlock = '878900'
