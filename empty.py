@@ -83,7 +83,7 @@ else:
   print('fail')
   print(orderlist.order_id)
 print('pt1')
-for i in range (1,len(orderlist)-1,):
+for i in range (0,len(orderlist)-1):
   print(i)
   print('pt2')
   print(orderlist.iloc[i].order_id)
