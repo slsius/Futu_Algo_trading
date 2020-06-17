@@ -45,7 +45,7 @@ if len(orderinfo) > 0:
   diff = datetime_object - datetime.now()
     
 #place order
-print(trd_ctx.place_order(OrderType = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+print(trd_ctx.place_order(order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
 while True:
