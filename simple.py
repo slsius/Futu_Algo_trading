@@ -128,7 +128,8 @@ def sell(close):
     
     trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
-
+    NumPos = 0
+    
 def closeall():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     postlist = trd_ctx.position_list_query()
