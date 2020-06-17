@@ -42,7 +42,7 @@ def init():
 #-----get data    
 def datacall(code):
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
-    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False) #subscribe the call
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M]) #subscribe the call
     if ret_sub == RET_OK:  # subscribtion success
         ret, newdata = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M) 
         if ret == RET_OK:
