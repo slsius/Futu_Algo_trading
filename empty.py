@@ -81,7 +81,7 @@ while True:
        print('fail')
     print(orderlist.order_id)
     for i in range (-1,-len(orderlist)+1):
-      trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id)
+      trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE)
       count = 0
     break
 
@@ -92,7 +92,7 @@ trd_ctx.place_order(price = data.iloc[-1].close,code = code, qty = NumPos,trd_si
 postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
 orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE,status_filter_list=OrderStatus.SUBMITTED)
 for i in range (-1,-len(orderlist)+1):
-  trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id)
+  trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE)
 #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
 for i in range (-1,-len(postlist)+1):
   print('loop')
