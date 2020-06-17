@@ -42,6 +42,7 @@ def init():
 #-----get data    
 def datacall(code):
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
+    '''
     ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M]) #subscribe the call
     if ret_sub == RET_OK:  # subscribtion success
         ret, newdata = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M) 
@@ -54,7 +55,14 @@ def datacall(code):
     else:
         print('subscription failed', err_message)
         newdata = pd.DataFrame(columns='')
-        
+    '''    
+    ret, newdata = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M)
+    if ret == RET_OK:
+            print(newdata)
+            #print(newdata['turnover_rate'][0])  
+            #print(newdata['turnover_rate'].values.tolist()) 
+        else:
+            print('error:', newdata)
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
     type(newdata)
