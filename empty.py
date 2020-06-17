@@ -83,7 +83,8 @@ print(postlist[-1].code)
 for i in range (0,len(postlist),1):
   print(postlist[i])
   type(postlist[i])
-  print(postlist[i].code)
+  print(postlist[i][0])
+  print(postlist[i][1])
   trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
  
 trd_ctx.close()  
