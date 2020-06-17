@@ -29,6 +29,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 #set globe parameter
 NumPos = 0
 size= 0
+hand = 1
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
@@ -79,6 +80,11 @@ def signal(data):
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
                 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
+                if ret_code == RET_OK:
+                    print('info data ok')
+                else:
+                    while et_code != RET_OK:
+                        ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
                 if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
                     buy(data.iloc[-1].close)    #buy stock
@@ -110,8 +116,8 @@ def buy(close):
         if diff.total_seconds()/60 < 2:
             return 0
     #place order
-    #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
-    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
 
     #check successful trade 
     while True:
