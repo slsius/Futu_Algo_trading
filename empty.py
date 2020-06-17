@@ -64,7 +64,7 @@ print(trd_ctx.place_order(price = data.iloc[-1].close, order_type = OrderType.NO
 while True:
   time.sleep(5)
   ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-  if query.iloc[-1].order_status == FILLED_ALL:
+  if query.iloc[-1].order_status == 'FILLED_ALL':
     NumPos = NumPos + size
     break
   elif count < 12:
