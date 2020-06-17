@@ -27,11 +27,10 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 
 #set globe parameter
 NumPos = 0
-size = 0
+size= 0
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
-trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 
 #set code
 code = input("Stock code:")
@@ -46,7 +45,7 @@ else:
     print('error:', data) 
 
 
-#make subscribetion
+#-----make subscribetion
 ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
 
 if ret_sub == RET_OK:  # 订阅成功
@@ -54,8 +53,9 @@ if ret_sub == RET_OK:  # 订阅成功
 else:
     print('subscription failed', err_message)
 
-#define signal
+#-----define signal
 def signal(data):
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     data['RSI'] = abstract.RSI(data.close,2)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
@@ -78,13 +78,48 @@ def signal(data):
                     print('place order')
                     #buy()
                 
-    if size != 0:            
+    if NumPos > 0:            
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].MA <= price:
                     print('sell')
                     #sell()
-#loop    
+    trd_ctx.close()
+#-----trade
+def buy():
+    count = 0
+    pwd_unlock = '878900'
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    print(trd_ctx.unlock_trade(pwd_unlock))
+    
+    #print(trd_ctx.position_list_query())
+    #place order
+    print(trd_ctx.place_order(OrderType = 'MARKET', qty=size, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    
+    #check successful trade
+    while True:
+        time.sleep(5)
+        ret, query = trd_ctx.order_list_query()
+        if query[-1].order_status == FILLED_ALL:
+            NumPos = NumPos + size
+            break
+        elif count < 12:
+            count +=1
+        else:
+            trd_ctx.cancel_all_order()
+            break
+    trd_ctx.close()
+def sell():
+    pwd_unlock = '878900'
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    
+    print(trd_ctx.unlock_trade(pwd_unlock))
+    ret_code, info_data = trd_ctx.accinfo_query()
+    print(info_data)
+    
+    place_order(code = code, qty = NumPos,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+    trd_ctx.close()
+#-----loop    
 while True:
     ret, data = quote_ctx.query_subscription()
     if ret == RET_OK:
