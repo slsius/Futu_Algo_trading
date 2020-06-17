@@ -106,6 +106,7 @@ def buy(close):
         diff = datetime.now() - datetime_object
         print(datetime_object)
         print(diff)
+        print(diff.total_seconds())
         if diff.second < 120:
             return 0
     #place order
