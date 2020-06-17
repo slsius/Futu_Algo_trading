@@ -87,7 +87,7 @@ for i in range (1,len(orderlist)-1,):
   print(i)
   print('pt2')
   print(orderlist.iloc[i].order_id)
-  print(trd_ctx.modify_order(price = dat.iloc[-1].close, qty = 500,modify_order_op = ModifyOrderOp.CANCEL, order_id = orderlist.iloc[i].order_id,trd_env = TrdEnv.SIMULATE))
+  print(trd_ctx.modify_order(price = data.iloc[-1].close, qty = 500,modify_order_op = ModifyOrderOp.CANCEL, order_id = orderlist.iloc[i].order_id,trd_env = TrdEnv.SIMULATE))
 count = 0
     #break
 '''
