@@ -32,7 +32,7 @@ else:
 
 count = 0
 size = 50
-code = 00981
+code = '00981'
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
