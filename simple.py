@@ -94,7 +94,7 @@ def signal(data):
     buy(data.iloc[-1].close)
     NumPos = 500
     sell(data.iloc[-1].close)
-    closeall()
+    closeall(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
 def buy(close):
