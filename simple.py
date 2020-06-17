@@ -135,5 +135,6 @@ while True:
     else:
         print('error:', data)    
     signal(data)
+    print('---------' + str(NumPos) + '--------')
     time.sleep(15)
 quote_ctx.close()
