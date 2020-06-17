@@ -97,13 +97,13 @@ def buy():
     print(trd_ctx.unlock_trade(pwd_unlock))
     
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-    datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
-    diff = datetime_object - datetime.now()
-    
-    if diff.second < 120:
-        return 0
+    if len(orderinfo) > 0: 
+        datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
+        diff = datetime_object - datetime.now()
+        if diff.second < 120:
+            return 0
     #place order
-    print(trd_ctx.place_order(OrderType = 'MARKET', qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(OrderType = OrderType.MARKET', qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
@@ -126,7 +126,7 @@ def sell():
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
-    place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+    place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,OrderType = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 #-----loop    
 while True:
