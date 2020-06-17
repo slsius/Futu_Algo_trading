@@ -126,8 +126,15 @@ def sell(close):
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
-    place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+    trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
+
+def closeall():
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    postlist = trd_ctx.position_list_query()
+    for i in range (0,len(postlist),1):
+        trd_ctx.place_order(code = postlist[i].code, qty = postlist[0].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+    trd_ctx.close()    
 #-----loop    
 while True:
     ret, data = quote_ctx.query_subscription()
