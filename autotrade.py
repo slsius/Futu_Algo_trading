@@ -153,7 +153,7 @@ while len(str(code)) <= 4: #match the format
 
 #main
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
-pdb.set_trace()
+#pdb.set_trace()
 data = datacall(code)
 signal(data)
 
