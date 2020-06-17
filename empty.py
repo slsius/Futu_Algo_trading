@@ -82,6 +82,7 @@ postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
 print(postlist[-1].code)
 for i in range (0,len(postlist),1):
   print(postlist[i])
+  type(postlist[i])
   print(postlist[i].code)
   trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
  
