@@ -57,6 +57,7 @@ def datacall(code):
         
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
+    type(newdata)
     return newdata
 #---calculate signal---
 def signal(data):
@@ -144,6 +145,7 @@ signal(data)
 while True:
     print('loop')
     data = datacall(code)
+    type(data)
     signal(data)
     time.sleep(15)
     now = datetime.now()
