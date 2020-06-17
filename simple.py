@@ -81,18 +81,19 @@ def signal(data):
                 if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
                     buy(data.iloc[-1].close)
-    #------------for testing------------
-    buy(data.iloc[-1].close)
-    NumPos = 500
-    sell(data.iloc[-1].close)
-    closeall()
-    #------------for testing------------
+
+
     if NumPos > 0:            
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].MA <= price:
                     print('sell')
                     sell(data.iloc[-1].close)
+    #------------for testing------------
+    buy(data.iloc[-1].close)
+    NumPos = 500
+    sell(data.iloc[-1].close)
+    closeall()
     trd_ctx.close()
 #-----trade
 def buy(close):
