@@ -36,6 +36,12 @@ code = '00981'
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
+ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
+
+if ret_sub == RET_OK:  # 订阅成功
+    print('ok')
+else:
+    print('subscription failed', err_message)
 ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
 if ret == RET_OK:
   print(data[-3:])
