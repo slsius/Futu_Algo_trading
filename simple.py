@@ -44,7 +44,7 @@ if ret == RET_OK:
     size = snapdata.lot_size
 else:
     print('error:', data) 
-
+#set notification
 def notify(title, text):
     os.system("""
               osascript -e 'display notification "{}" with title "{}"'
@@ -60,7 +60,7 @@ else:
 #-----define signal
 def signal(data):
     global NumPos
-    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111) #make connection
     data['RSI'] = abstract.RSI(data.close,2)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
@@ -81,14 +81,14 @@ def signal(data):
                 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
                 if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
-                    buy(data.iloc[-1].close)
+                    buy(data.iloc[-1].close)    #buy stock
 
 
     if NumPos > 0:            
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].MA <= price:
-                    print('sell')
+                    print('sell')   #sell stock
                     sell(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
@@ -113,8 +113,7 @@ def buy(close):
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
 
-    #check successful trade
-    '''
+    #check successful trade 
     while True:
         time.sleep(5)
         ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
@@ -125,10 +124,10 @@ def buy(close):
             count +=1
         else:
             print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
-            break
-    ''' 
+            break 
     
     trd_ctx.close()
+    
 def sell(close):
     global NumPos
     pwd_unlock = '878900'
@@ -136,6 +135,11 @@ def sell(close):
     
     print(trd_ctx.unlock_trade(pwd_unlock))
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
+    if ret_code == RET_OK:
+        print('')
+    else:
+        while ret_code != RET_OK:
+           ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE) 
     print(info_data)
     
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
@@ -156,9 +160,11 @@ def closeall(close):
 while True:
     ret, data = quote_ctx.query_subscription()
     if ret == RET_OK:
-        print(data)
+        print('')
     else:
         print('error:', data)
+        while ret != RET_OK:
+            ret, data = quote_ctx.query_subscription()
         
     ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
     if ret == RET_OK:
@@ -166,7 +172,9 @@ while True:
         #print(data['turnover_rate'][0])   # 取第一条的换手率
         #print(data['turnover_rate'].values.tolist())   # 转为list
     else:
-        print('error:', data)    
+        print('error:', data)
+        while ret != RET_OK:
+            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ) 
     signal(data)
     print('---------' + str(NumPos) + '--------')
     if datetime.now() > today1530:
