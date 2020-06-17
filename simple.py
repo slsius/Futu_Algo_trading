@@ -112,8 +112,9 @@ def buy(close):
         if diff.total_seconds()/60 < 2:
             return 0
     #place order
-    print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
-    
+    #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+
     #check successful trade
     '''
     while True:
@@ -138,17 +139,19 @@ def sell(close):
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
-    print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
+    #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
+    
     trd_ctx.close()
     NumPos = 0
     
-def closeall():
+def closeall(close):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
     postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     for i in range (-1,-len(postlist)+1):
         print(i)
-        print(trd_ctx.place_order(code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
+        print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()    
 #-----loop    
 while True:
@@ -170,5 +173,5 @@ while True:
     time.sleep(15)
     if datetime.now() > today1530:
         print('close all trade')
-        closeall()
+        closeall(data.iloc[-1].close)
 quote_ctx.close()
