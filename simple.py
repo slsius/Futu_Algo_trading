@@ -103,7 +103,7 @@ def buy(close):
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     if len(orderinfo) > 0: 
         datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%d %H:%M:%S')
-        diff = datetime_object - datetime.now()
+        diff = datetime.now() - datetime_object
         print(diff)
         if diff.second < 120:
             return 0
