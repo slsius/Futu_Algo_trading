@@ -103,7 +103,7 @@ def buy():
         if diff.second < 120:
             return 0
     #place order
-    print(trd_ctx.place_order(OrderType = OrderType.MARKET', qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
@@ -126,7 +126,7 @@ def sell():
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
-    place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,OrderType = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+    place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 #-----loop    
 while True:
