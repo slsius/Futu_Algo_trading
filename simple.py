@@ -66,7 +66,8 @@ def signal(data):
     
     data['RVI'] = RVI = (Nem/6)/(Dem/6)
     data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
-
+    
+    print(data.iloc[-2].RSI)
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         if (data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR) & (data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR):
             now = datetime.now()
