@@ -68,6 +68,8 @@ def signal(data):
     data['RVI'] = RVI = (Nem/6)/(Dem/6)
     data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     print('RVI')
+    print(Nem)
+    print(Dem)
     print(data.iloc[-1].RVI)
     print(data.iloc[-1].RVIR)
     print(data.iloc[-2].RSI)
