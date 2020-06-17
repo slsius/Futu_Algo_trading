@@ -8,7 +8,7 @@ from talib import abstract
 import numpy as np
 import random
 import argparse
-#import pdb
+import pdb
 #set parameter
 RSIHi = 70
 RSILo = 11
@@ -163,6 +163,7 @@ signal(data)
 '''
 while True:
     print('loop')
+    pdb.set_trace()
     data = datacall(code)
     type(data)
     #signal(data)
