@@ -94,7 +94,7 @@ def buy():
     
     #print(trd_ctx.position_list_query())
     #place order
-    print(trd_ctx.place_order(OrderType = 'MARKET', qty=size, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(OrderType = 'MARKET', qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
