@@ -80,17 +80,17 @@ def signal(data):
                 ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
                 if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
-                    #buy()
+                    buy(data.iloc[-1].close)
                 
     if NumPos > 0:            
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].MA <= price:
                     print('sell')
-                    #sell()
+                    sell(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
-def buy():
+def buy(close):
     count = 0
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
@@ -103,7 +103,7 @@ def buy():
         if diff.second < 120:
             return 0
     #place order
-    print(trd_ctx.place_order(order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
@@ -118,7 +118,7 @@ def buy():
             trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
             break
     trd_ctx.close()
-def sell():
+def sell(close):
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     
@@ -126,7 +126,7 @@ def sell():
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     print(info_data)
     
-    place_order(code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+    place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 #-----loop    
 while True:
