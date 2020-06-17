@@ -31,7 +31,6 @@ size = 0
 
 #-----init
 def init():
-    quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
     ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
     if ret == RET_OK:
         print('snap ok')
@@ -156,7 +155,7 @@ while len(str(code)) <= 4: #match the format
 #intialise
 
 #main
-
+quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
 pdb.set_trace()
 data = datacall(code)
 signal(data)
