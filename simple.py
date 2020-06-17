@@ -77,7 +77,7 @@ def signal(data):
             notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
-                ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
+                ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
                 if info_data.iloc[-1].hk_cash > data.close[-1]*size:
                     print('place order')
                     buy(data.iloc[-1].close)
@@ -132,7 +132,7 @@ def sell(close):
     
 def closeall():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
-    print(trd_ctx.cancel_all_order())
+    print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
     postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     for i in range (-1,-len(postlist)+1):
         trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
@@ -155,4 +155,7 @@ while True:
     signal(data)
     print('---------' + str(NumPos) + '--------')
     time.sleep(15)
+    if datetime.now() > today1530:
+        print('close all trade')
+        closeall()
 quote_ctx.close()
