@@ -32,6 +32,10 @@ size = 0
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
+#set code
+code = input("Stock code:")
+while len(str(code)) <= 4: #match the format 
+    code = '0' + str(code)
 #set number of size
 ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
 if ret == RET_OK:
