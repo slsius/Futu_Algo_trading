@@ -129,7 +129,7 @@ while True:
         
     ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
     if ret == RET_OK:
-        print(data[-2:-1])
+        print(data[-3:])
         #print(data['turnover_rate'][0])   # 取第一条的换手率
         #print(data['turnover_rate'].values.tolist())   # 转为list
     else:
