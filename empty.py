@@ -76,17 +76,17 @@ while True:
     print('cancel order')
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
 '''
-    ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-    if ret == RET_OK:
-      print('order list ok')
-    else:
-       print('fail')
-    print(orderlist.order_id)
-    for i in range (-1,-len(orderlist)+1):
-      print(orderlist[i].order_id)
-      print(trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE))
-    count = 0
-    break
+ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+if ret == RET_OK:
+  print('order list ok')
+else:
+  print('fail')
+  print(orderlist.order_id)
+  for i in range (-1,-len(orderlist)+1):
+    print(orderlist[i].order_id)
+    print(trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE))
+  count = 0
+    #break
 
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
 print(info_data)
