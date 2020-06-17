@@ -68,19 +68,20 @@ while True:
   if query.iloc[-1].order_status == 'FILLED_ALL':
     NumPos = NumPos + size
     break
-  elif count < 12:
+  elif count < 2:
     count +=1
     print(count)
   else:
     print('cancel order')
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
-    ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE,status_filter_list=OrderStatus.SUBMITTED)
+    ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
       print('order list ok')
     else:
        print('fail')
     print(orderlist[-1].order_id)
     trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[-1].order_id,trd_env = TrdEnv.SIMULATE)
+    count = 0
     break
 
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
