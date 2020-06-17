@@ -74,7 +74,12 @@ while True:
   else:
     print('cancel order')
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
-    orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE,status_filter_list=OrderStatus.SUBMITTED)
+    ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE,status_filter_list=OrderStatus.SUBMITTED)
+    if ret == RET_OK:
+      print('order list ok')
+    else:
+       print('fail')
+    print(orderlist[-1].order_id)
     trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[-1].order_id,trd_env = TrdEnv.SIMULATE)
     break
 
