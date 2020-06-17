@@ -133,7 +133,7 @@ def closeall():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     postlist = trd_ctx.position_list_query()
     for i in range (0,len(postlist),1):
-        trd_ctx.place_order(code = postlist[i].code, qty = postlist[0].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+        trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()    
 #-----loop    
 while True:
