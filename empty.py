@@ -80,8 +80,9 @@ while True:
     else:
        print('fail')
     print(orderlist.order_id)
-    trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[len(orderlist)-1].order_id,trd_env = TrdEnv.SIMULATE)
-    count = 0
+    for i in range (-1,-len(orderlist)+1):
+      trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id)
+      count = 0
     break
 
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
