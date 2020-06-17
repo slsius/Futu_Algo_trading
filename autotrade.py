@@ -61,7 +61,7 @@ def datacall(code):
             print(newdata)
             #print(newdata['turnover_rate'][0])  
             #print(newdata['turnover_rate'].values.tolist()) 
-        else:
+    else:
             print('error:', newdata)
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
