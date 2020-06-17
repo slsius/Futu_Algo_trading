@@ -69,7 +69,7 @@ def signal(data):
     
     print(data.iloc[-2].RSI)
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
-        if (data.iloc[-1:,:].RVI >= data.iloc[-1:,:].RVIR) & (data.iloc[-2:-1,:].RVI <= data.iloc[-2:-1,:].RVIR):
+        if (data.iloc[-1].RVI >= data.iloc[-1].RVIR) & (data.iloc[-2].RVI <= data.iloc[-2].RVIR):
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
                 ret_code, info_data = trd_ctx.accinfo_query()   #get ac info
@@ -78,9 +78,9 @@ def signal(data):
                     #buy()
                 
     if size != 0:            
-        if (data.iloc[-1:,:].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
-            if (data.iloc[-1:,:].RVI <= data.iloc[-1:,:].RVIR):
-                if data.iloc[-1:,:].MA <= price:
+        if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
+            if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
+                if data.iloc[-1].MA <= price:
                     print('sell')
                     #sell()
 #loop    
