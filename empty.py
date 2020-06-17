@@ -59,6 +59,7 @@ if len(orderinfo) > 0:
   diff = datetime_object - datetime.now()
     
 #place order
+'''
 print(trd_ctx.place_order(price = data.iloc[-1].close, order_type = OrderType.NORMAL, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
@@ -74,6 +75,7 @@ while True:
   else:
     print('cancel order')
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
+'''
     ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
       print('order list ok')
@@ -81,8 +83,9 @@ while True:
        print('fail')
     print(orderlist.order_id)
     for i in range (-1,-len(orderlist)+1):
-      trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE)
-      count = 0
+      print(orderlist[i].order_id)
+      print(trd_ctx.modify_order(ModifyOrderOp.CANCEL, order_id = orderlist[i].order_id,trd_env = TrdEnv.SIMULATE))
+    count = 0
     break
 
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
