@@ -46,7 +46,7 @@ else:
 
 
 #make subscribetion
-ret_sub, err_message = quote_ctx.subscribe(['HK.00700'], [SubType.K_1M], subscribe_push=False)
+ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
 
 if ret_sub == RET_OK:  # 订阅成功
     print('ok')
@@ -61,7 +61,7 @@ while True:
     else:
         print('error:', data)
         
-    ret, data = quote_ctx.get_cur_kline('HK.00700', 50, SubType.K_1M, AuType.QFQ)  
+    ret, data = quote_ctx.get_cur_kline('HK.' + code, 50, SubType.K_1M, AuType.QFQ)  
     if ret == RET_OK:
         print(data)
         print(data['turnover_rate'][0])   # 取第一条的换手率
