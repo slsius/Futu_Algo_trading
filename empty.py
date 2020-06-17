@@ -80,9 +80,9 @@ trd_ctx.place_order(price = data.iloc[-1].close,code = code, qty = NumPos,trd_si
 
 postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
 print(postlist[-1].code)
-for i in range (0,len(postlist),1):
-  print('length')
-  print(len(postlist))
+for i in range (0,len(postlist)-1,1):
+  print('loop')
+  print(i)
   trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
  
 trd_ctx.close()  
