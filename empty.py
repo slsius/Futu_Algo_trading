@@ -35,6 +35,8 @@ size = 50
 code = '00981'
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
+
 print(trd_ctx.unlock_trade(pwd_unlock))
     
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
@@ -45,7 +47,7 @@ if len(orderinfo) > 0:
   diff = datetime_object - datetime.now()
     
 #place order
-print(trd_ctx.place_order(order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+print(trd_ctx.place_order(price = data.iloc[-1].close, order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
 while True:
@@ -59,4 +61,5 @@ while True:
   else:
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
     break
-    trd_ctx.close()  
+trd_ctx.close()  
+quote_ctx.close()
