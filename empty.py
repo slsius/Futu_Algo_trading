@@ -77,5 +77,10 @@ while True:
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
 print(info_data)
 trd_ctx.place_order(price = data.iloc[-1].close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE)
+
+postlist = trd_ctx.position_list_query()
+for i in range (0,len(postlist),1):
+  trd_ctx.place_order(code = postlist[i].code, qty = postlist[i].qty,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+ 
 trd_ctx.close()  
 quote_ctx.close()
