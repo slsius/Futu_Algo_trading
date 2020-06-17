@@ -98,7 +98,7 @@ def buy(close):
     
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     if len(orderinfo) > 0: 
-        datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%dd %H:%M:%S')
+        datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%d %H:%M:%S')
         diff = datetime_object - datetime.now()
         if diff.second < 120:
             return 0
@@ -109,7 +109,7 @@ def buy(close):
     while True:
         time.sleep(5)
         ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if query[-1].order_status == FILLED_ALL:
+        if query[-1].order_status == 'FILLED_ALL':
             NumPos = NumPos + size
             break
         elif count < 12:
