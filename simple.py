@@ -108,7 +108,7 @@ def buy(close):
         print(datetime.now())
         print(diff)
         print(diff.total_seconds()/60)
-        if diff.second < 120:
+        if diff.total_seconds/60 < 2:
             return 0
     #place order
     print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
