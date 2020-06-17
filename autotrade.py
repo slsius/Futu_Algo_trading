@@ -42,18 +42,18 @@ def init():
 #-----get data    
 def datacall(code):
     quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection to the server
-    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False) #subscirbe the call
-    if ret_sub == RET_OK:  # 订阅成功
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False) #subscribe the call
+    if ret_sub == RET_OK:  # subscribtion success
         ret, newdata = quote_ctx.get_cur_kline(['HK.' + code], 50, SubType.K_1M) 
         if ret == RET_OK:
             print(newdata)
-            print(newdata['turnover_rate'][0])   # 取第一条的换手率
-            print(newdata['turnover_rate'].values.tolist())   # 转为list
+            #print(newdata['turnover_rate'][0])  
+            #print(newdata['turnover_rate'].values.tolist()) 
         else:
             print('error:', newdata)
     else:
         print('subscription failed', err_message)
-        newdata = 0
+        newdata = pd.DataFrame(columns='')
         
     quote_ctx.close() #close connection   
     #return data,price.iloc[0]
@@ -95,12 +95,9 @@ def buy():
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
     
-   
-    
-
     #print(trd_ctx.position_list_query())
     #place order
-    print(trd_ctx.place_order(OrderType = 'MARKET', qty=100, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(OrderType = 'MARKET', qty=size, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade
     while True:
@@ -123,7 +120,7 @@ def sell():
     ret_code, info_data = trd_ctx.accinfo_query()
     print(info_data)
     
-    place_order(code = code, qty = size,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
+    place_order(code = code, qty = NumPos,trd_side = 'SELL',OrderType = 'MARKET', trd_env = TrdEnv.SIMULATE)
     trd_ctx.close()
 
 def closeall():
