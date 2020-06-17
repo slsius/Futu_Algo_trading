@@ -6,7 +6,7 @@ if ret == RET_OK:
             print(newdata)
             #print(newdata['turnover_rate'][0])  
             #print(newdata['turnover_rate'].values.tolist()) 
-    else:
+else:
             print('error:', newdata)
         
 quote_ctx.close()
