@@ -70,7 +70,9 @@ while True:
     break
   elif count < 12:
     count +=1
+    print(count)
   else:
+    print('cancel order')
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
     break
 
