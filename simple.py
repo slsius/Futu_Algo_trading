@@ -36,7 +36,7 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
 if ret == RET_OK:
     print('snap ok')
-     size = snapdata.lot_size
+    size = snapdata.lot_size
 else:
     print('error:', data) 
 
