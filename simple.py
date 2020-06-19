@@ -41,7 +41,7 @@ while len(str(code)) <= 4: #match the format
 ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
 if ret == RET_OK:
     print('snap ok')
-    size = snapdata.lot_size
+    size = snapdata.iloc[-1].lot_size
 else:
     print('error:', snapdata) 
 #set notification
