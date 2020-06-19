@@ -66,9 +66,10 @@ type(data.iloc[-1].close)
 print(data.iloc[-1].close)
 print('~~~~~~')
 
-if info_data.iloc[-1].cash > (data.iloc[-1].close*size) | info_data.iloc[-1].cash <= (data.iloc[-1].close*size):
+if info_data.iloc[-1].cash > (data.iloc[-1].close*size):
   print('debugged')
-  
+if info_data.iloc[-1].cash <= (data.iloc[-1].close*size):
+  print('debugged')
 '''    
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(orderinfo)
