@@ -44,7 +44,7 @@ if ret == RET_OK:
     print('snap ok')
     size = snapdata.lot_size
 else:
-    print('error:', data) 
+    print('error:', snapdata) 
 #set notification
 def notify(title, text):
     os.system("""
