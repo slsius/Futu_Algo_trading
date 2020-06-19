@@ -54,7 +54,8 @@ else:
 print(trd_ctx.unlock_trade(pwd_unlock))
 ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
-
+ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
+size = snapdata.lot_size
 print('~~~~~~')
 
 print(info_data.iloc[-1].cash)
@@ -63,9 +64,9 @@ print(data.iloc[-1].close*size)
 print('~~~~~~')
 
 if info_data.iloc[-1].cash > (data.iloc[-1].close*size):
-  print('debugged')
+  print('debugged1')
 if info_data.iloc[-1].cash <= (data.iloc[-1].close*size):
-  print('debugged')
+  print('debugged2')
 '''    
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(orderinfo)
