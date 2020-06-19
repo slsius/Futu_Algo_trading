@@ -58,16 +58,17 @@ ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac
 print('~~~~~~')
 print(trd_ctx.accinfo_query())
 print(trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE))
-type(info_data.iloc[-1].hk_cash)
-print(info_data.iloc[-1].hk_cash)
-type(info_data.hk_cash)
-print(info_data.hk_cash)
+type(info_data.iloc[-1].cash)
+print(info_data.iloc[-1].cash)
+type(info_data.cash)
+print(info_data.cash)
 type(data.iloc[-1].close)
 print(data.iloc[-1].close)
 print('~~~~~~')
 
-if info_data.iloc[-1].cash > (data.iloc[-1].close*size):
+if info_data.iloc[-1].cash > (data.iloc[-1].close*size) | info_data.iloc[-1].cash <= (data.iloc[-1].close*size):
   print('debugged')
+  
 '''    
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(orderinfo)
