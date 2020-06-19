@@ -28,7 +28,6 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 
 #set globe parameter
 NumPos = 0
-size= 0
 hand = 1
 
 #make connection
@@ -76,6 +75,7 @@ def signal(data):
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         if (data.iloc[-1].RVI >= data.iloc[-1].RVIR) & (data.iloc[-2].RVI <= data.iloc[-2].RVIR):
             print('-----buy signal-----')
+            print(size)
             notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
             now = datetime.now()
             if (now > today930 and now < today11) or (now > today13 and now < today15):
