@@ -199,3 +199,4 @@ while True:
         break
     time.sleep(15)
 quote_ctx.close()
+trf_ctx.close()
