@@ -63,7 +63,7 @@ print(info_data.iloc[-1].cash)
 type(info_data.cash)
 print(info_data.cash)
 type(data.iloc[-1].close)
-print(data.iloc[-1].close)
+print(data.iloc[-1].close*size)
 print('~~~~~~')
 
 if info_data.iloc[-1].cash > (data.iloc[-1].close*size):
