@@ -39,6 +39,7 @@ trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
 
+#subscribtion
 if ret_sub == RET_OK:  # 订阅成功
     print('ok')
 else:
@@ -49,15 +50,25 @@ if ret == RET_OK:
 else:
   print('error:', data) 
         
+#unlock
 print(trd_ctx.unlock_trade(pwd_unlock))
-    
+ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)
+ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
+
+print('~~~~~~')
+type(info_data.iloc[-1].hk_cash)
+print(info_data.iloc[-1].hk_cash)
+type(data.iloc[-1].close)
+print(data.iloc[-1].close)
+print('~~~~~~')
+'''    
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(orderinfo)
 print(len(orderinfo))
 if len(orderinfo) > 0: 
   datetime_object = datetime.strptime(orderinfo.iloc[-1].updated_time , '%Y-%m-%d %H:%M:%S')
   diff = datetime_object - datetime.now()
-    
+'''    
 #place order
 '''
 print(trd_ctx.place_order(price = data.iloc[-1].close, order_type = OrderType.NORMAL, qty=size*10, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
@@ -76,6 +87,7 @@ while True:
     print('cancel order')
     trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE)
 '''
+'''
 ret,orderlist = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 if ret == RET_OK:
   print('order list ok')
@@ -90,6 +102,7 @@ for i in range (0,len(orderlist)-1):
   print(trd_ctx.modify_order(price = data.iloc[-1].close, qty = 500,modify_order_op = ModifyOrderOp.CANCEL, order_id = orderlist.iloc[i].order_id,trd_env = TrdEnv.SIMULATE))
 count = 0
     #break
+'''
 '''
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
 print(info_data)
