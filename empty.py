@@ -56,6 +56,8 @@ ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
 
 print('~~~~~~')
+print(trd_ctx.accinfo_query())
+print(trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE))
 type(info_data.iloc[-1].hk_cash)
 print(info_data.iloc[-1].hk_cash)
 type(info_data.hk_cash)
