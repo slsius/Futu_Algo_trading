@@ -63,7 +63,7 @@ print(data.iloc[-1].close)
 print(data.iloc[-1].close*size)
 print('~~~~~~')
 
-if info_data.iloc[-1].cash > (data.iloc[-1].close*size):
+if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
   print('debugged1')
 if info_data.iloc[-1].cash <= ((data.iloc[-1].close)*(size)):
   print('debugged2')
