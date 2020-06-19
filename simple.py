@@ -85,7 +85,7 @@ def signal(data):
                 else:
                     while et_code != RET_OK:
                         ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
-                if info_data.iloc[-1].cash > (data.iloc[-1].close*size):
+                if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
                     print('place order')
                     buy(data.iloc[-1].close)    #buy stock
 
