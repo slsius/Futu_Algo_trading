@@ -157,12 +157,18 @@ def sell(close):
 def closeall(close):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
-    postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+    ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print('position list ok')
+    else:
+        while ret != RET_OK:
+            ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     print(postlist)
+    print(postlist.code)
     for i in range (0,len(postlist)-1):
         print(i)
         #print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
-        print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
+        print(trd_ctx.place_order(price = close, code = postlist[i].code, qty = postlist[i].qty,ttrd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()    
 #-----loop    
 while True:
