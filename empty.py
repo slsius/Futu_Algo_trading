@@ -55,7 +55,7 @@ print(trd_ctx.unlock_trade(pwd_unlock))
 ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)
 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
 ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
-size = snapdata.lot_size
+size = snapdata.iloc[-1].lot_size
 print('~~~~~~')
 
 print(info_data.iloc[-1].cash)
