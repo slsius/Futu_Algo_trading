@@ -123,7 +123,12 @@ def buy(close):
     while True:
         time.sleep(5)
         ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if query[-1].order_status == 'FILLED_ALL':
+        if ret == RET_OK:
+            print(query)
+        else:
+            while ret != RET_OK:
+                ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+        if query.iloc[-1].order_status == 'FILLED_ALL':
             NumPos = NumPos + size
             break
         elif count < 12:
