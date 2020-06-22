@@ -57,6 +57,7 @@ else:
         ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
 print('~~~~~~~~position')  
 print(position.loc[position['code'] == 'HK.' + str(code)].qty)
+print(position.loc[position['code'] == 'HK.' + str(code)].index.values)
 print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values)
 type(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values)
 print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values.dtype)
