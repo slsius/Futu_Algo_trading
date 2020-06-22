@@ -108,10 +108,18 @@ def signal(data):
                     buy(data.iloc[-1].close)    #buy stock
 
 
-    if NumPos > 0:            
+    if NumPos > 0:
+        print('RSI:')
+        print(data.iloc[-1].RSI)
+        print(data.iloc[-2].RSI)
+        print(data.iloc[-3].RSI)
+        print('MA')
+        print(data.iloc[-1].MA)
+        print('close')
+        print(ata.iloc[-1].close)
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
-                if data.iloc[-1].MA <= data.iloc[-1].close:
+                if data.iloc[-1].close <= data.iloc[-1].MA:
                     notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
                     print('~~~sell~~~')   #sell stock
                     sell(data.iloc[-1].close)
