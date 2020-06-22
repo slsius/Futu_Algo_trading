@@ -243,7 +243,7 @@ while True:
     if sellflag == 1:
         ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         print(order)
-        if order.iloc[0].order_status == 'FILLED_ALL':
+        if order[0].order_status == 'FILLED_ALL':
             sellflag = 0
     if datetime.now() > today1530:
         print('close all trade')
