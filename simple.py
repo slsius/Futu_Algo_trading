@@ -56,7 +56,7 @@ else:
     while ret != RET_OK:
         ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
 print('position')        
-print(position.loc[position['code'] == 'HK.' + str(code))
+position.loc[position['code'] == 'HK.' + str(code)
 trd_ctx.close()
     
     
