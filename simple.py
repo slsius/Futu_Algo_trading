@@ -104,7 +104,7 @@ def signal(data):
                     while et_code != RET_OK:
                         ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
                 if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
-                    print('place order/n/n')
+                    print('place order')
                     buy(data.iloc[-1].close)    #buy stock
 
 
@@ -124,6 +124,8 @@ def buy(close):
     print(trd_ctx.unlock_trade(pwd_unlock))
     
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print(orderinfo)
     if len(orderinfo) > 0: 
         datetime_object = datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S')
         diff = datetime.now() - datetime_object
@@ -135,6 +137,7 @@ def buy(close):
             return 0
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print('make order')
     print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
 
     #check successful trade 
