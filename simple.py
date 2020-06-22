@@ -160,10 +160,10 @@ def closeall(close):
     ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
         print('position list ok')
+        print(postlist)
     else:
         while ret != RET_OK:
             ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
-    print(postlist)
     print(postlist.code)
     print(close)
     print(len(postlist)-1)
