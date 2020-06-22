@@ -198,6 +198,7 @@ def sell(close):
    
     
 def closeall(close):
+    print('CLOSE ALL')
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
     ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
