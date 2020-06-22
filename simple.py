@@ -112,7 +112,7 @@ def signal(data):
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].MA <= data.iloc[-1].close:
-                    print('sell/n/n')   #sell stock
+                    print('~~~sell~~~')   #sell stock
                     sell(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
@@ -168,17 +168,20 @@ def sell(close):
     print(trd_ctx.unlock_trade(pwd_unlock))
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     if ret_code == RET_OK:
-        print('')
+        print('info_data')
     else:
         while ret_code != RET_OK:
            ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE) 
     print(info_data)
     
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
-    print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
-    
+    #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
+    ret,order = trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print(order)
+        NumPos = 0
     trd_ctx.close()
-    NumPos = 0
+   
     
 def closeall(close):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
