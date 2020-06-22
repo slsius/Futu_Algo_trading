@@ -209,7 +209,7 @@ def closeall(close):
             ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
     print(postlist.code)
     print(close)
-    print(len(postlist)-1)
+    print(len(postlist))
     for i in range (0,len(postlist)-1):
         print(i)
         print(postlist[i].code)
