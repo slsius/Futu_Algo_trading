@@ -44,6 +44,22 @@ if ret == RET_OK:
     size = snapdata.iloc[-1].lot_size
 else:
     print('error:', snapdata) 
+
+#check holding
+pwd_unlock = '878900'
+trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+trd_ctx.unlock_trade(pwd_unlock)
+ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+if ret == RET_OK:
+    print(position)
+else:
+    while ret != RET_OK:
+        ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+print('position')        
+print(position.loc[position['code'] == 'HK.' + str(code))
+trd_ctx.close()
+    
+    
 #set notification
 def notify(title, text):
     os.system("""
