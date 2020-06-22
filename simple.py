@@ -58,6 +58,8 @@ else:
 print('~~~~~~~~position')  
 print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values)
 type(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values)
+print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values.dtype)
+print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values.to_numpy())
 print(isinstance(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values, float))
 if position.loc[position['code'] == 'HK.' + str(code)]['qty'].values > 0:
     print('update NUMPOS')
