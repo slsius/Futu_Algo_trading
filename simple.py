@@ -59,7 +59,7 @@ print('~~~~~~~~position')
 print(position.loc[position['code'] == 'HK.' + str(code)].qty)
 print(position.loc[position['code'] == 'HK.' + str(code)].index)
 print('~~~~~~~~~~~~~value')
-print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].index.values)
+print(position.loc[position['code'] == 'HK.' + str(code)]['qty'].values)
 print(position.iloc[position.loc[position['code'] == 'HK.' + str(code)].index].qty)
 if position.loc[position['code'] == 'HK.' + str(code)].qty > 0:
     NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty
