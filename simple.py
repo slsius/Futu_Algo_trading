@@ -113,6 +113,8 @@ def signal(data):
         print(data.iloc[-1].RSI)
         print(data.iloc[-2].RSI)
         print(data.iloc[-3].RSI)
+        print('RVI')
+        print(data.iloc[-1].RVI - data.iloc[-1].RVIR)
         print('MA')
         print(data.iloc[-1].MA)
         print('close')
