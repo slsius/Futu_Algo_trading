@@ -211,6 +211,7 @@ def closeall(close):
     print(close)
     print(len(postlist))
     for i in range (0,len(postlist)-1):
+        print('~~~~~~~')
         print(i)
         print(postlist[i].code)
         print(postlist[i]['code'].values)
