@@ -180,14 +180,14 @@ def sell(close):
     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
     if ret_code == RET_OK:
         print('info_data')
+        print(info_data)
     else:
         while ret_code != RET_OK:
            ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE) 
-    print(info_data)
     
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
-    ret,order = trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE)
+    ret,order = trd_ctx.place_order(price = close,code = 'HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
         print(order)
         NumPos = 0
