@@ -36,15 +36,20 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 #set code
 code = input("Stock code:")
-while len(str(code)) <= 4: #match the format 
+while type(code) != int: #input must be integer
+    code = input("Stock code:")
+while len(str(code)) <= 4: #match the format of 5 digit
     code = '0' + str(code)
+    
 #set number of size
 ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
 if ret == RET_OK:
     print('snap ok')
     size = snapdata.iloc[-1].lot_size
 else:
-    print('error:', snapdata) 
+    print('error:', snapdata)
+    while ret != RET_OK:
+        ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
 
 #check holding
 pwd_unlock = '878900'
@@ -56,10 +61,10 @@ if ret == RET_OK:
 else:
     while ret != RET_OK:
         ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
-print('~~~~~~~~position')  
 if (position.loc[position['code'] == 'HK.' + str(code)]['qty'].values) > 0:
     print('update NUMPOS')
     NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
+    print(NumPos)
 trd_ctx.close()
     
     
@@ -138,7 +143,7 @@ def buy(close):
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
         print(orderinfo)
-    if len(orderinfo) > 0: 
+    if len(orderinfo) > 0: #check is it ordered within 2mins
         datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
         diff = datetime.now() - datetime_object
         print(datetime_object)
@@ -187,7 +192,7 @@ def sell(close):
         while ret_code != RET_OK:
            ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE) 
     
-    #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
+    #print(trd_ctx.place_order(price = close,code = HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
     ret,order = trd_ctx.place_order(price = close,code = 'HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
@@ -231,21 +236,19 @@ while True:
         
     ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
     if ret == RET_OK:
-        print(data[-3:])
-        #print(data['turnover_rate'][0])   # 取第一条的换手率
-        #print(data['turnover_rate'].values.tolist())   # 转为list
+        print(data[-3:]) #print last three kline
     else:
         print('error:', data)
         while ret != RET_OK:
             ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ) 
-    signal(data)
-    print('---------' + str(NumPos) + '--------')
-    if sellflag == 1:
+    signal(data)    #calculate the signal
+    print('---------' + str(NumPos) + '--------')   #print number of holdings
+    if sellflag == 1:   #monitor the sell order success
         ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         print(order)
         if order[0].order_status == 'FILLED_ALL':
             sellflag = 0
-    if datetime.now() > today1530:
+    if datetime.now() > today1530:  #close all order before end
         print('close all trade')
         closeall(data.iloc[-1].close)
         break
