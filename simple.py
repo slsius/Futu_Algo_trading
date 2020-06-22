@@ -93,7 +93,7 @@ def signal(data):
     if NumPos > 0:            
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
-                if data.iloc[-1].MA <= price:
+                if data.iloc[-1].MA <= data.iloc[-1].close:
                     print('sell')   #sell stock
                     sell(data.iloc[-1].close)
     trd_ctx.close()
