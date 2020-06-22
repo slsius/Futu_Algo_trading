@@ -70,6 +70,7 @@ print(isinstance(position.loc[position['code'] == 'HK.' + str(code)]['qty'].valu
 if position.loc[position['code'] == 'HK.' + str(code)]['qty'].values > 0:
     print('update NUMPOS')
     NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
+    NumPos = NumPos + 1
 trd_ctx.close()
     
     
