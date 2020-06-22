@@ -174,7 +174,7 @@ def buy(close):
     trd_ctx.close()
     
 def sell(close):
-    global NumPos
+    global NumPos,sellflag
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     
@@ -193,7 +193,7 @@ def sell(close):
     if ret == RET_OK:
         print(order)
         NumPos = 0
-        global sellflag = 1
+        sellflag = 1
     trd_ctx.close()
    
     
