@@ -29,6 +29,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 #set globe parameter
 NumPos = 0
 hand = 1
+sellflag = 0
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
@@ -192,6 +193,7 @@ def sell(close):
     if ret == RET_OK:
         print(order)
         NumPos = 0
+        global sellflag = 1
     trd_ctx.close()
    
     
@@ -235,6 +237,11 @@ while True:
             ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ) 
     signal(data)
     print('---------' + str(NumPos) + '--------')
+    if sellflag == 1:
+        ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+        print(order)
+        if order.iloc[0].order_status == 'FILLED_ALL':
+            sellflag = 0
     if datetime.now() > today1530:
         print('close all trade')
         closeall(data.iloc[-1].close)
