@@ -213,6 +213,7 @@ def closeall(close):
     for i in range (0,len(postlist)-1):
         print(i)
         print(postlist[i].code)
+        print(postlist[i]['code'].values)
         #print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
         print(trd_ctx.place_order(price = close, code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()    
