@@ -237,7 +237,7 @@ def closeall(close):
         while ret != RET_OK:
             ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     for i in range (0,len(order)):
-        print(rder.iloc[i].order_status)
+        print(order.iloc[i].order_status)
         if order.iloc[i].order_status == 'SUBMITTED':
             print(iloc[i].order_id)
             print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,order.iloc[i].order_id	 ,price = close, qty = size))
