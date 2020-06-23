@@ -239,7 +239,7 @@ def closeall(close):
     for i in range (0,len(order)):
         print(order.iloc[i].order_status)
         if order.iloc[i].order_status == 'SUBMITTED':
-            print(iloc[i].order_id)
+            print(order.iloc[i].order_id)
             print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,order.iloc[i].order_id	 ,price = close, qty = size))
             print(trd_ctx.modify_order(ModifyOrderOp.DELETE,order.iloc[i].order_id	 ,price = close, qty = size))
     trd_ctx.close()    
