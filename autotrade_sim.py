@@ -37,6 +37,7 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 #set code
 while True:   
     code = input("Stock code:")
+    isinstance (code,int)
     if isinstance (code,int):
         break
 
