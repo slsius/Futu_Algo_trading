@@ -236,9 +236,9 @@ def closeall(close):
     else:
         while ret != RET_OK:
             ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-    id = order.loc[order['order_status'] == 'SUBMITTED']['order_id'].values
-    print(id)
-    trd_ctx.modify_order(ModifyOrderOp.CANCEL, id,price = 0.01, qty = 0)
+    for i in range (0,len(order)):
+        if order.iloc[i].order_status == 'SUBMITTED'
+            rd_ctx.modify_order(ModifyOrderOp.CANCEL,order.iloc[i].order_id	 ,price = close, qty = size)
     trd_ctx.close()    
 #-----loop    
 while True:
