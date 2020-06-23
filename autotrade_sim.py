@@ -236,12 +236,11 @@ def closeall(close):
     else:
         while ret != RET_OK:
             ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-    for i in range (0,len(order)):
+    for i in range (0,len(order)): #delete all the order
         print(order.iloc[i].order_status)
         if order.iloc[i].order_status == 'SUBMITTED':
             print(order.iloc[i].order_id)
             print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[i].order_id)	 ,price = close, qty = size,trd_env = TrdEnv.SIMULATE))
-            print(trd_ctx.modify_order(ModifyOrderOp.DELETE,order.iloc[i].order_id	 ,price = close, qty = size,trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()    
 #-----loop    
 while True:
