@@ -36,7 +36,7 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 #set code
 code = input("Stock code:")
-while type(code) != int: #input must be integer
+while type(code) != type(100): #input must be integer
     code = input("Stock code:")
 while len(str(code)) <= 4: #match the format of 5 digit
     code = '0' + str(code)
