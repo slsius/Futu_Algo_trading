@@ -108,16 +108,18 @@ def signal(data):
             notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
             now = datetime.now()
             print(now)
-            if (now > today930 and now < today11) or (now > today13 and now < today15):
-                ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
-                if ret_code == RET_OK:
-                    print('info data ok')
-                else:
-                    while ret_code != RET_OK:
-                        ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
-                if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
-                    print('place order')
-                    buy(data.iloc[-1].close)    #buy stock
+            print(data.iloc[-4].time_key)
+            if (data.iloc[-4].time_key >= today930):
+                if (now > today930 and now < today11) or (now > today13 and now < today15):
+                    ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
+                    if ret_code == RET_OK:
+                        print('info data ok')
+                    else:
+                        while ret_code != RET_OK:
+                            ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
+                    if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
+                        print('place order')
+                        buy(data.iloc[-1].close)    #buy stock
 
 
     if NumPos > 0:
