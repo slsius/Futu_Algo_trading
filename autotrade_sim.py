@@ -174,8 +174,8 @@ def buy(close):
         else:
             while ret != RET_OK:
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if query.iloc[-1].order_status == 'FILLED_ALL':
-            NumPos = NumPos + size
+        if query.iloc[0].order_status == 'FILLED_ALL':
+            NumPos = NumPos + size*hand
             break
         elif count < 12:
             count +=1
