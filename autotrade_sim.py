@@ -131,7 +131,7 @@ def signal(data):
         print(data.iloc[-1].MA)
         print('close')
         print(data.iloc[-1].close)
-        if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI <=RSIHi) | (data.iloc[-3].RSI <=RSIHi):  
+        if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI >=RSIHi) | (data.iloc[-3].RSI >=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].close <= data.iloc[-1].MA:
                     notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
