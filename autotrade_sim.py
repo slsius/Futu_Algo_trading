@@ -150,15 +150,16 @@ def buy(close):
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2mins
-        datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
-        diff = datetime.now() - datetime_object
-        print(datetime_object)
-        print(datetime.now())
-        print(diff)
-        print(diff.total_seconds()/60)
-        if diff.total_seconds()/60 < 2:
-            notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
-            return 0
+        if orderinfo.iloc[0].trd_side == 'BUY'
+            datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
+            diff = datetime.now() - datetime_object
+            print(datetime_object)
+            print(datetime.now())
+            print(diff)
+            print(diff.total_seconds()/60)
+            if diff.total_seconds()/60 < 2:
+                notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                return 0
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
