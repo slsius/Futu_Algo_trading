@@ -150,7 +150,7 @@ def buy(close):
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2mins
-        if orderinfo.iloc[0].trd_side == 'BUY'
+        if orderinfo.iloc[0].trd_side == 'BUY':
             datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
