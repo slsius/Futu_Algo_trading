@@ -230,6 +230,14 @@ def closeall(close):
         print(postlist[i]['code'].values)
         #print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
         print(trd_ctx.place_order(price = close, code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
+    ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print('order')
+    else:
+        while ret != RET_OK:
+            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    id = order.loc[order['order_status'] == 'SUBMITTED']['order_id'].values
+    trd_ctx.modify_order(ModifyOrderOp.CANCEL, id)
     trd_ctx.close()    
 #-----loop    
 while True:
