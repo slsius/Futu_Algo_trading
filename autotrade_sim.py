@@ -79,7 +79,7 @@ def notify(title, text):
               osascript -e 'display notification "{}" with title "{}"'
               """.format(text, title))
 #-----make subscribetion
-ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
+ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
 
 if ret_sub == RET_OK:  # 订阅成功
     print('ok')
@@ -283,5 +283,13 @@ while True:
         closeall(data.iloc[-1].close)
         break
     time.sleep(15)
+    
+ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  # 取消所有订阅
+if ret_unsub == RET_OK:
+    print('unsubscribe successfully！current subscription status:', quote_ctx.query_subscription())  # 取消订阅后查询订阅状态
+else:
+    print('unsubscription failed', err_message_unsub)
+    while ret_unsub != RET_OK:
+        ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()
 quote_ctx.close()
 trd_ctx.close()
