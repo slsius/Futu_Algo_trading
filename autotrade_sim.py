@@ -109,7 +109,7 @@ def signal(data):
             now = datetime.now()
             print(now)
             print(data.iloc[-4].time_key)
-            time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S').time()
+            time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
             print(time_object)
             if (time_object >= today930):
                 if (now > today930 and now < today11) or (now > today13 and now < today15):
