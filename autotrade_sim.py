@@ -184,7 +184,14 @@ def buy(close):
         elif count < 12:
             count +=1
         else:
-            print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
+            #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
+            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+            if ret == RET_OK:
+                print(order)
+            else:
+                while ret != RET_OK:
+                    ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))        
             break 
     
     trd_ctx.close()
