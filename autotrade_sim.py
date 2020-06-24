@@ -293,5 +293,7 @@ else:
     print('unsubscription failed', err_message_unsub)
     while ret_unsub != RET_OK:
         ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()
-quote_ctx.close()
 trd_ctx.close()
+print('finish')
+quote_ctx.close()
+print('finish')
