@@ -110,7 +110,7 @@ def signal(data):
             print(now)
             print(data.iloc[-4].time_key)
             time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S').time()
-            print(time_pbject)
+            print(time_object)
             if (time_object >= today930):
                 if (now > today930 and now < today11) or (now > today13 and now < today15):
                     ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
