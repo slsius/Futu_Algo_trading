@@ -161,7 +161,7 @@ def buy(close):
             print(datetime.now())
             print(diff)
             print(diff.total_seconds()/60)
-            if diff.total_seconds()/60 < 2:
+            if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0
     #place order
@@ -263,13 +263,13 @@ while True:
         while ret != RET_OK:
             ret, data = quote_ctx.query_subscription()
         
-    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
+    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
     else:
         print('error:', data)
         while ret != RET_OK:
-            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ) 
+            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ) 
     signal(data)    #calculate the signal
     print('---------' + str(NumPos) + '--------')   #print number of holdings
     if sellflag == 1:   #monitor the sell order success
