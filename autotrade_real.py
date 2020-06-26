@@ -306,7 +306,7 @@ while True:
         print('close all trade')
         closeall(data.iloc[-1].close)
         break
-    time.sleep(15)
+    time.sleep(45)
     
 ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  # 取消所有订阅
 if ret_unsub == RET_OK:
