@@ -24,7 +24,7 @@ NumDay = 73 #set the number of day of data
 
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.54796', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.51369', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=150*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_3M) 
 #ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.00700', start='2005-01-01', end='2009-12-31', max_count=5000, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret1 == RET_OK:
     print('ok')
