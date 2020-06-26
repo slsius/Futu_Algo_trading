@@ -38,8 +38,9 @@ quote_ctx.close() #close connection
 
 
 plotdata1 = pd.DataFrame() #index=pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S', infer_datetime_format=True)
-data1['time_key'] = pd.to_datetime(data1['time_key'])
-
+#data1['time_key'] = pd.to_datetime(data1['time_key'])
+data1['time_key'] = pd.to_datetime(data1['time_key'], format='%Y-%m-%d %H:%M:%S')
+               
 plotdata1['Open'] = data1['open']
 plotdata1['High'] = data1.high
 plotdata1['Low'] = data1.low
