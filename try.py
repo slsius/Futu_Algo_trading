@@ -163,5 +163,5 @@ for tstperiod in range (2,2,1):  # chang value here
         df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova}, ignore_index=True)
 df.to_csv('test_data_bear3M.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
-#plotinfo = dict(subplot = True)
-#cerebro.plot(style='bar')
+plotinfo = dict(subplot = True)
+cerebro.plot(style='bar')
