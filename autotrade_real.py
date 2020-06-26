@@ -165,7 +165,7 @@ def buy(close):
             print(datetime.now())
             print(diff)
             print(diff.total_seconds()/60)
-            if diff.total_seconds()/60 < 6:
+            if diff.total_seconds()/60 < 12:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0
     #place order
