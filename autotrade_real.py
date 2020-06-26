@@ -152,7 +152,7 @@ def buy(close):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
     
-    ret,orderinfo = trd_ctx.order_list_query(ttrd_env = TrdEnv.REAL)
+    ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2mins
