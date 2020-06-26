@@ -186,7 +186,7 @@ def buy(close):
         elif count < 12:
             count +=1
         else:
-            #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
+            print(trd_ctx.cancel_all_order(trd_env = TrdEnv.REAL))
             ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
             if ret == RET_OK:
                 print(order)
