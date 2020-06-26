@@ -196,7 +196,16 @@ def buy(close):
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
             print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.REAL))        
             break 
-    
+    ret,position = trd_ctx.position_list_query()
+    if ret == RET_OK:
+        print(position)
+    else:
+        while ret != RET_OK:
+            ret,position = trd_ctx.position_list_query()
+    if (position.loc[position['code'] == 'HK.' + str(code)]['qty'].values) > 0:
+        print('update NUMPOS')
+        NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
+        print(NumPos)
     trd_ctx.close()
     
 def sell(close):
