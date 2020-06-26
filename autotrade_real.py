@@ -99,8 +99,8 @@ def signal(data):
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
     
     
-    data['RVI'] = RVI = (Nem/6)/(Dem/6) *100
-    data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6 *100
+    data['RVI'] = RVI = (Nem/6)/(Dem/6)
+    data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
         if (data.iloc[-1].RVI >= data.iloc[-1].RVIR) & (data.iloc[-2].RVI <= data.iloc[-2].RVIR):
@@ -157,17 +157,27 @@ def buy(close):
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(orderinfo)
-    if len(orderinfo) > 0: #check is it ordered within 2mins
-        if orderinfo.iloc[0].trd_side == 'BUY':
-            datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S.%f')
-            diff = datetime.now() - datetime_object
-            print(datetime_object)
-            print(datetime.now())
-            print(diff)
-            print(diff.total_seconds()/60)
-            if diff.total_seconds()/60 < 12:
-                notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
-                return 0
+        if len(orderinfo) > 0: #check is it ordered within 2mins
+            if orderinfo.iloc[0].trd_side == 'BUY':
+                datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S.%f')
+                diff = datetime.now() - datetime_object
+                print(datetime_object)
+                print(datetime.now())
+                print(diff)
+                print(diff.total_seconds()/60)
+                if diff.total_seconds()/60 < 12:
+                    notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                    return 0
+            if orderinfo.iloc[-1].trd_side == 'BUY':
+                datetime_object = datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S.%f')
+                diff = datetime.now() - datetime_object
+                print(datetime_object)
+                print(datetime.now())
+                print(diff)
+                print(diff.total_seconds()/60)
+                if diff.total_seconds()/60 < 12:
+                    notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                    return 0    
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
