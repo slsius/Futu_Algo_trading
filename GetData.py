@@ -28,6 +28,7 @@ if ret == RET_OK:
     #print(data['code'][0])    # 取第一条的股票代码
     #print(data['close'].values.tolist())   # 第一页收盘价转为list
     df = pd.DataFrame(data)#insert data to panda frame
+    df.to_csv('data.csv', encoding='utf-8', index = True)
 else:
     print('error:', data)
 
@@ -36,13 +37,14 @@ while page_req_key != None:  # 请求后面的所有结果
     ret, data, page_req_key = quote_ctx.request_history_kline('HK.800000', start='2018-01-01', end='2019-12-31', max_count=500, page_req_key=page_req_key) # 请求翻页后的数据
     if ret == RET_OK:
         print(data)
-        df = pd.DataFrame(data)
+        df = pd.DataFrame(data)#insert data to panda frame
+        df.to_csv('data.csv', mode = 'a', header = False)
     else:
         print('error:', data)
     
     
 #store data to CSV file 
-df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
+#write all the data to csv
 print('----------------------------')
 
 
