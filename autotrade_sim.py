@@ -166,6 +166,16 @@ def buy(close):
             if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0
+        if orderinfo.iloc[-1].trd_side == 'BUY':
+            datetime_object = datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S')
+            diff = datetime.now() - datetime_object
+            print(datetime_object)
+            print(datetime.now())
+            print(diff)
+            print(diff.total_seconds()/60)
+            if diff.total_seconds()/60 < 6:
+                notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                return 0   
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
@@ -284,7 +294,7 @@ while True:
         print('close all trade')
         closeall(data.iloc[-1].close)
         break
-    time.sleep(15)
+    time.sleep(30)
     
 ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  # 取消所有订阅
 if ret_unsub == RET_OK:
