@@ -17,8 +17,8 @@ matplotlib.rcParams['text.color'] = 'k'
 df = pd.read_csv('data.csv')
 df = df.set_index('time_key')
 
-high_prices = df.loc[:,'high'].as_matrix()
-low_prices = df.loc[:,'low'].as_matrix()
+high_prices = df.loc[:,'high'].to_numpy()
+low_prices = df.loc[:,'low'].to_numpy()
 mid_prices = (high_prices+low_prices)/2.0
 
 
