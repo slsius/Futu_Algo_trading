@@ -19,8 +19,7 @@ df = df.set_index('time_key')
 
 high_prices = df.loc[:,'high'].to_numpy()
 low_prices = df.loc[:,'low'].to_numpy()
-mid_prices = (high_prices+low_prices)/2.0
-print(mid_prices)
+mid_prices = int((high_prices+low_prices)/2.0)
 
 train_data = mid_prices[:2348/2]
 test_data = mid_prices[2348/2:]
