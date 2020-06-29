@@ -22,17 +22,26 @@ today = datetime.today()
 NumDay = 2000 #set the number of day of data
 
 #data set
-ret, data, page_req_key1 = quote_ctx.request_history_kline('HK.02013', start='2018-01-01', end='2019-12-31', max_count=NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
-
+ret, data, page_req_key1 = quote_ctx.request_history_kline('HK.800000', start='2018-01-01', end='2019-12-31', max_count=300, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret == RET_OK:
     print(data)
     print(data['code'][0])    # 取第一条的股票代码
     print(data['close'].values.tolist())   # 第一页收盘价转为list
+    df = pd.DataFrame(data)#insert data to panda frame
 else:
     print('error:', data)
+
+while page_req_key != None:  # 请求后面的所有结果
+    print('*************************************')
+    ret, data, page_req_key = quote_ctx.request_history_kline('HK.800000', start='2018-01-01', end='2019-12-31', max_count=300, page_req_key=page_req_key) # 请求翻页后的数据
+    if ret == RET_OK:
+        print(data)
+        df = pd.DataFrame(data)
+    else:
+        print('error:', data)
     
-#store data to CSV file
-df = pd.DataFrame(data) #insert data to panda frame
+    
+#store data to CSV file 
 df.to_csv('data.csv', encoding='utf-8', index=False) #write all the data to csv
 print('----------------------------')
 
