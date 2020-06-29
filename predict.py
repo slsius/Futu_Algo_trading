@@ -9,13 +9,6 @@ import numpy as np
 import tensorflow as tf # This code has been tested with TensorFlow 1.6
 from sklearn.preprocessing import MinMaxScaler
 
-
-
-matplotlib.rcParams['axes.labelsize'] = 14
-matplotlib.rcParams['xtick.labelsize'] = 12
-matplotlib.rcParams['ytick.labelsize'] = 12
-matplotlib.rcParams['text.color'] = 'k'
-
 df = pd.read_csv('data.csv')
 df = df.set_index('time_key')
 
