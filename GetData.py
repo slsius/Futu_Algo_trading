@@ -22,7 +22,7 @@ today = datetime.today()
 NumDay = 2000 #set the number of day of data
 
 #data set
-ret, data, page_req_key = quote_ctx.request_history_kline('HK.800000', start='2018-01-01', end='2019-12-31', max_count=300, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
+ret, data, page_req_key = quote_ctx.request_history_kline('HK.800000', start='2009-01-01', end='2019-12-31', max_count=500, fields=KL_FIELD.ALL, ktype=KLType.K_DAY) 
 if ret == RET_OK:
     print(data)
     #print(data['code'][0])    # 取第一条的股票代码
@@ -33,7 +33,7 @@ else:
 
 while page_req_key != None:  # 请求后面的所有结果
     print('*************************************')
-    ret, data, page_req_key = quote_ctx.request_history_kline('HK.800000', start='2018-01-01', end='2019-12-31', max_count=300, page_req_key=page_req_key) # 请求翻页后的数据
+    ret, data, page_req_key = quote_ctx.request_history_kline('HK.800000', start='2018-01-01', end='2019-12-31', max_count=500, page_req_key=page_req_key) # 请求翻页后的数据
     if ret == RET_OK:
         print(data)
         df = pd.DataFrame(data)
