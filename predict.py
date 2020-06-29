@@ -19,10 +19,10 @@ df = df.set_index('time_key')
 
 high_prices = df.loc[:,'high'].to_numpy()
 low_prices = df.loc[:,'low'].to_numpy()
-mid_prices = int((high_prices+low_prices)/2.0)
+mid_prices = (high_prices+low_prices)/2.0
 
-train_data = mid_prices[:2348/2]
-test_data = mid_prices[2348/2:]
+train_data = mid_prices[:1000]
+test_data = mid_prices[1000:]
 
 scaler = MinMaxScaler()
 train_data = train_data.reshape(-1,1)
