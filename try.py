@@ -86,11 +86,12 @@ class RVICross(bt.Strategy):
     RSILo = 0
     RSIhi = 0
     maperiod = 0
+    RVIperiod
     def __init__(self):
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.EMA(self.data.close,period = self.maperiod)
         #movav = Sum(data, period) / period
-        self.IDC = strgy.RVIin(self.data)
+        self.IDC = strgy.RVIin(self.data,self.RVIperiod)
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
 
         
@@ -146,21 +147,23 @@ cerebro.adddata(stockdata)
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
 for tstperiod in range (4,10,1):  # chang value here
-  for tsthi in range(55,80,2):
-    for tstlo in range(10,20,2):
-      for tstmova in range(2,10,1):
-        RVICross.RSIPer = tstperiod
-        RVICross.RSIHi = tsthi
-        RVICross.RSILo = tstlo
-        RVICross.maperiod = tstmova
-        cerebro.broker.setcash(10000.0)
-        print('Period: %.2F' % tstperiod)
-        #print('set cash %.2F' % cerebro.broker.getcash())
-        print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
-        cerebro.run()
-        print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-        #print('Get Cash %.2f' % cerebro.broker.getcash())
-        df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova}, ignore_index=True)
+  for tsthi in range(69,70,1):
+    for tstlo in range(11,12,1):
+      for tstmova in range(5,7,1):
+        for rper in range(1,10,1):
+          RVICross.RSIPer = tstperiod
+          RVICross.RSIHi = tsthi
+          RVICross.RSILo = tstlo
+          RVICross.maperiod = tstmova
+          RVICross.RVIperiod = rper
+          cerebro.broker.setcash(10000.0)
+          print('Period: %.2F' % tstperiod)
+          #print('set cash %.2F' % cerebro.broker.getcash())
+          print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+          cerebro.run()
+          print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+          #print('Get Cash %.2f' % cerebro.broker.getcash())
+          df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova}, ignore_index=True)
 df.to_csv('test_data_bear3M.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
