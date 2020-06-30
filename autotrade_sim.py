@@ -30,8 +30,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 NumPos = 0
 hand = 10
 sellflag = 0
-openprice = NULL
-
+openprice = 9999
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
@@ -144,6 +143,8 @@ def signal(data):
                     notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
                     print('~~~sell~~~')   #sell stock
                     sell(data.iloc[-1].close)
+        if close >= openprice*1.1: #sell if profit >10%
+            sell(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
 def buy(close):
@@ -204,7 +205,8 @@ def buy(close):
             else:
                 while ret != RET_OK:
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))        
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))
+            openprice = close        
             break 
     
     trd_ctx.close()
