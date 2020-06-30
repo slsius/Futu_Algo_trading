@@ -13,7 +13,7 @@ import os
 #set parameter
 RSIHi = 70
 RSILo = 11
-
+RVIper = 7
 #set today
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
@@ -97,9 +97,12 @@ def signal(data):
     data['Nem'] =(data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3))     
     data['Dem'] =data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3))
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
+    NEM = 0
+    for i in range (1,RVIper):
+        NEM = NEM + data.NEM.iloc[-i]
+        DEM = DEM + data.DEM.iloc[-i]
     
-    
-    data['RVI'] = RVI = (Nem/6)/(Dem/6)
+    data['RVI'] = RVI = (NEM/RVIper)/(DEM/RVIper)
     data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
