@@ -1,7 +1,7 @@
 import backtrader as bt
 import backtrader.indicators as btind
 
-class RVIin(bt.Indicator,period):
+class RVIin(bt.Indicator,self.period):
     lines = ('RVI','RVIR')
     plotinfo = dict(subplot=True)
     params = (('minperiod', 8),)
