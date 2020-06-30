@@ -104,7 +104,9 @@ def signal(data):
         maDEM = maDEM + data.iloc[-i].Dem
     
     data['RVI'] = RVI = (maNEM/RVIper)/(maDEM/RVIper)
-    data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+    #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
+    data['RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
+    
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
         if (data.iloc[-1].RVI >= data.iloc[-1].RVIR) & (data.iloc[-2].RVI <= data.iloc[-2].RVIR):
