@@ -13,7 +13,8 @@ import os
 #set parameter
 RSIHi = 70
 RSILo = 11
-
+RVIper = 7
+RSIper = 2
 #set today
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
@@ -93,13 +94,16 @@ def signal(data):
     data['RSI'] = abstract.RSI(data.close,2)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
-    #Nem = data.close-data.open + 2*(data.iloc[-1:,:].close - data.iloc[-1:,:].open) + 2*(data.iloc[-2:,:].close - data.iloc[-1:,:].open) + data.iloc[-3:,:].close - data.iloc[-3:,:].open
-    Nem =(data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3))     
-    Dem =data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3))
+    data['Nem'] =(data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3))     
+    data['Dem'] =data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3))
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
+    maNEM = 0
+    maDEM = 0
+    for i in range (1,RVIper):
+        maNEM = maNEM + data.iloc[-i].Nem
+        maDEM = maDEM + data.iloc[-i].Dem
     
-    
-    data['RVI'] = RVI = (Nem/6)/(Dem/6)
+    data['RVI'] = RVI = (maNEM/RVIper)/(maDEM/RVIper)
     data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
@@ -145,6 +149,8 @@ def signal(data):
                     notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
                     print('~~~sell~~~')   #sell stock
                     sell(data.iloc[-1].close)
+        if data.iloc[-1].close >= openprice*1.1: #sell if profit >10%
+            sell(data.iloc[-1].close)              
     trd_ctx.close()
 #-----trade
 def buy(close):
@@ -236,7 +242,7 @@ def sell(close):
     
     #print(trd_ctx.place_order(price = close,code = HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
-    ret,order = trd_ctx.place_order(price = close,code = 'HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.REAL)
+    ret,order = trd_ctx.place_order(price = close,code = 'HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(order)
         NumPos = 0
