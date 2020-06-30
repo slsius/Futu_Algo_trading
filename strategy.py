@@ -2,7 +2,7 @@ import backtrader as bt
 import backtrader.indicators as btind
 
 class RVIin(bt.Indicator):
-    lines = ('RVI','RVIR','NUM','DEM;)
+    lines = ('RVI','RVIR','NUM','DEM')
     plotinfo = dict(subplot=True)
     params = (('minperiod', 8),)
     maperiod = 0
