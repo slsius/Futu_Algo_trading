@@ -143,7 +143,7 @@ def signal(data):
                     notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
                     print('~~~sell~~~')   #sell stock
                     sell(data.iloc[-1].close)
-        if close >= openprice*1.1: #sell if profit >10%
+        if data.iloc[-1].close >= openprice*1.1: #sell if profit >10%
             sell(data.iloc[-1].close)
     trd_ctx.close()
 #-----trade
