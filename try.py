@@ -91,7 +91,7 @@ class RVICross(bt.Strategy):
         self.tarsi0 = bt.indicators.RSI(self.data, period= self.RSIPer)
         self.mova = bt.ind.EMA(self.data.close,period = self.maperiod)
         #movav = Sum(data, period) / period
-        tempobject = trgy.RVIin(self.data)
+        tempobject = strgy.RVIin(self.data)
         tempobject.period = RVIperiod
         self.IDC = tempobject
         self.crossover = bt.ind.CrossOver(self.IDC.RVI,self.IDC.RVIR)
