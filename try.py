@@ -165,7 +165,7 @@ for tstperiod in range (5,7,1):  # chang value here
           cerebro.run()
           print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
           #print('Get Cash %.2f' % cerebro.broker.getcash())
-          df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova}, ignore_index=True)
+          df = df.append({'RSI period':tstperiod,'RSI Hi':tsthi,'RSI Lo':tstlo,'Profit/Loss':cerebro.broker.getvalue()-10000,'MA':tstmova,'RVI period':rper}, ignore_index=True)
 df.to_csv('test_data_bear3M.csv', encoding='utf-8', index=False) #write all the data to csv      
 # Plot the result
 #plotinfo = dict(subplot = True)
