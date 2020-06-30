@@ -145,9 +145,9 @@ cerebro.adddata(stockdata)
 
 hist = {'RSI period','RSI Hi','RSI Lo','Profit/Loss'}
 df = pd.DataFrame(columns = hist)
-for tstperiod in range (2,3,1):  # chang value here
-  for tsthi in range(70,71,1):
-    for tstlo in range(11,12,1):
+for tstperiod in range (4,10,1):  # chang value here
+  for tsthi in range(55,80,2):
+    for tstlo in range(10,20,2):
       for tstmova in range(2,10,1):
         RVICross.RSIPer = tstperiod
         RVICross.RSIHi = tsthi
