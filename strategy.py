@@ -20,7 +20,7 @@ class RVIin(bt.Indicator):
         if DEM ==0:
             self.lines.RVI[0] = 0
         else:
-            self.lines.RVI[0] = (avNUM)/(avDEM)
+            self.lines.RVI[0] = (avNUM[0])/(avDEM[0])
         try:
           self.lines.RVIR[0] = (self.lines.RVI + 2*self.lines.RVI[-1] + 2*self.lines.RVI[-2] + self.lines.RVI[-3])/6
         except (IndexError, KeyError):
