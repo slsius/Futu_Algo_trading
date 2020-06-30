@@ -30,6 +30,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 NumPos = 0
 hand = 10
 sellflag = 0
+openprice = NULL
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
