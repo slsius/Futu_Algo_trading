@@ -218,7 +218,8 @@ def buy(close):
     trd_ctx.close()
     
 def sell(close):
-    global NumPos,sellflag
+    global NumPos
+    global sellflag
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     
@@ -293,6 +294,7 @@ while True:
             ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ) 
     signal(data)    #calculate the signal
     print('---------' + str(NumPos) + '--------')   #print number of holdings
+    print('sell flag:' + str(sellflag))
     if sellflag == 1:   #monitor the sell order success
         ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         if ret == RET_OK:
