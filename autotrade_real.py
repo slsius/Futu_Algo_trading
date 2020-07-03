@@ -302,12 +302,14 @@ while True:
             ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ) 
     signal(data)    #calculate the signal
     print('---------' + str(NumPos) + '--------')   #print number of holdings
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     if sellflag == 1:   #monitor the sell order success
         ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
         if ret == RET_OK:
             print(order)
-            if order[0].order_status == 'FILLED_ALL':
-                sellflag = 0         
+            if order.iloc[0].order_status == 'FILLED_ALL':
+                sellflag = 0 
+    trd_ctx.close()            
     if datetime.now() > today1530:  #close all order before end
         print('close all trade')
         closeall(data.iloc[-1].close)
