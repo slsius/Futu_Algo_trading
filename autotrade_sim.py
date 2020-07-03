@@ -11,9 +11,10 @@ import argparse
 import pdb
 import os
 #set parameter
-RSIHi = 70
-RSILo = 11
+RSIHi = 60
+RSILo = 20
 RVIper = 7
+RSIP = 6
 #set today
 today = datetime.today()
 today = today.strftime("%Y-%m-%d")
@@ -90,7 +91,7 @@ else:
 def signal(data):
     global NumPos,openprice
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111) #make connection
-    data['RSI'] = abstract.RSI(data.close,2)
+    data['RSI'] = abstract.RSI(data.close,RSIP)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
     #Nem = data.close-data.open + 2*(data.iloc[-1:,:].close - data.iloc[-1:,:].open) + 2*(data.iloc[-2:,:].close - data.iloc[-1:,:].open) + data.iloc[-3:,:].close - data.iloc[-3:,:].open
