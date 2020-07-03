@@ -299,6 +299,7 @@ while True:
     if sellflag == 1:   #monitor the sell order success
         ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         print(order)
+        print('mark')
         if ret == RET_OK:
             print(order)
             if order[0].order_status == 'FILLED_ALL':
