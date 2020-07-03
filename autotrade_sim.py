@@ -165,7 +165,7 @@ def buy(close):
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2mins
-        if orderinfo.iloc[0].trd_side == 'BUY' and orderinfo.iloc[0].order_status == 'FILLED_ALL':
+        if orderinfo.iloc[0].order_status == 'FILLED_ALL':
             datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
@@ -175,7 +175,7 @@ def buy(close):
             if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0
-        if orderinfo.iloc[-1].trd_side == 'BUY' and orderinfo.iloc[-1].order_status == 'FILLED_ALL':
+        if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
             datetime_object = datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
