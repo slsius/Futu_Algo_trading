@@ -285,13 +285,12 @@ while True:
         while ret != RET_OK:
             ret, data = quote_ctx.query_subscription()
         
-    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
+    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
     else:
         print('error:', data)
         while ret != RET_OK:
-            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ) 
     signal(data)    #calculate the signal
     print('---------' + str(NumPos) + '--------')   #print number of holdings
     print('sell flag:' + str(sellflag))
