@@ -21,7 +21,7 @@ today = today.strftime("%Y-%m-%d")
 
 #set trade period
 now = datetime.now()
-today930 = now.replace(hour=9, minute=35, second=0, microsecond=0)
+today930 = now.replace(hour=9, minute=42, second=0, microsecond=0)
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
 today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
 today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
@@ -80,7 +80,7 @@ def notify(title, text):
               osascript -e 'display notification "{}" with title "{}"'
               """.format(text, title))
 #-----make subscribetion
-ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_1M], subscribe_push=False)
+ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
 
 if ret_sub == RET_OK:  # 订阅成功
     print('ok')
@@ -286,13 +286,13 @@ while True:
         while ret != RET_OK:
             ret, data = quote_ctx.query_subscription()
         
-    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)  
+    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
     else:
         print('error:', data)
         while ret != RET_OK:
-            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_1M, AuType.QFQ)
+            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
     signal(data)    #calculate the signal
     print('---------' + str(NumPos) + '--------')   #print number of holdings
     print('sell flag:' + str(sellflag))
