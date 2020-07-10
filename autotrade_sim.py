@@ -33,7 +33,7 @@ hand = 10
 sellflag = 0
 openprice = 9999
 temp = {'RVI':[0,0,0],'RVIR':[0,0,0]}
-indicator = pd.DataFrame (0, columns = ['RVI','RVIR',])
+indicator = pd.DataFrame (temp, columns = ['RVI','RVIR',])
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
