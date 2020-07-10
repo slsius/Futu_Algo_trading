@@ -32,6 +32,7 @@ NumPos = 0
 hand = 10
 sellflag = 0
 openprice = 9999
+temp = {'RVI':[0,0,0],'RVIR':[0,0,0]}
 indicator = pd.DataFrame (0, columns = ['RVI','RVIR',])
 
 #make connection
