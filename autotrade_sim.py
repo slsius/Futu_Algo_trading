@@ -103,7 +103,7 @@ def signal(data):
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
     maNEM = 0
     maDEM = 0
-    for j in range(1,RVIPER+3):    #calculate RVI value
+    for j in range(1,RVIper+3):    #calculate RVI value
         for i in range (j,RVIper+j):
             maNEM = maNEM + data.iloc[-i].Nem
             maDEM = maDEM + data.iloc[-i].Dem
