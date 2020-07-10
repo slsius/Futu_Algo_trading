@@ -32,8 +32,6 @@ NumPos = 0
 hand = 10
 sellflag = 0
 openprice = 9999
-temp = {'RVI':[0,0,0],'RVIR':[0,0,0]}
-indicator = pd.DataFrame (temp, columns = ['RVI','RVIR',])
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
@@ -109,6 +107,7 @@ def signal(data):
             maDEM = maDEM + data.iloc[-i].Dem
         print(maNEM)
         print(maDEM)
+        print((maNEM/RVIper)/(maDEM/RVIper))
         data.iloc[-j].at['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     data.at[29,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6   
     print(data)
