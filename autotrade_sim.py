@@ -311,7 +311,7 @@ while True:
         while ret != RET_OK:
             ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
     data['RVI'] = 0 #add column
-    ata['RVIR'] = 0 #add column
+    data['RVIR'] = 0 #add column
     signal(data)    #calculate the signal
     print('---------' + str(NumPos) + '--------')   #print number of holdings
     print('sell flag:' + str(sellflag))
