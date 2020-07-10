@@ -103,7 +103,8 @@ def signal(data):
     for i in range (1,RVIper):
         maNEM = maNEM + data.iloc[-i].Nem
         maDEM = maDEM + data.iloc[-i].Dem
-    
+    print(maNEM)
+    print(maDEM)
     data['RVI'] = RVI = (maNEM/RVIper)/(maDEM/RVIper)
     #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     data['RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
