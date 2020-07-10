@@ -103,10 +103,10 @@ def signal(data):
     for i in range (1,RVIper):
         maNEM = maNEM + data.iloc[-i].Nem
         maDEM = maDEM + data.iloc[-i].Dem
-    print(data.iloc[-1].open)
-    print(data.iloc[-1].close)
-    print(data.iloc[-1].high)
-    print(data.iloc[-1].low)
+    print(data.iloc[-2].open)
+    print(data.iloc[-2].close)
+    print(data.iloc[-2].high)
+    print(data.iloc[-2].low)
     print(data.iloc[-1].Nem)
     print(data.iloc[-1].Dem)
     print(maNEM)
