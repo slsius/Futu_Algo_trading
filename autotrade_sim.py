@@ -124,8 +124,8 @@ def signal(data):
     #data.iloc[-1].RVIR = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
     #data.at[-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
     indicator.at[len(indicator)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
+    print(indicator)
     print('RVI:' + str(data.iloc[-1].RVI))
-    
     print(data.iloc[-2].RVI)
     print(data.iloc[-3].RVI)
     print(data.iloc[-4].RVI)
