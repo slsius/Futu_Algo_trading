@@ -101,16 +101,14 @@ def signal(data):
     data['Nem'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
     data['Dem'] =((data.high-data.low)+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3)))/6
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
-    maNEM = 0
-    maDEM = 0
     for j in range(1,RVIper+3):    #calculate RVI value
+        maNEM = 0
+        maDEM = 0
         for i in range (j,RVIper+j):
             maNEM = maNEM + data.iloc[-i].Nem
             maDEM = maDEM + data.iloc[-i].Dem
-        data.at[29+1-j,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
-    data.at[len(data)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-        
-    data.at[0,'RVI'] = 1    
+        data.at[30-j,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
+    data.at[29,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6   
     print(data)
    
     #data['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
