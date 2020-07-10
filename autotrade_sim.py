@@ -115,6 +115,9 @@ def signal(data):
     #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     data['RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
     print('RVI:' + str(data.iloc[-1].RVI))
+    print(data.iloc[-2].RVI)
+    print(data.iloc[-3].RVI)
+    print(data.iloc[-4].RVI)
     print('RVIR:' + str(data.iloc[-1].RVIR))
     print(data.iloc[-2].RVIR)
     print(data.iloc[-3].RVIR)
