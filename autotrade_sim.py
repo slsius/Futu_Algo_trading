@@ -32,6 +32,8 @@ NumPos = 0
 hand = 10
 sellflag = 0
 openprice = 9999
+indicator = pd.DataFrame (0, columns = ['RVI','RVIR',])
+
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
@@ -111,15 +113,17 @@ def signal(data):
     print(data.iloc[-1].Dem)
     print(maNEM)
     print(maDEM)
-    print(data)
+    print
     #data['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
-    data.iloc[-1].RVI = (maNEM/RVIper)/(maDEM/RVIper)
-    data.at[-1, 'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
+    #data.iloc[-1].RVI = (maNEM/RVIper)/(maDEM/RVIper)
+    indicator.append()
+    indicator.at[len(indicator)-1,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
-    data.iloc[-1].RVIR = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    data.at[-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    print(data)
+    #data.iloc[-1].RVIR = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
+    #data.at[-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
+    indicator.at[len(indicator)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
     print('RVI:' + str(data.iloc[-1].RVI))
+    
     print(data.iloc[-2].RVI)
     print(data.iloc[-3].RVI)
     print(data.iloc[-4].RVI)
