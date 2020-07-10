@@ -110,7 +110,7 @@ def signal(data):
         data.at[29+1-j,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     data.at[len(data)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
         
-        
+    data.at[0,'RVI'] = 1    
     print(data)
    
     #data['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
