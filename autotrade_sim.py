@@ -114,10 +114,11 @@ def signal(data):
     print(data.iloc[-1].Dem)
     print(maNEM)
     print(maDEM)
-    print
+   
     #data['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     #data.iloc[-1].RVI = (maNEM/RVIper)/(maDEM/RVIper)
-    indicator.append()
+    new_row = {'RVI':'', 'RVIR':''}
+    indicator = indicator.append(new_row)
     indicator.at[len(indicator)-1,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     #data.iloc[-1].RVIR = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
