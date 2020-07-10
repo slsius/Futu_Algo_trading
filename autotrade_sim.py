@@ -103,36 +103,26 @@ def signal(data):
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
     maNEM = 0
     maDEM = 0
-    for i in range (1,RVIper):
-        maNEM = maNEM + data.iloc[-i].Nem
-        maDEM = maDEM + data.iloc[-i].Dem
-    print(data.iloc[-2].open)
-    print(data.iloc[-2].close)
-    print(data.iloc[-2].high)
-    print(data.iloc[-2].low)
-    print(data.iloc[-1].Nem)
-    print(data.iloc[-1].Dem)
-    print(maNEM)
-    print(maDEM)
+    for j in range(1,RVIPER+3):    #calculate RVI value
+        for i in range (j,RVIper+j):
+            maNEM = maNEM + data.iloc[-i].Nem
+            maDEM = maDEM + data.iloc[-i].Dem
+        data.at[len(data)-1-j,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
+    data.at[len(data)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
+        
+        
+    print(data)
    
     #data['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     #data.iloc[-1].RVI = (maNEM/RVIper)/(maDEM/RVIper)
-    new_row = {'RVI':'', 'RVIR':''}
-    indicator = indicator.append(new_row,ignore_index=True)
-    indicator.at[len(indicator)-1,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
+    #new_row = {'RVI':'', 'RVIR':''}
+    #indicator = indicator.append(new_row,ignore_index=True)
+    #indicator.at[len(indicator)-1,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
     #data.iloc[-1].RVIR = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
     #data.at[-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    indicator.at[len(indicator)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    print(indicator)
-    print('RVI:' + str(data.iloc[-1].RVI))
-    print(data.iloc[-2].RVI)
-    print(data.iloc[-3].RVI)
-    print(data.iloc[-4].RVI)
-    print('RVIR:' + str(data.iloc[-1].RVIR))
-    print(data.iloc[-2].RVIR)
-    print(data.iloc[-3].RVIR)
-    print(data.iloc[-4].RVIR)
+    #indicator.at[len(indicator)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
+    #print(indicator)
     
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
