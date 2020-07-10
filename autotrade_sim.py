@@ -96,13 +96,17 @@ def signal(data):
     #RVI
     #Nem = data.close-data.open + 2*(data.iloc[-1:,:].close - data.iloc[-1:,:].open) + 2*(data.iloc[-2:,:].close - data.iloc[-1:,:].open) + data.iloc[-3:,:].close - data.iloc[-3:,:].open
     data['Nem'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
-    data['Dem'] =(data.high-data.low+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3)))/6
+    data['Dem'] =((data.high-data.low)+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3)))/6
     #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
     maNEM = 0
     maDEM = 0
     for i in range (1,RVIper):
         maNEM = maNEM + data.iloc[-i].Nem
         maDEM = maDEM + data.iloc[-i].Dem
+    print(data.iloc[-1].open)
+    print(data.iloc[-1].close)
+    print(data.iloc[-1].high)
+    print(data.iloc[-1].low)
     print(data.iloc[-1].Nem)
     print(data.iloc[-1].Dem)
     print(maNEM)
