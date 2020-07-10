@@ -116,6 +116,9 @@ def signal(data):
     data['RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
     print('RVI:' + str(data.iloc[-1].RVI))
     print('RVIR:' + str(data.iloc[-1].RVIR))
+    print(data.iloc[-2].RVIR)
+    print(data.iloc[-3].RVIR)
+    print(data.iloc[-4].RVIR)
     
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
