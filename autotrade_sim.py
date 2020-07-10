@@ -92,7 +92,7 @@ else:
 
 #-----define signal
 def signal(data):
-    global NumPos,openprice
+    global NumPos,openprice,indicator
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111) #make connection
     data['RSI'] = abstract.RSI(data.close,RSIP)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
