@@ -5,7 +5,7 @@ class RVIin(bt.Indicator):
     lines = ('RVI','RVIR','NUM','DEM')
     plotinfo = dict(subplot=True)
     params = (('minperiod', 8),)
-    maperiod = 0
+    maperiod = 7
     def __init__(self):
         self.addminperiod(self.params.minperiod)
         
@@ -15,9 +15,9 @@ class RVIin(bt.Indicator):
         self.lines.DEM[0] = (self.data.high - self.data.low + 2*(self.data.high[-1] - self.data.low[-1]) + 2*(self.data.high[-2] - self.data.low[-2]) + self.data.high[-3] - self.data.low[-3])/6
         avNUM = 0
         avDEM = 0
-        for i in range(0,self.maperiod-1,1):
+        for i in range(1,self.maperiod,1):
             avNUM = self.lines.NUM[-i] + avNUM
-        for i in range(0,self.maperiod-1,1):
+        for i in range(1,self.maperiod,1):
             avDEM = self.lines.DEM[-i] + avDEM
         
         if avDEM ==0:
