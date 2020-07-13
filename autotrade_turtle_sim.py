@@ -79,7 +79,7 @@ def notify(title, text):
 #-----make subscribetion
 ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
 
-if ret_sub == RET_OK:  # 订阅成功
+if ret_sub == RET_OK:  # check subscribtion success
     print('ok')
 else:
     print('subscription failed', err_message)
@@ -103,33 +103,38 @@ def signal(data):
     data.at[29,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6   
     print(data)
     
-    #signal
-    if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
-        print('RSI match')
-        if (data.iloc[-1].RVI > data.iloc[-1].RVIR) & (data.iloc[-2].RVI < data.iloc[-2].RVIR):
-            print('RVI match')
-            print('-----buy signal-----')
-            print(size)
-            notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
-            now = datetime.now()
-            print(now)
-            print(data.iloc[-4].time_key)
-            time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
-            print(time_object)
-            if (time_object >= today930):
-                if (now > today930 and now < today11) or (now > today13 and now < today15):
-                    ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
-                    if ret_code == RET_OK:
-                        print('info data ok')
-                    else:
-                        while ret_code != RET_OK:
-                            ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
-                    if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
-                        print('place order')
-                        buy(data.iloc[-1].close)    #buy stock
+    #when to in
+    if NumPos == 0:
+        if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
+            print('RSI match')
+            if (data.iloc[-1].RVI > data.iloc[-1].RVIR) & (data.iloc[-2].RVI < data.iloc[-2].RVIR):
+                print('RVI match')
+                print('-----buy signal-----')
+                print(size)
+                notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
+                now = datetime.now()
+                print(now)
+                print(data.iloc[-4].time_key)
+                time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
+                print(time_object)
+                if (time_object >= today930):
+                    if (now > today930 and now < today11) or (now > today13 and now < today15):
+                        ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
+                        if ret_code == RET_OK:
+                            print('info data ok')
+                        else:
+                            while ret_code != RET_OK:
+                                ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
+                        if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
+                            print('place order')
+                            buy(data.iloc[-1].close)    #buy stock
 
 
-    if NumPos > 0:#sell 
+    if NumPos > 0:
+        #second in
+        if (data.iloc[-1].close - openprice) >= 0.003:
+            buy(data.iloc[-1].close)
+        #sell
         print('RSI:')
         print(data.iloc[-1].RSI)
         print(data.iloc[-2].RSI)
@@ -140,6 +145,11 @@ def signal(data):
         print(data.iloc[-1].MA)
         print('close')
         print(data.iloc[-1].close)
+        elif (data.iloc[-1].close - openprice) <= 0.001:
+            notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
+            print('~~~sell~~~')   #sell stock
+            sell(data.iloc[-1].close)
+        '''
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI >=RSIHi) | (data.iloc[-3].RSI >=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
                 if data.iloc[-1].close <= data.iloc[-1].MA:
@@ -148,6 +158,7 @@ def signal(data):
                     sell(data.iloc[-1].close)
         if data.iloc[-1].close >= openprice*1.1: #sell if profit >10%
             sell(data.iloc[-1].close)
+        '''
     trd_ctx.close()
 #-----trade
 def buy(close):
@@ -160,7 +171,7 @@ def buy(close):
     ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
     if ret == RET_OK:
         print(orderinfo)
-    if len(orderinfo) > 0: #check is it ordered within 2mins
+    if len(orderinfo) > 0: #check is it ordered within 2 bars
         if orderinfo.iloc[0].order_status == 'FILLED_ALL':
             datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
@@ -185,10 +196,11 @@ def buy(close):
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
     print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
-
+    
     #check successful trade 
     while True:
         time.sleep(5)
+        #check order successful
         ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         if ret == RET_OK:
             print(query)
@@ -196,20 +208,20 @@ def buy(close):
             while ret != RET_OK:
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
         if query.iloc[0].order_status == 'FILLED_ALL':
-            NumPos = NumPos + size*hand
+            NumPos = NumPos + size*hand #add lot size if success
+            openprice = close
             break
-        elif count < 12:
+        elif count < 12:    #if not successful, count down
             count +=1
         else:
             #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
-            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE) #cancel order if finish countdown
             if ret == RET_OK:
                 print(order)
             else:
                 while ret != RET_OK:
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))
-            openprice = close        
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
             break 
     
     trd_ctx.close()
