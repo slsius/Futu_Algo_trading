@@ -21,7 +21,7 @@ today = today.strftime("%Y-%m-%d")
 
 #set trade period
 now = datetime.now()
-today930 = now.replace(hour=9, minute=42, second=0, microsecond=0)
+today930 = now.replace(hour=9, minute=42, second=0, microsecond=0) #start trading after 4 3-min bar
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
 today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
 today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
@@ -38,13 +38,6 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 #set code
 code = input("Stock code:")
-'''
-while True:   
-    code = input("Stock code:")
-    isinstance (code,int)
-    if isinstance (code,int):
-        break
-'''
 while len(str(code)) <= 4: #match the format of 5 digit
     code = '0' + str(code)
     
@@ -59,21 +52,24 @@ else:
         ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
 
 #check holding
-pwd_unlock = '878900'
-trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
-trd_ctx.unlock_trade(pwd_unlock)
-ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
-if ret == RET_OK:
-    print(position)
-else:
-    while ret != RET_OK:
-        ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
-if (position.loc[position['code'] == 'HK.' + str(code)]['qty'].values) > 0:
-    print('update NUMPOS')
-    NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
-    print(NumPos)
-trd_ctx.close()
+
+def chkhold():
+    pwd_unlock = '878900'
+    trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    trd_ctx.unlock_trade(pwd_unlock)
+    ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print(position)
+    else:
+        while ret != RET_OK:
+            ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+    if (position.loc[position['code'] == 'HK.' + str(code)]['qty'].values) > 0:
+        print('update NUMPOS')
+        NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
+        print(NumPos)
+    trd_ctx.close()
     
+chkhold()
     
 #set notification
 def notify(title, text):
@@ -95,31 +91,19 @@ def signal(data):
     data['RSI'] = abstract.RSI(data.close,RSIP)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
     #RVI
-    #Nem = data.close-data.open + 2*(data.iloc[-1:,:].close - data.iloc[-1:,:].open) + 2*(data.iloc[-2:,:].close - data.iloc[-1:,:].open) + data.iloc[-3:,:].close - data.iloc[-3:,:].open
     data['Nem'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
     data['Dem'] =((data.high-data.low)+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3)))/6
-    #Dem = data.high-data.low + 2*(data.iloc[-1:,:].high - data.iloc[-1:,:].low) + 2*(data.iloc[-2:,:].high - data.iloc[-1:,:].low) + data.iloc[-3:,:].high - data.iloc[-3:,:].low
-    for j in range(1,RVIper+3):    #calculate RVI value
+    for j in range(1,RVIper+3):    #calculate RVI value with period
         maNEM = 0
         maDEM = 0
         for i in range (j,RVIper+j):
             maNEM = maNEM + data.iloc[-i].Nem
             maDEM = maDEM + data.iloc[-i].Dem
-        #data.iloc[-j].at['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
         data.at[30-j,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     data.at[29,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6   
     print(data)
-    #data['RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
-    #data.iloc[-1].RVI = (maNEM/RVIper)/(maDEM/RVIper)
-    #new_row = {'RVI':'', 'RVIR':''}
-    #indicator = indicator.append(new_row,ignore_index=True)
-    #indicator.at[len(indicator)-1,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
-    #data['RVIR'] = (RVI + 2*RVI.shift(1) + 2*RVI.shift(2) + RVI.shift(3))/6
-    #data.iloc[-1].RVIR = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    #data.at[-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    #indicator.at[len(indicator)-1,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6
-    #print(indicator)
     
+    #signal
     if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
         print('RSI match')
         if (data.iloc[-1].RVI > data.iloc[-1].RVIR) & (data.iloc[-2].RVI < data.iloc[-2].RVIR):
@@ -145,7 +129,7 @@ def signal(data):
                         buy(data.iloc[-1].close)    #buy stock
 
 
-    if NumPos > 0:
+    if NumPos > 0:#sell 
         print('RSI:')
         print(data.iloc[-1].RSI)
         print(data.iloc[-2].RSI)
