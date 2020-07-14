@@ -32,7 +32,7 @@ if ret == RET_OK:
   print('!!')
   print(temp)
   
-  print(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)].order_status.idxmax())
+  print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].order_status.idxmax())
   #== 'FILLED_ALL':
   
   print(datetime.strptime(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.values , '%Y-%m-%d %H:%M:%S'))
