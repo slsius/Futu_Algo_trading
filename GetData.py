@@ -29,7 +29,8 @@ if ret == RET_OK:
   #print(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code)) & orderinfo['create_time'] == orderinfo['create_time'].max()].create_time.values , '%Y-%m-%d %H:%M:%S')
   
   temp = orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.max()
-  
+  print('!!')
+  print(temp)
   print(datetime.strptime(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.values , '%Y-%m-%d %H:%M:%S'))
 if len(orderinfo) > 0: #check is it ordered within 2 bars
   if orderinfo.iloc[0].order_status == 'FILLED_ALL':
