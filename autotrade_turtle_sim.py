@@ -327,9 +327,9 @@ while True:
         break
     time.sleep(30)
     
-ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  # 取消所有订阅
+ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  #
 if ret_unsub == RET_OK:
-    print('unsubscribe successfully！current subscription status:', quote_ctx.query_subscription())  # 取消订阅后查询订阅状态
+    print('unsubscribe successfully！current subscription status:', quote_ctx.query_subscription())  # 
 else:
     print('unsubscription failed', err_message_unsub)
     while ret_unsub != RET_OK:
