@@ -14,7 +14,31 @@ def DayStr(Tday): #function to return date in specific format
   Tday = Tday.strftime("%Y-%m-%d")
   return Tday
 
+#-----------test code
+trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+    print(trd_ctx.unlock_trade(pwd_unlock))
+    
+    ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print(orderinfo)
+        print(datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)]['create_time'].values , '%Y-%m-%d %H:%M:%S'))
+    if len(orderinfo) > 0: #check is it ordered within 2 bars
+        if orderinfo.iloc[0].order_status == 'FILLED_ALL':
+            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)]['create_time'].values , '%Y-%m-%d %H:%M:%S')
+            diff = datetime.now() - datetime_object
+            print(datetime_object)
+            print(datetime.now())
+            print(diff)
+            print(diff.total_seconds()/60)
+            if diff.total_seconds()/60 < 6:
+                notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                return 0
 
+
+
+trd_ctx.close() #close connection
+time.sleep(100)
+#test code
 
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
@@ -46,6 +70,7 @@ while page_req_key != None:  # 请求后面的所有结果
 #store data to CSV file 
 #write all the data to csv
 print('----------------------------')
+
 
 
 quote_ctx.close() #close connection
