@@ -147,7 +147,7 @@ def signal(data):
         print(data.iloc[-1].MA)
         print('close')
         print(data.iloc[-1].close)
-        if NumPos == Size*hand:
+        if NumPos == size*hand:
             if (data.iloc[-1].close - openprice) <= -0.002:
                 notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
                 print('~~~sell~~~')   #sell stock
