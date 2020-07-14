@@ -179,8 +179,8 @@ def buy(close):
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2 bars
-        if orderinfo.iloc[0].order_status == 'FILLED_ALL':
-            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)]['create_time'].values , '%Y-%m-%d %H:%M:%S')
+        if orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status == 'FILLED_ALL':
+            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
@@ -189,8 +189,9 @@ def buy(close):
             if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0
+        '''
         if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
-            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)]['create_time']].values , '%Y-%m-%d %H:%M:%S')
+            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)].create_time.max() , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
@@ -199,6 +200,7 @@ def buy(close):
             if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0   
+        '''        
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
