@@ -55,6 +55,7 @@ else:
 #check holding
 
 def chkhold():
+    global NumPos
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     trd_ctx.unlock_trade(pwd_unlock)
