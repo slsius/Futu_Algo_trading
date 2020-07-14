@@ -23,10 +23,10 @@ print(trd_ctx.unlock_trade(pwd_unlock))
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 if ret == RET_OK:
   print(orderinfo)
-  print(datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)]['create_time'].values , '%Y-%m-%d %H:%M:%S'))
+  print(datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)].create_time.values , '%Y-%m-%d %H:%M:%S'))
 if len(orderinfo) > 0: #check is it ordered within 2 bars
   if orderinfo.iloc[0].order_status == 'FILLED_ALL':
-    datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)]['create_time'].values , '%Y-%m-%d %H:%M:%S')
+    datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)].create_time.values , '%Y-%m-%d %H:%M:%S')
     diff = datetime.now() - datetime_object
     print(datetime_object)
     print(datetime.now())
