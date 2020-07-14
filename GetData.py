@@ -24,7 +24,7 @@ ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 if ret == RET_OK:
   print(orderinfo)
   print(datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S'))
-  print(orderinfo['create_time'].idxmax())
+  print(orderinfo['create_time'].max())
   print(orderinfo.loc[orderinfo['create_time'].idxmax(),'create_time'])
   df.loc[df['favcount'].idxmax(), 'sn']
   
