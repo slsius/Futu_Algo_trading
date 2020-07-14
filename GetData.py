@@ -31,12 +31,15 @@ if ret == RET_OK:
   temp = orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.max()
   print('!!')
   print(temp)
-  
+  print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max())
   #print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time.idxmax(axis = 0))
   print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].idxmax(),'order_id')
   #== 'FILLED_ALL':
   
+  
+  #df.index[df['BoolCol']].tolist()
   print(datetime.strptime(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.values , '%Y-%m-%d %H:%M:%S'))
+  
 if len(orderinfo) > 0: #check is it ordered within 2 bars
   if orderinfo.iloc[0].order_status == 'FILLED_ALL':
     datetime_object = datetime.strptime(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time.values , '%Y-%m-%d %H:%M:%S')
