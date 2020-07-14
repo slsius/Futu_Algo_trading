@@ -180,7 +180,7 @@ def buy(close):
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2 bars
         if orderinfo.iloc[0].order_status == 'FILLED_ALL':
-            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)]['create_time']].values , '%Y-%m-%d %H:%M:%S')
+            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code'] == 'HK.' + str(code)]['create_time'].values , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
