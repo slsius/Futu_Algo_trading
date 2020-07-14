@@ -24,7 +24,8 @@ ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 if ret == RET_OK:
   print(orderinfo)
   print(datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S'))
-  print(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code)) & orderinfo['create_time'].idxmax()].create_time.values , '%Y-%m-%d %H:%M:%S')
+  print(orderinfo.loc[orderinfo.create_time.idxmax()])
+  print(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code)) & orderinfo.create_time.idxmax()].create_time.values , '%Y-%m-%d %H:%M:%S')
   
   
   print(datetime.strptime(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.values , '%Y-%m-%d %H:%M:%S'))
