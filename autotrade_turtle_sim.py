@@ -320,7 +320,7 @@ while True:
         print('mark')
         if ret == RET_OK:
             print(order)
-            if order.iloc[0].order_status == 'FILLED_ALL':
+            if order.iloc[-1].order_status == 'FILLED_ALL':
                 sellflag = 0 
     trd_ctx.close()            
     if datetime.now() > today1530:  #close all order before end
