@@ -179,7 +179,7 @@ def buy(close):
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2 bars
         if orderinfo.iloc[0].order_status == 'FILLED_ALL':
-            datetime_object = datetime.strptime(orderinfo.iloc[0].create_time , '%Y-%m-%d %H:%M:%S')
+            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)]].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
@@ -189,7 +189,7 @@ def buy(close):
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                 return 0
         if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
-            datetime_object = datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S')
+            datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)]].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
@@ -213,7 +213,7 @@ def buy(close):
         else:
             while ret != RET_OK:
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if query.iloc[0].order_status == 'FILLED_ALL':
+        if query.iloc[query['code' == 'HK.' + str(code)]].order_status == 'FILLED_ALL':
             NumPos = NumPos + size*hand #add lot size if success
             openprice = close
             break
@@ -227,7 +227,7 @@ def buy(close):
             else:
                 while ret != RET_OK:
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[0].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order['code' == 'HK.' + str(code)]].order_id)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
             break 
     
     trd_ctx.close()
