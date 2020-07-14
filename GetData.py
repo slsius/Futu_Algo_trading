@@ -25,10 +25,8 @@ if ret == RET_OK:
   print(orderinfo)
   print(datetime.strptime(orderinfo.iloc[-1].create_time , '%Y-%m-%d %H:%M:%S'))
   print(orderinfo['create_time'].max())
-  print(orderinfo.loc[orderinfo['create_time'].idxmax(),'create_time'])
-  df.loc[df['favcount'].idxmax(), 'sn']
   
-  print(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code)) & orderinfo.create_time.idxmax()].create_time.values , '%Y-%m-%d %H:%M:%S')
+  print(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code)) & orderinfo['create_time'].max()].create_time.values , '%Y-%m-%d %H:%M:%S')
   
   
   print(datetime.strptime(orderinfo.loc[orderinfo['code'] == ('HK.' + str(code))].create_time.values , '%Y-%m-%d %H:%M:%S'))
