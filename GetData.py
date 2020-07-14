@@ -32,7 +32,7 @@ if len(orderinfo) > 0: #check is it ordered within 2 bars
     print(diff.total_seconds()/60)
     if diff.total_seconds()/60 < 6:
       #notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
-      return 0
+      #return 0
 
 trd_ctx.close() #close connection
 time.sleep(100)
