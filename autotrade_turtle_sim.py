@@ -55,7 +55,7 @@ else:
 #check holding
 
 def chkhold():
-    global NumPos
+    global NumPos,openprice
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     trd_ctx.unlock_trade(pwd_unlock)
@@ -69,6 +69,10 @@ def chkhold():
         print('update NUMPOS')
         NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
         print(NumPos)
+        
+    if NumPos > 0:
+        ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
+        openprice = order.loc[order.index['code'] == 'HK.' + str(code).min()].price
     trd_ctx.close()
     
 chkhold()
