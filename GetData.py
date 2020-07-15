@@ -20,20 +20,18 @@ pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 
 print(trd_ctx.unlock_trade(pwd_unlock))
-    
-ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-if ret == RET_OK:
-  print(orderinfo)
-if len(orderinfo) > 0: #check is it ordered within 2 bars
-  if orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status == 'FILLED_ALL':
-    datetime_object = datetime.strptime(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].create_time , '%Y-%m-%d %H:%M:%S')
-    diff = datetime.now() - datetime_object
-    print(datetime_object)
-    print(datetime.now())
-    print(diff)
-    print(diff.total_seconds()/60)
-    if diff.total_seconds()/60 < 6:
-      print('dup')
+print('--------holding--------')
+ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
+print(order['create_time'].max())
+print(order.loc[order['order_status'] == 'FILLED ALL'])
+temp = order.loc[order['order_status'] == 'FILLED ALL']
+print(temp)
+temp = order.loc[order['trd_side'] == 'BUY']
+print(temp)
+openprice = temp.loc[temp['create_time'] == temp['create_time'].max()].price.values
+#openprice = order.loc[(order['create_time'] == order['create_time'].max()) & (order['order_status'] == 'FILLED ALL')].price.values
+#df.loc[df['favcount'].idxmax(), 'sn']
+print(openrice)
 
 trd_ctx.close() #close connection
 time.sleep(100)
