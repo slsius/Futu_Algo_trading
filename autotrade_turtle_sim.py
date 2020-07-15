@@ -81,6 +81,7 @@ def chkhold():
         openprice = temp.loc[temp['create_time'] == temp['create_time'].max()].price.values
         #openprice = order.loc[(order['create_time'] == order['create_time'].max()) & (order['order_status'] == 'FILLED ALL')].price.values
         #df.loc[df['favcount'].idxmax(), 'sn']
+        print(openrice)
     trd_ctx.close()
     
 chkhold()
