@@ -23,8 +23,8 @@ print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
 print(order['create_time'].max())
-print(order.loc[order['order_status'] == 'FILLED ALL'])
-temp = order.loc[order['order_status'] == 'FILLED_ALL']
+print(order.loc[(order['order_status'] == 'FILLED ALL') & (order['code'] == 'HK.' + str(code))])
+temp =order.loc[(order['order_status'] == 'FILLED_ALL') & (order['code'] == 'HK.' + str(code))]
 print(temp)
 temp = temp.loc[temp['trd_side'] == 'BUY']
 print(temp)
