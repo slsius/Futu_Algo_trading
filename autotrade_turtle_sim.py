@@ -73,7 +73,7 @@ def chkhold():
     if NumPos > 0:
         ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
         print('--------holding--------')
-        order[order['create_time'].max()].index.value
+        order.index[order['create_time'].max()]
     trd_ctx.close()
     
 chkhold()
