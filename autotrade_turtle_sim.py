@@ -73,7 +73,9 @@ def chkhold():
     if NumPos > 0:
         ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
         print('--------holding--------')
-        order.index[order['create_time'].max()]
+        print(order['create_time'].max())
+        order.index[order['create_time'] == order['create_time'].max()]
+        #df.loc[df['favcount'].idxmax(), 'sn']
     trd_ctx.close()
     
 chkhold()
