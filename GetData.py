@@ -24,9 +24,9 @@ print('--------holding--------')
 ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
 print(order['create_time'].max())
 print(order.loc[order['order_status'] == 'FILLED ALL'])
-temp = order.loc[order['order_status'] == 'FILLED ALL']
+temp = order.loc[order['order_status'] == 'FILLED_ALL']
 print(temp)
-temp = order.loc[order['trd_side'] == 'BUY']
+temp = temp.loc[temp['trd_side'] == 'BUY']
 print(temp)
 print('@@@@')
 openprice = temp.loc[temp['create_time'] == temp['create_time'].max()].price.values
