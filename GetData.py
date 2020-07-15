@@ -28,6 +28,7 @@ temp = order.loc[order['order_status'] == 'FILLED ALL']
 print(temp)
 temp = order.loc[order['trd_side'] == 'BUY']
 print(temp)
+print('@@@@')
 openprice = temp.loc[temp['create_time'] == temp['create_time'].max()].price.values
 #openprice = order.loc[(order['create_time'] == order['create_time'].max()) & (order['order_status'] == 'FILLED ALL')].price.values
 #df.loc[df['favcount'].idxmax(), 'sn']
