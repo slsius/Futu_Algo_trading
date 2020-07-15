@@ -216,7 +216,8 @@ def buy(close):
         else:
             while ret != RET_OK:
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if query.iloc[query['code' == 'HK.' + str(code)]['order_status'].values] == 'FILLED_ALL':
+        if query.iloc[query.index['code' == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
+            #orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].create_time
             NumPos = NumPos + size*hand #add lot size if success
             openprice = close
             break
@@ -230,7 +231,7 @@ def buy(close):
             else:
                 while ret != RET_OK:
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order['code' == 'HK.' + str(code)]['order_id']].values)	 ,price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.loc[order.index['code' == 'HK.' + str(code)].order_id.max()),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
             break 
     
     trd_ctx.close()
