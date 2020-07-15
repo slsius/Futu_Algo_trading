@@ -74,7 +74,9 @@ def chkhold():
         ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
         print('--------holding--------')
         print(order['create_time'].max())
-        temp = order.loc[order['order_status'] == 'FILLED ALL' &  order['trd_side'] == 'BUY']
+        temp = order.loc[order['order_status'] == 'FILLED ALL']
+        print(temp)
+        temp = order.loc[order['trd_side'] == 'BUY']
         print(temp)
         openprice = temp.loc[temp['create_time'] == temp['create_time'].max()].price.values
         #openprice = order.loc[(order['create_time'] == order['create_time'].max()) & (order['order_status'] == 'FILLED ALL')].price.values
