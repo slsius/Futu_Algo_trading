@@ -26,6 +26,7 @@ print(order['create_time'].max())
 print(order.loc[(order['order_status'] == 'FILLED ALL') & (order['code'] == 'HK.' + str(code))])
 temp =order.loc[(order['order_status'] == 'FILLED_ALL') & (order['code'] == 'HK.' + str(code))]
 print(temp)
+print('@@@@')
 temp = temp.loc[temp['trd_side'] == 'BUY']
 print(temp)
 print('@@@@')
