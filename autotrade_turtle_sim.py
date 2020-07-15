@@ -74,7 +74,7 @@ def chkhold():
         ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
         print('--------holding--------')
         print(order['create_time'].max())
-        openprice = order.loc[order['create_time'] == order['create_time'].max() & order['order_status'] == 'FILLED ALL'].price.values
+        openprice = order.loc[(order['create_time'] == order['create_time'].max()) & (order['order_status'] == 'FILLED ALL')].price.values
         #df.loc[df['favcount'].idxmax(), 'sn']
     trd_ctx.close()
     
