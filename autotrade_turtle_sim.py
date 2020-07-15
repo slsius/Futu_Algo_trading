@@ -73,10 +73,7 @@ def chkhold():
     if NumPos > 0:
         ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
         print('--------holding--------')
-        print(order.index[order['code'] == 'HK.' + str(code)].min())
-        print(order.loc[order['trd_side'] == 'BUY'])
-        print(order.loc[order.index[order['code'] == 'HK.' + str(code)].min() & order['trd_side'] == 'BUY'].price)
-        openprice =  order.loc[order.index[order['code'] == 'HK.' + str(code)].min() & order['trd_side'] == 'BUY'].price
+        order[order['create_time'].max()].index.value
     trd_ctx.close()
     
 chkhold()
