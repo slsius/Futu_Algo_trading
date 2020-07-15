@@ -72,7 +72,7 @@ def chkhold():
         
     if NumPos > 0:
         ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
-        openprice =  order.loc[order.index[order['code'] == 'HK.' + str(code)].min()].price
+        openprice =  order.loc[order.index[order['code'] == 'HK.' + str(code)].min() & order['trd_side'] == 'BUY'].price
     trd_ctx.close()
     
 chkhold()
