@@ -311,6 +311,9 @@ while True:
     ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
+        print('  ')
+        print(openprice)
+        print('  ')
     else:
         print('error:', data)
         while ret != RET_OK:
