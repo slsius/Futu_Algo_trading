@@ -221,7 +221,7 @@ def buy(close):
         else:
             while ret != RET_OK:
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if query.loc[query.index['code' == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
+        if query.iloc[query.index['code' == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
             #orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].create_time
             NumPos = NumPos + size*hand #add lot size if success
             openprice = close
