@@ -117,7 +117,7 @@ def signal(data):
                 print('RVI match')
                 print('-----buy signal-----')
                 print(size)
-                notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!")
+                notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!" + str(code))
                 now = datetime.now()
                 print(now)
                 print(data.iloc[-4].time_key)
@@ -157,7 +157,7 @@ def signal(data):
                 print('~~~sell~~~')   #sell stock
                 sell(data.iloc[-1].close) 
         elif (data.iloc[-1].close - openprice) <= -0.001:
-            notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!")
+            notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!!" + str(code))
             print('~~~sell~~~')   #sell stock
             sell(data.iloc[-1].close)
         '''
