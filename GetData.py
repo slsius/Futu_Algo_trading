@@ -15,7 +15,7 @@ def DayStr(Tday): #function to return date in specific format
   return Tday
 
 #-----------test code
-code = 57300
+code = 54249
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 
@@ -38,10 +38,10 @@ print(openprice)
 '''
 
 ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-#print(order.index['code' == 'HK.' + str(code)])
-print(order.loc['code' == 'HK.' + str(code)])
-print(order.loc['code' == 'HK.' + str(code)].max())
-print(order.index['code' == 'HK.' + str(code)].max())
+#print(order.index[order['code'] == 'HK.' + str(code)])
+print(order.loc[order['code'] == 'HK.' + str(code)])
+print(order.loc[order['code'] == 'HK.' + str(code)].max())
+print(order.index[order['code'] == 'HK.' + str(code)].max())
 print(order.iloc[order.index[order['code'] == 'HK.' + str(code) & order['order_status'] == 'SUBMITTED']].order_id.values)
 print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index['code' == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
 
