@@ -38,6 +38,8 @@ print(openprice)
 '''
 
 ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+print(order.index['code' == 'HK.' + str(code)])
+print(order['code' == 'HK.' + str(code)].max())
 print(order.index['code' == 'HK.' + str(code)].max())
 print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index['code' == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
 
