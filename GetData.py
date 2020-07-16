@@ -15,7 +15,7 @@ def DayStr(Tday): #function to return date in specific format
   return Tday
 
 #-----------test code
-code = 57403
+code = 57300
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 
