@@ -32,7 +32,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 NumPos = 0
 hand = 10
 sellflag = 0
-openprice = 9999
+openprice = 0
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
@@ -242,7 +242,7 @@ def buy(close):
             else:
                 while ret != RET_OK:
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
             #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
             break 
     
