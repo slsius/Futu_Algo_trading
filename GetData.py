@@ -38,7 +38,7 @@ print(openprice)
 '''
 
 ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-print(order.index['code' == 'HK.' + str(code)])
+#print(order.index['code' == 'HK.' + str(code)])
 print(order.loc['code' == 'HK.' + str(code)])
 print(order.loc['code' == 'HK.' + str(code)].max())
 print(order.index['code' == 'HK.' + str(code)].max())
