@@ -189,7 +189,7 @@ def signal(data):
 #-----trade
 def buy(close):
     count = 0
-    global NumPos
+    global NumPos,openprice
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
