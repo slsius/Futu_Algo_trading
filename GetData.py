@@ -45,7 +45,8 @@ print(order.loc[order['code'] == 'HK.' + str(code)])
 #print(order.loc[order['code'] == 'HK.' + str(code)].max())
 print(order.index[order['code'] == 'HK.' + str(code)].max())
 print(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED')]].order_id.values)
-print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index['code' == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
+print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
+#print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
 
 trd_ctx.close() #close connection
 time.sleep(100)
