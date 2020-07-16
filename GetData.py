@@ -21,6 +21,7 @@ trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
+'''
 ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
 print(order['create_time'].max())
 print(order.loc[(order['order_status'] == 'FILLED ALL') & (order['code'] == 'HK.' + str(code))])
@@ -34,6 +35,11 @@ openprice = temp.loc[temp['create_time'] == temp['create_time'].max()].price.val
 #openprice = order.loc[(order['create_time'] == order['create_time'].max()) & (order['order_status'] == 'FILLED ALL')].price.values
 #df.loc[df['favcount'].idxmax(), 'sn']
 print(openprice)
+'''
+
+ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+print(order.index['code' == 'HK.' + str(code)].max())
+print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index['code' == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
 
 trd_ctx.close() #close connection
 time.sleep(100)
