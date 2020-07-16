@@ -49,8 +49,8 @@ ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
 #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
 print(order.index[order['code'] == 'HK.' + str(code)].min())
-print(order.index[(order['trd_side'] == 'SELL')].min())            
-order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()]
+print(order.index[(order['trd_side'] == 'SELL')].min())    
+print(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()])
 
 trd_ctx.close() #close connection
 time.sleep(100)
