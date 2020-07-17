@@ -38,6 +38,8 @@ if ret_sub == RET_OK:  # 订阅成功
     else:
         print('error:', data)
 
+ret, data, page_req_key = quote_ctx.request_history_kline('US.TQQQ', start='2020-07-16', end='',ktype=KLType.K_3M)  # 每页5个，请求第一页
+print(data)       
 
 quote_ctx.close()
 trd_ctx.close() #close connection
