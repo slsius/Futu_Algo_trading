@@ -26,6 +26,7 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
+'''
 #ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
 ret_sub, err_message = quote_ctx.subscribe(['US.TQQQ'], [SubType.K_3M], subscribe_push=False)
 # 先订阅k线类型。订阅成功后OpenD将持续收到服务器的推送，False代表暂时不需要推送给脚本
@@ -37,7 +38,7 @@ if ret_sub == RET_OK:  # 订阅成功
         print(data['turnover_rate'].values.tolist())   # 转为list
     else:
         print('error:', data)
-
+'''
 ret, data, page_req_key = quote_ctx.request_history_kline('US.AAPL', start='2020-07-16', end='',ktype=KLType.K_3M)  # 每页5个，请求第一页
 if ret == RET_OK:
   print(data) 
