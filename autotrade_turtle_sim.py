@@ -90,8 +90,8 @@ def notify(title, text):
               osascript -e 'display notification "{}" with title "{}"'
               """.format(text, title))
 #-----make subscribetion
-ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
-
+#ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
+ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
 if ret_sub == RET_OK:  # check subscribtion success
     print('ok')
 else:
@@ -323,8 +323,9 @@ while True:
         print('error:', data)
         while ret != RET_OK:
             ret, data = quote_ctx.query_subscription()
-        
-    ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
+       
+    #ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
+    ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
         print('  ')
@@ -333,7 +334,7 @@ while True:
     else:
         print('error:', data)
         while ret != RET_OK:
-            ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
+            ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)
     data['RVI'] = 0.0000 #add column
     data['RVIR'] = 0.0000 #add column
     signal(data)    #calculate the signal
