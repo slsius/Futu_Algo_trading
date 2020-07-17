@@ -39,7 +39,7 @@ if ret_sub == RET_OK:  # 订阅成功
     else:
         print('error:', data)
 '''
-ret, data = quote_ctx.request_history_kline('US.AAPL', start='2020-07-16', end='',ktype=KLType.K_3M)  # 每页5个，请求第一页
+ret, data, page_req_key = quote_ctx.request_history_kline('US.AAPL', start='2020-07-16', end='',ktype=KLType.K_3M)  # 每页5个，请求第一页
 if ret == RET_OK:
   print(data) 
 else:
