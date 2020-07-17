@@ -21,14 +21,16 @@ close = 0.01
 code = 54249
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+trdus_ctx = OpenUSTradeContext(host='127.0.0.1', port=11111)
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
+ret_sub, err_message = quote_ctx.subscribe(['US.TQQQ'], [SubType.K_3M], subscribe_push=False)
 # 先订阅k线类型。订阅成功后OpenD将持续收到服务器的推送，False代表暂时不需要推送给脚本
 if ret_sub == RET_OK:  # 订阅成功
-    ret, data = quote_ctx.get_cur_kline('HK.HSImain', 25, SubType.K_3M, AuType.QFQ)  # 获取港股00700最近2个K线数据
+    ret, data = quote_ctx.get_cur_kline('US.TQQQ', 25, SubType.K_3M, AuType.QFQ)  # 获取港股00700最近2个K线数据
     if ret == RET_OK:
         print(data)
         print(data['turnover_rate'][0])   # 取第一条的换手率
@@ -39,6 +41,7 @@ if ret_sub == RET_OK:  # 订阅成功
 
 quote_ctx.close()
 trd_ctx.close() #close connection
+trdus_ctx.close() #close connection
 time.sleep(100)
 #----------------test code
 
