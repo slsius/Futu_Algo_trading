@@ -38,9 +38,25 @@ openprice = 0
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 #set code
-code = input("Stock code:")
+while True:#input numbers only
+    try:
+        code = int(input("Stock code:"))
+    except ValueError:
+        print('wrong input')
+        continue
+    else:
+        break
+        
 while len(str(code)) <= 4: #match the format of 5 digit
     code = '0' + str(code)
+    
+while True:   #choose use hsi or not
+    hsi = input("HSI?")
+    if hsi == 'Y' or hsi == 'N':
+        break
+    else:
+        print('invalid input')
+        continue
     
 #set number of size
 ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
@@ -91,7 +107,10 @@ def notify(title, text):
               """.format(text, title))
 #-----make subscribetion
 #ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
-ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
+if hsi == 'Y':
+    ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
+else:
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
 if ret_sub == RET_OK:  # check subscribtion success
     print('ok')
 else:
@@ -324,8 +343,11 @@ while True:
         while ret != RET_OK:
             ret, data = quote_ctx.query_subscription()
        
-    #ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)  
-    ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
+    #ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
+    if hsi == 'Y':
+        ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
+    else:
+        ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
         print('  ')
