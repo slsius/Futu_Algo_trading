@@ -59,14 +59,14 @@ while True:   #choose use hsi or not
         continue
     
 #set number of size
-ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
+ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + str(code)])
 if ret == RET_OK:
     print('snap ok')
     size = snapdata.iloc[-1].lot_size
 else:
     print('error:', snapdata)
     while ret != RET_OK:
-        ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + code])
+        ret, snapdata =quote_ctx.get_market_snapshot(['HK.' + str(code)])
 
 #check holding
 
@@ -110,7 +110,7 @@ def notify(title, text):
 if hsi == 'Y':
     ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
 else:
-    ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_3M], subscribe_push=False)
 if ret_sub == RET_OK:  # check subscribtion success
     print('ok')
 else:
@@ -347,7 +347,7 @@ while True:
     if hsi == 'Y':
         ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
     else:
-        ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
+        ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
         print('  ')
