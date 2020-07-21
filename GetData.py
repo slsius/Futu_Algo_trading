@@ -35,7 +35,7 @@ print(order.index[order['trd_side'] == 'SELL'])
 
 print(order.index[(order['code'] == 'HK.'+str(code)) & (order['trd_side'] == 'SELL')])
 
-order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()].order_status == 'FILLED_ALL'
+print(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()].order_status == 'FILLED_ALL')
 
 quote_ctx.close()
 trd_ctx.close() #close connection
