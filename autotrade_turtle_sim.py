@@ -243,7 +243,7 @@ def buy(close):
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
-    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + str(code), trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade 
     while True:
