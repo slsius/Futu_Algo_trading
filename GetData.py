@@ -26,24 +26,14 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
-'''
-#ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
-ret_sub, err_message = quote_ctx.subscribe(['US.TQQQ'], [SubType.K_3M], subscribe_push=False)
-# 先订阅k线类型。订阅成功后OpenD将持续收到服务器的推送，False代表暂时不需要推送给脚本
-if ret_sub == RET_OK:  # 订阅成功
-    ret, data = quote_ctx.get_cur_kline('US.AAPL', 20, SubType.K_3M, AuType.QFQ)  # 获取港股00700最近2个K线数据
-    if ret == RET_OK:
-        print(data)
-        #print(data['turnover_rate'][0])   # 取第一条的换手率
-        print(data['turnover_rate'].values.tolist())   # 转为list
-    else:
-        print('error:', data)
-'''
-ret, data, page_req_key = quote_ctx.request_history_kline('US.AAPL', start='2020-07-16', end='',ktype=KLType.K_3M)  # 每页5个，请求第一页
-if ret == RET_OK:
-  print(data) 
-else:
-  print('error:', data)  
+
+ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+
+print(order)
+print(order.index[(order['code'] == 'HK.' + str(code)])
+print(order.index[order['trd_side'] == 'SELL'])       
+
+#order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & order['trd_side'] == 'SELL'].min()].order_status == 'FILLED_ALL':
 
 quote_ctx.close()
 trd_ctx.close() #close connection
