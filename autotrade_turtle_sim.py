@@ -369,7 +369,7 @@ while True:
         print('mark')
         if ret == RET_OK:
             print(order)
-            if order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & order['trd_side'] == 'SELL'].min()].order_status == 'FILLED_ALL':
+            if order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()].order_status == 'FILLED_ALL':
                 #order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'SELL')]].order_id.values)
                 #order.loc[(order['order_status'] == 'FILLED_ALL') & (order['code'] == 'HK.' + str(code))]
                 #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
