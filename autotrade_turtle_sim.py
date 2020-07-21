@@ -164,7 +164,7 @@ def signal(data):
 
     if NumPos > 0:
         #second in
-        if (data.iloc[-1].close - openprice) >= 0.003:
+        if (data.iloc[-1].close - openprice) > 0.003:
             buy(data.iloc[-1].close)
         #sell
         print('RSI:')
@@ -178,7 +178,7 @@ def signal(data):
         print('close')
         print(data.iloc[-1].close)
         if NumPos == size*hand:
-            if (data.iloc[-1].close - openprice) <= -0.002:
+            if (data.iloc[-1].close - openprice) < -0.002:
                 print(' ')
                 print(data.iloc[-1].close)
                 print(openprice)
@@ -186,7 +186,7 @@ def signal(data):
                 notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!! first hand")
                 print('~~~sell~~~')   #sell stock
                 sell(data.iloc[-1].close) 
-        elif (data.iloc[-1].close - openprice) <= -0.001:
+        elif (data.iloc[-1].close - openprice) < -0.001:
             print(' ')
             print(data.iloc[-1].close)
             print(openprice)
