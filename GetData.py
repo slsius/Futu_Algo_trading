@@ -31,7 +31,9 @@ ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 
 print(order)
 print(order.index[order['code'] == 'HK.'+str(code)])
-print(order.index[order['trd_side'] == 'SELL'])       
+print(order.index[order['trd_side'] == 'SELL']) 
+
+print(order.index[order['code'] == 'HK.'+str(code) & order['trd_side'] == 'SELL'])
 
 #order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & order['trd_side'] == 'SELL'].min()].order_status == 'FILLED_ALL':
 
