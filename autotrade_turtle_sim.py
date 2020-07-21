@@ -51,7 +51,7 @@ while len(str(code)) <= 4: #match the format of 5 digit
     code = '0' + str(code)
     
 while True:   #choose use hsi or not
-    hsi = input("HSI?")
+    hsi = input("HSI?(Y/N)")
     if hsi == 'Y' or hsi == 'N':
         break
     else:
