@@ -30,15 +30,9 @@ print('--------holding--------')
 duration = 1  # seconds
 freq = 440  # Hz
 os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
-print('\001')
-print('\002')
-print('\003')
-print('\004')
-print('\005')
-print('\006')
 print('\007')
-print('\008')
-print('\009')
+print('\007')
+print('\007')
 print('\a')
 quote_ctx.close()
 trd_ctx.close() #close connection
