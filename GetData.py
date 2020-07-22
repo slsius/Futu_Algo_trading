@@ -27,15 +27,9 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 
-ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-
-print(order)
-print(order.index[order['code'] == 'HK.'+str(code)])
-print(order.index[order['trd_side'] == 'SELL']) 
-
-print(order.index[(order['code'] == 'HK.'+str(code)) & (order['trd_side'] == 'SELL')])
-
-print(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()].order_status == 'FILLED_ALL')
+duration = 1  # seconds
+freq = 440  # Hz
+os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
 
 quote_ctx.close()
 trd_ctx.close() #close connection
