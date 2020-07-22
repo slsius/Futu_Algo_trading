@@ -34,9 +34,6 @@ hand = 10
 sellflag = 0
 openprice = 0
 
-#set alarm
-duration = 1  # seconds
-freq = 440  # Hz
 
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
@@ -126,6 +123,12 @@ def signal(data):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111) #make connection
     data['RSI'] = abstract.RSI(data.close,RSIP)
     data['MA'] = abstract.MA(data.close, timeperiod=7, matype=0)
+    #RVI Original
+    data['Nem_Ori'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
+    data['Dem_Ori'] =((data.high-data.low)+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.close.shift(2) - data.open.shift(2)) +(data.close.shift(3) - data.open.shift(3)))/6
+    data['RVI_Ori'] = data.Nem_Ori / data.Dem_Ori
+    data['RVIR_Ori'] = (data.iloc[-1].RVI_Ori + 2*data.iloc[-2].RVI_Ori + 2*data.iloc[-3].RVI_Ori + data.iloc[-4].RVI_Ori)/6  
+    
     #RVI
     data['Nem'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
     data['Dem'] =((data.high-data.low)+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.high.shift(2) - data.low.shift(2)) +(data.high.shift(3) - data.low.shift(3)))/6
@@ -148,7 +151,9 @@ def signal(data):
                 print('-----buy signal-----')
                 print(size)
                 notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!" + str(code))
-                os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
+                print('\007')
+                print('\007')
+                print('\007')
                 now = datetime.now()
                 print(now)
                 print(data.iloc[-4].time_key)
