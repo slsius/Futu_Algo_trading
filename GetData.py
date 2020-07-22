@@ -30,6 +30,7 @@ print('--------holding--------')
 duration = 1  # seconds
 freq = 440  # Hz
 os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
+print('\007')
 
 quote_ctx.close()
 trd_ctx.close() #close connection
