@@ -147,7 +147,7 @@ def signal(data):
     if NumPos == 0:
         if (data.iloc[-1].RSI <=RSILo) | (data.iloc[-2].RSI <=RSILo) | (data.iloc[-3].RSI <=RSILo):
             print('RSI match')
-            if (data.iloc[-1].RVI > data.iloc[-1].RVIR) & (data.iloc[-2].RVI < data.iloc[-2].RVIR):
+            if (data.iloc[-1].RVI_Ori > data.iloc[-1].RVIR_Ori) & (data.iloc[-2].RVI_Ori < data.iloc[-2].RVIR_Ori):
                 print('RVI match')
                 print('-----buy signal-----')
                 print(size)
