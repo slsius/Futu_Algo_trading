@@ -127,7 +127,7 @@ def signal(data):
     data['Nem_Ori'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
     data['Dem_Ori'] =((data.high-data.low)+2*(data.high.shift(1) - data.low.shift(1)) +2*(data.close.shift(2) - data.open.shift(2)) +(data.close.shift(3) - data.open.shift(3)))/6
     data['RVI_Ori'] = data.Nem_Ori / data.Dem_Ori
-    data['RVIR_Ori'] = (data.shift(1).RVI_Ori + 2*data.shift(1).RVI_Ori + 2*data.shift(1).RVI_Ori + data.shift(1).RVI_Ori)/6  
+    data['RVIR_Ori'] = (data.shift(1).RVI_Ori + 2*data.shift(2).RVI_Ori + 2*data.shift(3).RVI_Ori + data.shift(4).RVI_Ori)/6  
     
     #RVI
     data['Nem'] =((data.close-data.open)+2*(data.close.shift(1) - data.open.shift(1))+2*(data.close.shift(2) - data.open.shift(2))+(data.close.shift(3) - data.open.shift(3)))/6     
