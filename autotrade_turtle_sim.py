@@ -194,6 +194,9 @@ def signal(data):
                 print(openprice)
                 print(' ')
                 notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!! first hand")
+                print('\007')
+                print('\007')
+                print('\007')
                 print('~~~sell~~~')   #sell stock
                 sell(data.iloc[-1].close) 
         elif (data.iloc[-1].close - openprice) < -0.001:
@@ -203,6 +206,9 @@ def signal(data):
             print(' ')
             notify("AutoTrade.py", "!!!!!!!SELL SELL SELL!!!!!!! multi hand" + str(code))
             print('~~~sell~~~')   #sell stock
+            print('\007')
+            print('\007')
+            print('\007')
             sell(data.iloc[-1].close)
         '''
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI >=RSIHi) | (data.iloc[-3].RSI >=RSIHi):  
