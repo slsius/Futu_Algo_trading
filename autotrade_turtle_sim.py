@@ -34,6 +34,10 @@ hand = 10
 sellflag = 0
 openprice = 0
 
+#set alarm
+duration = 1  # seconds
+freq = 440  # Hz
+
 #make connection
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
@@ -227,6 +231,7 @@ def buy(close):
             print(diff.total_seconds()/60)
             if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
                 return 0
         '''
         if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
