@@ -148,6 +148,7 @@ def signal(data):
                 print('-----buy signal-----')
                 print(size)
                 notify("AutoTrade.py", "!!!!!!!Buy Signal!!!!!!!" + str(code))
+                os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
                 now = datetime.now()
                 print(now)
                 print(data.iloc[-4].time_key)
@@ -231,7 +232,7 @@ def buy(close):
             print(diff.total_seconds()/60)
             if diff.total_seconds()/60 < 6:
                 notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
-                os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
+                #os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
                 return 0
         '''
         if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
