@@ -167,8 +167,15 @@ def signal(data):
                         else:
                             while ret_code != RET_OK:
                                 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
-                        if info_data.iloc[-1].cash > ((data.iloc[-1].close)*(size)):
+                        ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+                        if ret == RET_OK:
+                            print('stock price get')
+                        else:
+                            while ret != RET_OK:
+                                ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+                        if info_data.iloc[-1].cash > ((stock.iloc[-1].close)*(size)):
                             print('place order')
+                            notify("Buy" + str(code))
                             buy(data.iloc[-1].close)    #buy stock
 
 
