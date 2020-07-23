@@ -180,7 +180,7 @@ def signal(data):
                                 ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
                         if info_data.iloc[-1].cash > ((stock.iloc[-1].close)*(size)):
                             print('place order')
-                            otify("AutoTrade.py", "Buy Signal" + str(code))
+                            notify("AutoTrade.py", "Buy Signal" + str(code))
                             buy(data.iloc[-1].close)    #buy stock
 
 
