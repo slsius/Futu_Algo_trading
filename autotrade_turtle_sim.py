@@ -110,6 +110,7 @@ def notify(title, text):
 #ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
 if hsi == 'Y':
     ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_3M], subscribe_push=False)
 else:
     ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_3M], subscribe_push=False)
 if ret_sub == RET_OK:  # check subscribtion success
@@ -141,6 +142,9 @@ def signal(data):
         data.at[30-j,'RVI'] = (maNEM/RVIper)/(maDEM/RVIper)
     data.at[29,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6   
     print(data.iloc[-3:])
+    
+    ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+    print(data1.iloc[-3:])
     
     #when to in
     if NumPos == 0:
@@ -370,6 +374,7 @@ while True:
     #ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
     if hsi == 'Y':
         ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
+        ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     else:
         ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     if ret == RET_OK:
@@ -380,7 +385,11 @@ while True:
     else:
         print('error:', data)
         while ret != RET_OK:
-            ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)
+            if hsi == 'Y':
+                ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
+                ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
+            else:
+                ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     data['RVI'] = 0.0000 #add column
     data['RVIR'] = 0.0000 #add column
     signal(data)    #calculate the signal
