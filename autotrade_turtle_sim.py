@@ -176,6 +176,7 @@ def signal(data):
                             print('stock price get')
                         else:
                             while ret != RET_OK:
+                                print('stock price again loop')
                                 ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
                         if info_data.iloc[-1].cash > ((stock.iloc[-1].close)*(size)):
                             print('place order')
