@@ -268,7 +268,7 @@ def buy(close,call):
                     return 0
             elif call == True: 
                 if diff.total_seconds()/60 >= 3:
-                    otify("AutoTrade.py", "CAll")
+                    notify("AutoTrade.py", "CAll")
         '''
         if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
             datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)].create_time.max() , '%Y-%m-%d %H:%M:%S')
