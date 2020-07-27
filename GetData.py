@@ -35,7 +35,7 @@ print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)])
 print('!!')
 print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min())
 print('!!')
-if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min() == 'nan':
+if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].empty:
   print('empty')
 else:
   print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
