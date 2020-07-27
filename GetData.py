@@ -28,15 +28,17 @@ print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 
 ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-    if ret == RET_OK:
-        print(orderinfo)      
+if ret == RET_OK:
+  print(orderinfo)      
       
 print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)])
+print('!!')
 print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min())
+print('!!')
 print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
+print('!!')
 
 
-print('\a')
 quote_ctx.close()
 trd_ctx.close() #close connection
 trdus_ctx.close() #close connection
