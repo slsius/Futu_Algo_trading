@@ -18,7 +18,7 @@ def DayStr(Tday): #function to return date in specific format
 size= 10000
 hand = 1
 close = 0.01
-code = 64371
+code = 64370
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 trdus_ctx = OpenUSTradeContext(host='127.0.0.1', port=11111)
@@ -35,8 +35,11 @@ print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)])
 print('!!')
 print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min())
 print('!!')
-print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
-print('!!')
+if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min() == 'nan':
+  print('empty')
+else:
+  print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
+  print('!!')
 
 
 quote_ctx.close()
