@@ -27,12 +27,15 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 
-duration = 1  # seconds
-freq = 440  # Hz
-os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
-print('\007')
-print('\007')
-print('\007')
+ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    if ret == RET_OK:
+        print(orderinfo)      
+      
+print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)])
+print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min())
+print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
+
+
 print('\a')
 quote_ctx.close()
 trd_ctx.close() #close connection
