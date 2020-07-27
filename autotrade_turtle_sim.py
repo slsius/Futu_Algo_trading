@@ -286,6 +286,8 @@ def buy(close,call):
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
+    ret,acinfo = trd_ctx.accinfo_query(trd_env=TrdEnv.SIMULATE,currency=Currency.HKD)
+    print(acinfo.power)
     print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + str(code), trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     
     #check successful trade 
