@@ -39,9 +39,11 @@ if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].empty:
   print('empty')
 else:
   print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
-  print('!!')
+print('!!')
 
-
+ret,acinfo = trd_ctx.accinfo_query(trd_env=TrdEnv.SIMULATE,currency=Currency.HKD)
+print(acinfo.power)
+  
 quote_ctx.close()
 trd_ctx.close() #close connection
 trdus_ctx.close() #close connection
