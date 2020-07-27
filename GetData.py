@@ -42,6 +42,7 @@ else:
 print('!!')
 
 ret,acinfo = trd_ctx.accinfo_query(trd_env=TrdEnv.SIMULATE,currency=Currency.HKD)
+print(acinfo)
 print(acinfo.power)
   
 quote_ctx.close()
