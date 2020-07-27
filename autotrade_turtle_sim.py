@@ -181,7 +181,7 @@ def signal(data):
                         if info_data.iloc[-1].cash > ((stock.iloc[-1].close)*(size)):
                             print('place order')
                             notify("AutoTrade.py", "Buy Signal" + str(code))
-                            buy(data.iloc[-1].close)    #buy stock
+                            buy(data.iloc[-1].close,False)    #buy stock
 
 
     if NumPos > 0:
@@ -194,7 +194,7 @@ def signal(data):
                 while ret != RET_OK:
                     print('stock price again loop')
                     ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
-            buy(stock.iloc[-1].close)
+            buy(stock.iloc[-1].close,True)
         #sell
         print('RSI:')
         print(data.iloc[-1].RSI)
@@ -241,7 +241,7 @@ def signal(data):
         '''
     trd_ctx.close()
 #-----trade
-def buy(close):
+def buy(close,call):
     count = 0
     global NumPos,openprice
     pwd_unlock = '878900'
@@ -260,10 +260,13 @@ def buy(close):
             print(datetime.now())
             print(diff)
             print(diff.total_seconds()/60)
-            if diff.total_seconds()/60 < 6:
-                notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
-                #os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
-                return 0
+            if call == False:
+                if diff.total_seconds()/60 < 6:
+                    notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
+                    return 0
+            elif call == True: 
+                if diff.total_seconds()/60 >= 3:
+                    otify("AutoTrade.py", "CAll")
         '''
         if orderinfo.iloc[-1].order_status == 'FILLED_ALL':
             datetime_object = datetime.strptime(orderinfo.iloc[orderinfo['code' == 'HK.' + str(code)].create_time.max() , '%Y-%m-%d %H:%M:%S')
