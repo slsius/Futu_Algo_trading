@@ -187,6 +187,13 @@ def signal(data):
     if NumPos > 0:
         #second in
         if (data.iloc[-1].close - openprice) > 0.003:
+            ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+            if ret == RET_OK:
+                print('stock price get')
+            else:
+                while ret != RET_OK:
+                    print('stock price again loop')
+                    ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
             buy(stock.iloc[-1].close)
         #sell
         print('RSI:')
