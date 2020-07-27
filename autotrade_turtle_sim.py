@@ -254,7 +254,9 @@ def buy(close,call):
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2 bars
-        if orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
+        if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].empty:
+            print('no order before')  
+        elif orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
           #orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status 
             datetime_object = datetime.strptime(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].create_time , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
