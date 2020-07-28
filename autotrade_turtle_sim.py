@@ -300,7 +300,7 @@ def buy(close,call):
         else:
             while ret != RET_OK:
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-        if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].empty: 
+        if query.loc[query['code'] == 'HK.' + str(code)].empty: 
             print('no order before')
         elif query.loc[query.index[query['code'] == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
             NumPos = NumPos + size*hand #add lot size if success
