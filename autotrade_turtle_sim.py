@@ -432,7 +432,9 @@ while True:
                 #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
                 #str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
                 sellflag = 0 
-    trd_ctx.close()            
+    trd_ctx.close() 
+    if (datetime.now() > today15) and (NumPos == 0):
+        break
     if datetime.now() > today1530:  #close all order before end
         print('close all trade')
         closeall(data.iloc[-1].close)
