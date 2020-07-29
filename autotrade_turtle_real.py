@@ -76,19 +76,19 @@ def chkhold():
     pwd_unlock = '878900'
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     trd_ctx.unlock_trade(pwd_unlock)
-    ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+    ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(position)
     else:
         while ret != RET_OK:
-            ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+            ret,position = trd_ctx.position_list_query(trd_env = TrdEnv.REAL)
     if (position.loc[position['code'] == 'HK.' + str(code)]['qty'].values) > 0:
         print('update NUMPOS')
         NumPos = position.loc[position['code'] == 'HK.' + str(code)].qty.values
         print(NumPos)
         
     if NumPos > 0:
-        ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.SIMULATE)
+        ret,order = trd_ctx.order_list_query(trd_env=TrdEnv.REAL)
         print('--------holding--------')
         print(order['create_time'].max())
         temp =order.loc[(order['order_status'] == 'FILLED_ALL') & (order['code'] == 'HK.' + str(code))]
@@ -166,12 +166,12 @@ def signal(data):
                 print(time_object)
                 if (time_object >= today930):
                     if (now > today930 and now < today11) or (now > today13 and now < today15):
-                        ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)   #get ac info
+                        ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.REAL)   #get ac info
                         if ret_code == RET_OK:
                             print('info data ok')
                         else:
                             while ret_code != RET_OK:
-                                ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
+                                ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.REAL)
                         '''
                         ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
                         if ret == RET_OK:
@@ -255,7 +255,7 @@ def buy(close,call):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     print(trd_ctx.unlock_trade(pwd_unlock))
     
-    ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(orderinfo)
     if len(orderinfo) > 0: #check is it ordered within 2 bars
@@ -291,20 +291,20 @@ def buy(close,call):
     #place order
     #print(trd_ctx.place_order(price = close,order_type = OrderType.MARKET, qty=size*hand, code='HK.' + code, trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
     print('make order')
-    ret,acinfo = trd_ctx.accinfo_query(trd_env=TrdEnv.SIMULATE,currency=Currency.HKD)
+    ret,acinfo = trd_ctx.accinfo_query(trd_env=TrdEnv.REAL,currency=Currency.HKD)
     print(acinfo.power)
-    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + str(code), trd_side=TrdSide.BUY,trd_env=TrdEnv.SIMULATE))
+    print(trd_ctx.place_order(price = close,order_type = OrderType.NORMAL, qty=size*hand, code='HK.' + str(code), trd_side=TrdSide.BUY,trd_env=TrdEnv.REAL))
     
     #check successful trade 
     while True:
         time.sleep(5)
         #check order successful
-        ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+        ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
         if ret == RET_OK:
             print(query)
         else:
             while ret != RET_OK:
-                ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+                ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
         if query.loc[query['code'] == 'HK.' + str(code)].empty: 
             print('no order before')
         elif query.loc[query.index[query['code'] == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
@@ -314,13 +314,13 @@ def buy(close,call):
         elif count < 12:    #if not successful, count down
             count +=1
         else:
-            #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
-            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE) #cancel order if finish countdown
+            print(trd_ctx.cancel_all_order(trd_env = TrdEnv.REAL))
+            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL) #cancel order if finish countdown
             if ret == RET_OK:
                 print(order)
             else:
                 while ret != RET_OK:
-                    ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+                    ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
             print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
             #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
             break 
@@ -334,17 +334,17 @@ def sell(close):
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     
     print(trd_ctx.unlock_trade(pwd_unlock))
-    ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
+    ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.REAL)
     if ret_code == RET_OK:
         print('info_data')
         print(info_data)
     else:
         while ret_code != RET_OK:
-           ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE) 
+           ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.REAL) 
     
     #print(trd_ctx.place_order(price = close,code = HK.' + code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
     #print(trd_ctx.place_order(price = close,code = code, qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
-    ret,order = trd_ctx.place_order(price = close,code = 'HK.' + str(code), qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE)
+    ret,order = trd_ctx.place_order(price = close,code = 'HK.' + str(code), qty = NumPos,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(order)
         NumPos = 0
@@ -356,13 +356,13 @@ def closeall(close):
     print('CLOSE ALL')
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     #print(trd_ctx.cancel_all_order(trd_env = TrdEnv.SIMULATE))
-    ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+    ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print('position list ok')
         print(postlist)
     else:
         while ret != RET_OK:
-            ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.SIMULATE)
+            ret,postlist = trd_ctx.position_list_query(trd_env = TrdEnv.REAL)
     print(postlist.code)
     print(close)
     print(len(postlist))
@@ -373,17 +373,17 @@ def closeall(close):
         print(postlist[i]['code'].values)
         #print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
         print(trd_ctx.place_order(price = close, code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
-    ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+    ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(order)
     else:
         while ret != RET_OK:
-            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+            ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
     for i in range (0,len(order)): #delete all the order
         print(order.iloc[i].order_status)
         if order.iloc[i].order_status == 'SUBMITTED':
             print(order.iloc[i].order_id)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[i].order_id)	 ,price = close, qty = size,trd_env = TrdEnv.SIMULATE))
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[i].order_id)	 ,price = close, qty = size,trd_env = TrdEnv.REAL))
     trd_ctx.close()    
 #----- main loop    
 while True:
@@ -421,7 +421,7 @@ while True:
     print('sell flag:' + str(sellflag))
     trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
     if sellflag == 1:   #monitor the sell order success
-        ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+        ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
         print(order)
         print('mark')
         if ret == RET_OK:
