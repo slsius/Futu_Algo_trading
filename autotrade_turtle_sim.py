@@ -143,8 +143,9 @@ def signal(data):
     data.at[29,'RVIR'] = (data.iloc[-1].RVI + 2*data.iloc[-2].RVI + 2*data.iloc[-3].RVI + data.iloc[-4].RVI)/6   
     print(data.iloc[-3:])
     
-    ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
-    print(data1.iloc[-3:])
+    #get the newest stock price
+    ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+    print(stock.iloc[-3:])
     
     #when to in
     if NumPos == 0:
@@ -171,6 +172,7 @@ def signal(data):
                         else:
                             while ret_code != RET_OK:
                                 ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.SIMULATE)
+                        '''
                         ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
                         if ret == RET_OK:
                             print('stock price get')
@@ -178,6 +180,7 @@ def signal(data):
                             while ret != RET_OK:
                                 print('stock price again loop')
                                 ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+                        '''
                         if info_data.iloc[-1].cash > ((stock.iloc[-1].close)*(size)):
                             print('place order')
                             notify("AutoTrade.py", "Buy Signal" + str(code))
@@ -186,6 +189,7 @@ def signal(data):
 
     if NumPos > 0:
         #second in
+        '''
         ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ) #refresh stock price
         if ret == RET_OK:
             print('stock price get')
@@ -193,7 +197,8 @@ def signal(data):
             while ret != RET_OK:
                 print('stock price again loop')
                 ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
-        if (data.iloc[-1].close - openprice) > 0.003:
+        '''
+        if (stock.iloc[-1].close - openprice) > 0.003:
             buy(stock.iloc[-1].close,True)
         #sell
         print('RSI:')
@@ -209,7 +214,7 @@ def signal(data):
         print('openprice')
         print(openprice)
         if NumPos == size*hand:
-            if (data.iloc[-1].close - openprice) < -0.002:
+            if (stock.iloc[-1].close - openprice) < -0.002:
                 print(' ')
                 print(stock.iloc[-1].close)
                 print(openprice)
@@ -219,8 +224,8 @@ def signal(data):
                 print('\007')
                 print('\007')
                 print('~~~sell~~~')   #sell stock
-                sell(data.iloc[-1].close) 
-        elif (data.iloc[-1].close - openprice) < -0.001:
+                sell(stock.iloc[-1].close) 
+        elif (stock.iloc[-1].close - openprice) < -0.001:
             print(' ')
             print(stock.iloc[-1].close)
             print(openprice)
@@ -263,9 +268,9 @@ def buy(close,call):
             print(datetime_object)
             print(datetime.now())
             print(diff)
-            print(diff.total_seconds()/60)
+            print(diff.total_seconds()/60)  #express the time difference in min
             if call == False:
-                if diff.total_seconds()/60 < 6:
+                if diff.total_seconds()/60 < 6: #not trade if order within 6 min
                     notify("AutoTrade.py", "!!!!!!!Duplicate Buy order!!!!!!!")
                     return 0
             elif call == True: 
@@ -380,7 +385,7 @@ def closeall(close):
             print(order.iloc[i].order_id)
             print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[i].order_id)	 ,price = close, qty = size,trd_env = TrdEnv.SIMULATE))
     trd_ctx.close()    
-#-----loop    
+#----- main loop    
 while True:
     ret, data = quote_ctx.query_subscription()
     if ret == RET_OK:
