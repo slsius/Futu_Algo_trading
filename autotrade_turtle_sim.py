@@ -210,7 +210,7 @@ def signal(data):
         print('MA')
         print(data.iloc[-1].MA)
         print('close')
-        print(data.iloc[-1].close)
+        print(stock.iloc[-1].close)
         print('openprice')
         print(openprice)
         if NumPos == size*hand:
