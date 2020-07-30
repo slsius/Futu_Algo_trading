@@ -27,24 +27,13 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 
-now = datetime.now()
-today930 = now.replace(hour=9, minute=30, second=0, microsecond=0) #start trading after 4 3-min bar
-today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
-today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
-today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
-today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
+ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
+if ret == RET_OK:
+  print(orderinfo)
 
-ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
-ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_3M], subscribe_push=False)
-ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ) 
-ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
-
-print(now)
-print(data)
-print(data.time_key)
-print(data.iloc[-4].time_key)
-time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
-print(time_object)
+print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].create_time)
+print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].create_time.max)
+orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status
       
 quote_ctx.close()
 trd_ctx.close() #close connection
