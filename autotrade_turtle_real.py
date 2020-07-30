@@ -23,6 +23,7 @@ today = today.strftime("%Y-%m-%d")
 #set trade period
 now = datetime.now()
 today930 = now.replace(hour=9, minute=30, second=0, microsecond=0) #start trading after 4 3-min bar
+today940 = now.replace(hour=9, minute=40, second=0, microsecond=0)
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
 today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
 today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
@@ -165,7 +166,7 @@ def signal(data):
                 time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
                 print(time_object)
                 if (time_object >= today930):
-                    if (now > today930 and now < today11) or (now > today13 and now < today15):
+                    if (now > today940 and now < today11) or (now > today13 and now < today15):
                         ret_code, info_data = trd_ctx.accinfo_query(trd_env = TrdEnv.REAL)   #get ac info
                         if ret_code == RET_OK:
                             print('info data ok')
