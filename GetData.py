@@ -18,7 +18,7 @@ def DayStr(Tday): #function to return date in specific format
 size= 10000
 hand = 1
 close = 0.01
-code = 64370
+code = 66635
 pwd_unlock = '878900'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 trdus_ctx = OpenUSTradeContext(host='127.0.0.1', port=11111)
@@ -27,24 +27,21 @@ quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 print(trd_ctx.unlock_trade(pwd_unlock))
 print('--------holding--------')
 
-ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-if ret == RET_OK:
-  print(orderinfo)      
-      
-print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)])
-print('!!')
-print(orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min())
-print('!!')
-if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].empty:
-  print('empty')
-else:
-  print(orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status)      
-print('!!')
+now = datetime.now()
+today930 = now.replace(hour=9, minute=30, second=0, microsecond=0) #start trading after 4 3-min bar
+today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
+today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
+today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
+today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 
-ret,acinfo = trd_ctx.accinfo_query(trd_env=TrdEnv.SIMULATE,currency=Currency.HKD)
-print(acinfo)
-print(acinfo.power)
-  
+ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+
+print(now)
+print(data.time_key)
+print(data.iloc[-4].time_key)
+time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
+print(time_object)
+      
 quote_ctx.close()
 trd_ctx.close() #close connection
 trdus_ctx.close() #close connection
