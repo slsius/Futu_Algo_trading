@@ -262,9 +262,9 @@ def buy(close,call):
     if len(orderinfo) > 0: #check is it ordered within 2 bars
         if orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].empty:
             print('no order before')  
-        elif orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
+        elif orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status == 'FILLED_ALL':
           #orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status 
-            datetime_object = datetime.strptime(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].create_time , '%Y-%m-%d %H:%M:%S.%f')
+            datetime_object = datetime.strptime(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].create_time , '%Y-%m-%d %H:%M:%S.%f')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
@@ -308,7 +308,7 @@ def buy(close,call):
                 ret, query = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
         if query.loc[query['code'] == 'HK.' + str(code)].empty: 
             print('no order before')
-        elif query.loc[query.index[query['code'] == 'HK.' + str(code)].min()].order_status == 'FILLED_ALL':
+        elif query.loc[query.index[query['code'] == 'HK.' + str(code)].max()].order_status == 'FILLED_ALL':
             NumPos = NumPos + size*hand #add lot size if success
             openprice = close
             break
@@ -322,7 +322,7 @@ def buy(close,call):
             else:
                 while ret != RET_OK:
                     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
-            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
+            print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.REAL)) 
             #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
             break 
     
@@ -373,7 +373,7 @@ def closeall(close):
         print(postlist[i].code)
         print(postlist[i]['code'].values)
         #print(trd_ctx.place_order(price = close, code = postlist.iloc[i].code, qty = postlist.iloc[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.MARKET, trd_env = TrdEnv.SIMULATE))
-        print(trd_ctx.place_order(price = close, code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.SIMULATE))
+        print(trd_ctx.place_order(price = close, code = postlist[i].code, qty = postlist[i].qty,trd_side =TrdSide.SELL,order_type = OrderType.NORMAL, trd_env = TrdEnv.REAL))
     ret,order = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
     if ret == RET_OK:
         print(order)
