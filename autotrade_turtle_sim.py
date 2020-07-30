@@ -184,7 +184,7 @@ def signal(data):
                         if info_data.iloc[-1].cash > ((stock.iloc[-1].close)*(size)):
                             print('place order')
                             notify("AutoTrade.py", "Buy Signal" + str(code))
-                            buy(data.iloc[-1].close,False)    #buy stock
+                            buy(.iloc[-1].close,False)    #buy stock
 
 
     if NumPos > 0:
