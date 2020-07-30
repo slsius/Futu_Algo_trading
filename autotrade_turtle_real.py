@@ -265,6 +265,7 @@ def buy(close,call):
         elif orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status == 'FILLED_ALL':
           #orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status 
             datetime_object = datetime.strptime(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].create_time , '%Y-%m-%d %H:%M:%S.%f')
+            datetime_object = datetime.strptime(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)]].create_time.max(), '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
             print(datetime.now())
