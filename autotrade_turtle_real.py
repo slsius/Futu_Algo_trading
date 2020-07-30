@@ -30,7 +30,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 
 #set globe parameter
 NumPos = 0
-hand = 10
+hand = 5
 sellflag = 0
 openprice = 0
 
