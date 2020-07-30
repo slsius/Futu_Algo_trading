@@ -34,7 +34,7 @@ today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
 today15 = now.replace(hour=15, minute=0, second=0, microsecond=0)
 today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 
-ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ) 
 
 print(now)
 print(data.time_key)
