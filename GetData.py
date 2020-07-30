@@ -37,6 +37,7 @@ today1530 = now.replace(hour=15, minute=30, second=0, microsecond=0)
 ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ) 
 
 print(now)
+print(data)
 print(data.time_key)
 print(data.iloc[-4].time_key)
 time_object = datetime.strptime(data.iloc[-4].time_key, '%Y-%m-%d %H:%M:%S')
