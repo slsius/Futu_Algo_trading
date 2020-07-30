@@ -33,7 +33,7 @@ if ret == RET_OK:
 
 print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time)
 print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time.max())
-print(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].min()].create_time.max())
+print(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].create_time.max())
 orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status
       
 quote_ctx.close()
