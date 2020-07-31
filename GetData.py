@@ -36,7 +36,14 @@ print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time.max())
 print('')
 print(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)]].create_time.max())
 orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status
-      
+
+ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+print(order)
+temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
+print(temp)
+print(order.index[order['create_time'] == temp])
+
+
 quote_ctx.close()
 trd_ctx.close() #close connection
 trdus_ctx.close() #close connection
