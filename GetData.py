@@ -35,7 +35,7 @@ print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time)
 print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time.max())
 print('')
 print(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)]].create_time.max())
-orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status
+#orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status
 
 ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(order)
