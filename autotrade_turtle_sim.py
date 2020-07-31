@@ -427,12 +427,23 @@ while True:
         print('mark')
         if ret == RET_OK:
             print(order)
-            if order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].min()].order_status == 'FILLED_ALL':
-                #order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'SELL')]].order_id.values)
-                #order.loc[(order['order_status'] == 'FILLED_ALL') & (order['code'] == 'HK.' + str(code))]
-                #print(trd_ctx.modify_order(ModifyOrderOp.CANCEL,int(order.iloc[order.index[(order['code'] == 'HK.' + str(code)) & (order['order_status'] == 'SUBMITTED') & (order['trd_side'] == 'BUY')]].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE)) 
-                #str(order.iloc[order.index[order['code'] == 'HK.' + str(code)].max()].order_id.values),price = close, qty = size*hand,trd_env = TrdEnv.SIMULATE))       
-                sellflag = 0 
+        else:
+            while ret != RET_OK:
+                ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+        temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
+        if order.loc[order['create_time'] == temp]).order_status == 'FILLED_ALL':
+            sellflag = 0
+        elif order.loc[order['create_time'] == temp]).order_status == 'SUBMITTED'
+            datetime_object = datetime.strptime(temp , '%Y-%m-%d %H:%M:%S')
+            diff = datetime.now() - datetime_object
+            print(datetime_object)
+            print(datetime.now())
+            print(diff)
+            print(diff.total_seconds()/60)  #express the time difference in min
+            
+            if diff.total_seconds()/60 > 1:
+                ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 1, SubType.K_3M, AuType.QFQ)
+                modify_order(ModifyOrderOp.Normal , order.loc[order['create_time'] == temp]).order_id,price = (stock.iloc[-1].close - 0.001), trd_env=TrdEnv.SIMULATE)         
     trd_ctx.close() 
     if (datetime.now() > today15) and (NumPos == 0):
         break
