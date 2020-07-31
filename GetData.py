@@ -43,7 +43,7 @@ print(order)
 temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
 print(temp)
 print(order.index[order['create_time'] == temp])
-
+print(order.loc[order['create_time'] == temp])
 
 quote_ctx.close()
 trd_ctx.close() #close connection
