@@ -144,7 +144,7 @@ def signal(data):
     print(data.iloc[-3:])
     
     #get the newest stock price
-    ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
+    ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_5M, AuType.QFQ)
     print(stock.iloc[-3:])
     
     #when to in
