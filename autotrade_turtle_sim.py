@@ -452,7 +452,7 @@ while True:
         closeall(data.iloc[-1].close)
         break
     sleeptime = 57 - datetime.now().second    
-    time.sleep(sleeptime)
+    time.sleep(abs(sleeptime))
     
 ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  #
 if ret_unsub == RET_OK:
