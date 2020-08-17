@@ -42,8 +42,8 @@ ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 print(order)
 temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
 print(temp)
-print(order.index[order['create_time'] == temp])
-print(order.loc[order['create_time'] == temp])
+print(order.index[order['create_time'] == temp].order_status)
+print(order.loc[order['create_time'] == temp].order_status)
 
 quote_ctx.close()
 trd_ctx.close() #close connection
