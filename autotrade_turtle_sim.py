@@ -443,7 +443,7 @@ while True:
             
             if diff.total_seconds()/60 > 1:
                 ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 1, SubType.K_5M, AuType.QFQ)
-                modify_order(ModifyOrderOp.Normal , order.loc[order['create_time'] == temp]).order_id,price = (stock.iloc[-1].close - 0.001), trd_env=TrdEnv.SIMULATE)         
+                modify_order(ModifyOrderOp.Normal , order.loc[order['create_time'] == temp].order_id,price = (stock.iloc[-1].close - 0.001), trd_env=TrdEnv.SIMULATE)         
     trd_ctx.close() 
     if (datetime.now() > today15) and (NumPos == 0):
         break
