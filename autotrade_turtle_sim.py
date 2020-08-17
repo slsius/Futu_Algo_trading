@@ -433,7 +433,7 @@ while True:
         temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
         if order.loc[order['create_time'] == temp].order_status == 'FILLED_ALL':
             sellflag = 0
-        elif order.loc[order['create_time'] == temp].order_status == 'SUBMITTED'
+        elif order.loc[order['create_time'] == temp].order_status == 'SUBMITTED':
             datetime_object = datetime.strptime(temp , '%Y-%m-%d %H:%M:%S')
             diff = datetime.now() - datetime_object
             print(datetime_object)
