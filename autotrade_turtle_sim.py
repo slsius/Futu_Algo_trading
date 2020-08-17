@@ -451,7 +451,9 @@ while True:
         print('close all trade')
         closeall(data.iloc[-1].close)
         break
-    sleeptime = 57 - datetime.now().second    
+    sleeptime = 57 - datetime.now().second
+    if sleeptime < 0:
+        sleeptime = 60 + sleeptime
     time.sleep(abs(sleeptime))
     
 ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  #
