@@ -23,10 +23,10 @@ def DayStr(Tday): #function to return date in specific format
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111) #make connection
 
 today = datetime.today()
-NumDay = 500 #set the number of day of data
+NumDay = 50 #set the number of day of data
 
 #data set 1
-ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.02013', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_60M) 
+ret1, data1, page_req_key1 = quote_ctx.request_history_kline('HK.66696', start=DayStr(today - timedelta(days=NumDay)), end='', max_count=110*NumDay, fields=KL_FIELD.ALL, ktype=KLType.K_5M) 
 
 if ret1 == RET_OK:
     print(data1)
@@ -169,7 +169,7 @@ class RVICross(bt.Strategy):
         RSIHi=60,  
         RSILo=20,   
         RSIPer=6,
-        RVIper=7,
+        RVIper=1,
         maperiod = 5
     )
     
