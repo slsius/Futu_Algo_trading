@@ -255,7 +255,7 @@ def runstrat():
 
     # Plot the result
     plotinfo = dict(subplot = True)
-    cerebro.plot(style='bar')
+    cerebro.plot()
 
 
 def parse_args():
