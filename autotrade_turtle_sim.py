@@ -397,24 +397,25 @@ while True:
             ret, data = quote_ctx.query_subscription()
        
     #ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
-    if hsi == 'Y':
-        ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_5M, AuType.QFQ)  
-        ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
-    else:
-        ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
-    if ret == RET_OK:
-        print(data[-3:]) #print last three kline
-        print('  ')
-        print(openprice)
-        print('  ')
-    else:
-        print('error:', data)
-        while ret != RET_OK:
-            if hsi == 'Y':
-                ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_5M, AuType.QFQ)  
-                ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
-            else:
-                ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+    if datetime.now().minute % 3 == 0:
+        if hsi == 'Y':
+            ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_5M, AuType.QFQ)  
+            ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+        else:
+            ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+        if ret == RET_OK:
+            print(data[-3:]) #print last three kline
+            print('  ')
+            print(openprice)
+            print('  ')
+        else:
+            print('error:', data)
+            while ret != RET_OK:
+                if hsi == 'Y':
+                    ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_5M, AuType.QFQ)  
+                    ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+                else:
+                    ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
     data['RVI'] = 0.0000 #add column
     data['RVIR'] = 0.0000 #add column
     signal(data)    #calculate the signal
