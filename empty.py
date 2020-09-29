@@ -12,7 +12,7 @@ import argparse
 import pdb
 import os
 
-while True
+while True:
   now = datetime.now()
   print(now)
   print(now.minute)
