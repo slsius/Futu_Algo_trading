@@ -109,10 +109,10 @@ def notify(title, text):
 #-----make subscribetion
 #ret_sub, err_message = quote_ctx.subscribe(['HK.' + code], [SubType.K_3M], subscribe_push=False)
 if hsi == 'Y':
-    ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_5M], subscribe_push=False)
-    ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_5M], subscribe_push=False)
+    ret_sub, err_message = quote_ctx.subscribe(['HK.HSImain'], [SubType.K_3M], subscribe_push=False)
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_3M], subscribe_push=False)
 else:
-    ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_5M], subscribe_push=False)
+    ret_sub, err_message = quote_ctx.subscribe(['HK.' + str(code)], [SubType.K_3M], subscribe_push=False)
 if ret_sub == RET_OK:  # check subscribtion success
     print('ok')
 else:
@@ -144,7 +144,7 @@ def signal(data):
     print(data.iloc[-3:])
     
     #get the newest stock price
-    ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_5M, AuType.QFQ)
+    ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 3, SubType.K_3M, AuType.QFQ)
     print(stock.iloc[-3:])
     
     #when to in
@@ -399,10 +399,10 @@ while True:
     #ret, data = quote_ctx.get_cur_kline('HK.' + code, 30, SubType.K_3M, AuType.QFQ)
    
     if hsi == 'Y':
-        ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_5M, AuType.QFQ)  
-        ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+        ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
+        ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     else:
-        ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+        ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     if ret == RET_OK:
         print(data[-3:]) #print last three kline
         print('  ')
@@ -412,10 +412,10 @@ while True:
         print('error:', data)
     while ret != RET_OK:
         if hsi == 'Y':
-            ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_5M, AuType.QFQ)  
-            ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+            ret, data = quote_ctx.get_cur_kline('HK.HSImain', 30, SubType.K_3M, AuType.QFQ)  
+            ret1, data1 = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
         else:
-            ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_5M, AuType.QFQ)
+            ret, data = quote_ctx.get_cur_kline('HK.' + str(code), 30, SubType.K_3M, AuType.QFQ)
     data['RVI'] = 0.0000 #add column
     data['RVIR'] = 0.0000 #add column
     if datetime.now().minute % 3 == 0:
@@ -444,7 +444,7 @@ while True:
             print(diff.total_seconds()/60)  #express the time difference in min
             
             if diff.total_seconds()/60 > 1:
-                ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 1, SubType.K_5M, AuType.QFQ)
+                ret, stock = quote_ctx.get_cur_kline('HK.' + str(code), 1, SubType.K_3M, AuType.QFQ)
                 modify_order(ModifyOrderOp.Normal , order.loc[order['create_time'] == temp].order_id,price = (stock.iloc[-1].close - 0.001), trd_env=TrdEnv.SIMULATE)         
     trd_ctx.close() 
     if (datetime.now() > today15) and (NumPos == 0):
