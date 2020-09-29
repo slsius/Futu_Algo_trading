@@ -26,8 +26,11 @@ code = '58558'
 trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
 temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
+print('~~')
 print(temp)
+print('~~')
 print(order.loc[order['create_time'] == temp].order_status)
+print('~~')
 if (order.loc[order['create_time'] == temp].order_status) == 'FILLED_ALL':
   print('ok')
 
