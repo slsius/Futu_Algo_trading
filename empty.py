@@ -31,6 +31,8 @@ print(temp)
 print('~~')
 print(order.loc[order['create_time'] == temp].order_status)
 print('~~')
+print(order.loc[order['create_time'] == temp].order_status.max())
+print('~~')
 if (order.loc[order['create_time'] == temp].order_status) == 'FILLED_ALL':
   print('ok')
 
