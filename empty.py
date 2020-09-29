@@ -13,6 +13,7 @@ import argparse
 import pdb
 import os
 
+'''
 while True:
   now = datetime.now()
   print(now)
@@ -20,9 +21,17 @@ while True:
   if now.minute%3 == 0:
      print('!!!!!!wokr')
   time.sleep(10)
-  
+'''  
 
+trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
+ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
+temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
+print(temp)
+print(order.loc[order['create_time'] == temp].order_status)
+if (order.loc[order['create_time'] == temp].order_status) == 'FILLED_ALL':
+  print('ok')
 
+now = datetime.now()
 today930 = now.replace(hour=9, minute=35, second=0, microsecond=0)
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
 today13 = now.replace(hour=13, minute=0, second=0, microsecond=0)
