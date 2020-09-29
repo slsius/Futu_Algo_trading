@@ -12,8 +12,15 @@ import argparse
 import pdb
 import os
 
-now = datetime.now()
-print(now)
+while True
+  now = datetime.now()
+  print(now)
+  print(now.minute)
+  if now.minute%3 == 0:
+     print('!!!!!!wokr')
+  time.sleep(10)
+  
+
 
 today930 = now.replace(hour=9, minute=35, second=0, microsecond=0)
 today11 = now.replace(hour=11, minute=0, second=0, microsecond=0)
