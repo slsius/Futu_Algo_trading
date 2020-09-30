@@ -213,6 +213,20 @@ def signal(data):
         print(stock.iloc[-1].close)
         print('openprice')
         print(openprice)
+        if ((openprice*0.92) >= stock.iloc[-1].close) | (openprice*1.05 < stock.iloc[-1].close)
+            sell(stock.iloc[-1].close)
+            print('now price:')
+            print(stock.iloc[-1].close)
+            print('open price:')
+            print(openprice)
+            notify("AutoTrade.py", "Selling limit reached") 
+        elif (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI >=RSIHi) | (data.iloc[-3].RSI >=RSIHi):  
+            if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
+                if data.iloc[-1].close <= data.iloc[-1].MA:
+                    notify("AutoTrade.py", "selling signal")
+                    print('~~~sell~~~')   #sell stock
+                    sell(data.iloc[-1].close)
+        '''
         if NumPos == size*hand:
             if (stock.iloc[-1].close - openprice) < -0.002:
                 print(' ')
@@ -236,6 +250,7 @@ def signal(data):
             print('\007')
             print('\007')
             sell(stock.iloc[-1].close)
+        '''
         '''
         if (data.iloc[-1].RSI >=RSIHi) | (data.iloc[-2].RSI >=RSIHi) | (data.iloc[-3].RSI >=RSIHi):  
             if (data.iloc[-1].RVI <= data.iloc[-1].RVIR):
@@ -457,7 +472,14 @@ while True:
     #if sleeptime < 0:
     #    sleeptime = 60 + sleeptime
     #time.sleep(abs(sleeptime))
-    time.sleep(61 - datetime.now().second)
+    sleeptime = datetime.now().seconds
+    if sleeptime < 58:
+        time.sleep(58-sleeptime)
+    elif sleeptime > 58:
+        time.sleep(60-(datetime.now().seconds % 58) )
+        
+        
+    #time.sleep(61 - datetime.now().second)
     
 ret_unsub, err_message_unsub = quote_ctx.unsubscribe_all()  #
 if ret_unsub == RET_OK:
