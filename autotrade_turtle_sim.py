@@ -476,6 +476,8 @@ while True:
         time.sleep(58-sleeptime)
     elif sleeptime > 58:
         time.sleep(60-(datetime.now().second % 58) )
+    else:
+        time.sleep(60)
         
         
     #time.sleep(61 - datetime.now().second)
