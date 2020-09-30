@@ -471,11 +471,11 @@ while True:
     #if sleeptime < 0:
     #    sleeptime = 60 + sleeptime
     #time.sleep(abs(sleeptime))
-    sleeptime = datetime.now().seconds
+    sleeptime = datetime.now().second
     if sleeptime < 58:
         time.sleep(58-sleeptime)
     elif sleeptime > 58:
-        time.sleep(60-(datetime.now().seconds % 58) )
+        time.sleep(60-(datetime.now().second % 58) )
         
         
     #time.sleep(61 - datetime.now().second)
