@@ -29,7 +29,12 @@ if ret == RET_OK:
 else:
   print('error:', data)
 
-
+ret, data, page_req_key = quote_ctx.request_history_kline('HK.00700',ktype=KLType.K_5M, max_count=20)
+if ret == RET_OK:
+  print(data)
+else:
+  print('error:', data)
+  
 quote_ctx.close()
 trdus_ctx.close() #close connection
 time.sleep(100)
