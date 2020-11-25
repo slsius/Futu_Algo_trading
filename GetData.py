@@ -20,33 +20,17 @@ hand = 1
 close = 0.01
 code = 66696
 pwd_unlock = '878900'
-trd_ctx = OpenHKTradeContext(host='127.0.0.1', port=11111)
 trdus_ctx = OpenUSTradeContext(host='127.0.0.1', port=11111)
 quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
 
-print(trd_ctx.unlock_trade(pwd_unlock))
-print('--------holding--------')
-
-ret,orderinfo = trd_ctx.order_list_query(trd_env = TrdEnv.REAL)
+ret, data, page_req_key = quote_ctx.request_history_kline('US.NVDA',ktype=KLType.K_5M, max_count=20)
 if ret == RET_OK:
-  print(orderinfo)
+  print(data)
+else:
+  print('error:', data)
 
-print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time)
-print(orderinfo.loc[orderinfo['code'] == 'HK.' + str(code)].create_time.max())
-print('')
-print(orderinfo.loc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)]].create_time.max())
-#orderinfo.iloc[orderinfo.index[orderinfo['code'] == 'HK.' + str(code)].max()].order_status
-
-print('--------------------------')
-ret, order = trd_ctx.order_list_query(trd_env = TrdEnv.SIMULATE)
-print(order)
-temp = order.loc[(order['code'] == 'HK.' + str(code)) & (order['trd_side'] == 'SELL')].create_time.max()
-print(temp)
-print(order.index[order['create_time'] == temp])
-print(order.loc[order['create_time'] == temp].order_status)
 
 quote_ctx.close()
-trd_ctx.close() #close connection
 trdus_ctx.close() #close connection
 time.sleep(100)
 #----------------test code
